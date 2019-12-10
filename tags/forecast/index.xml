@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>forecast on Rami Krispin</title>
+    <link>/tags/forecast/</link>
+    <description>Recent content in forecast on Rami Krispin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Dec 2018 21:13:14 -0500</lastBuildDate>
+    
+	<atom:link href="/tags/forecast/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>TSstudio 0.1.3</title>
+      <link>/2018/12/tsstudio-0.1.3/</link>
+      <pubDate>Sat, 01 Dec 2018 21:13:14 -0500</pubDate>
+      
+      <guid>/2018/12/tsstudio-0.1.3/</guid>
+      <description>I used the Thanksgiving break to push a new update of the TSstudio package to CRAN (version 0.1.3). The new version includes an update for the ts_backtesting function along with two new function - ts_to_prophet for converting time series objects to a prophet input format (i.e., ds and y columns), and ccf_plot for lags plot between two time series. The package can be installed from either CRAN or Github:</description>
+    </item>
+    
+    <item>
+      <title>TSstudio 0.1.2</title>
+      <link>/2018/09/tsstudio-0.1.2/</link>
+      <pubDate>Fri, 28 Sep 2018 21:13:14 -0500</pubDate>
+      
+      <guid>/2018/09/tsstudio-0.1.2/</guid>
+      <description>Happy to announce the release of TSstudio 0.1.2 to CRAN. The TSstudio package provides tools for descriptive and predictive analysis of time series data, utilizing the visualization enegin of the plotly package and forecasting models from the forecast, forecastHybrid and bsts packages.
+Installation Install the stable version from CRAN:
+install.packages(&amp;quot;TSstudio&amp;quot;) or install the development version from Github:
+# install.packages(&amp;quot;devtools&amp;quot;) devtools::install_github(&amp;quot;RamiKrispin/TSstudio&amp;quot;)  New features The new release includes new set of functions for forecasting automation with the use of backtesting and ‘horse race’ approach, forecast visualization, quantile plot of time series data, and new datasets.</description>
+    </item>
+    
+  </channel>
+</rss>
