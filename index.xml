@@ -5,11 +5,41 @@
  5    <description>Recent content on Rami Krispin</description>
  6    <generator>Hugo -- gohugo.io</generator>
  7    <language>en-us</language>
-11    <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +0000</lastBuildDate>
+11    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +0000</lastBuildDate>
 12    
 13        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
 14    
 15    
+16    <item>
+17      <title>TSstudio 0.1.5 on CRAN</title>
+18      <link>/2019/12/tsstudio-0-1-5-on-cran/</link>
+19      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+20      
+21      <guid>/2019/12/tsstudio-0-1-5-on-cran/</guid>
+22      <description>
+
+
+&lt;p&gt;A new version (0.1.5) of the &lt;a href=&#34;https://ramikrispin.github.io/TSstudio/index.html&#34;&gt;TSstudio&lt;/a&gt; package was pushed to &lt;a href=&#34;https://cran.r-project.org/web/packages/TSstudio/index.html&#34;&gt;CRAN&lt;/a&gt; last month. The release includes new functions as well as bug fixing, and update of the package license (modified from GPL-3 to MIT).&lt;/p&gt;
+&lt;div id=&#34;new-features&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;New features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;train_model&lt;/code&gt; - a flexible framework for training, testing, evaluating, and forecasting models. This function provides the ability to run multiple models with backtesting or single training/testing partitions. This function will replace the &lt;code&gt;ts_backtesting&lt;/code&gt; function which will deprecated in the next release.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;plot_model&lt;/code&gt; - animation the performance of the &lt;code&gt;train_model&lt;/code&gt; output on the backtesting partitions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;plot_error&lt;/code&gt; - plotting the error distribution of the &lt;code&gt;train_model&lt;/code&gt; output&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ts_cor&lt;/code&gt; - for ACF and PACF plots with seasonal lags, this function will replace the ts_acf and ts_pacf functions that will deprecated in the next release.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;arima_diag&lt;/code&gt; - a diagnostic plot for identify the AR, MA and differencing components of the ARIMA model&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fix-errors&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Fix errors&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ts_seasonal&lt;/code&gt; - aligning the box plot color&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ts_plot&lt;/code&gt; - setting the dash and marker mode for multiple time series&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+23    </item>
+24    
 16    <item>
 17      <title>TSstudio 0.1.3</title>
 18      <link>/2018/12/tsstudio-0.1.3/</link>

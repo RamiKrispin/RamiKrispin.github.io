@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TSstudio on Rami Krispin</title>
+    <link>/categories/tsstudio/</link>
+    <description>Recent content in TSstudio on Rami Krispin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/tsstudio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>TSstudio 0.1.5 on CRAN</title>
+      <link>/2019/12/tsstudio-0-1-5-on-cran/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/12/tsstudio-0-1-5-on-cran/</guid>
+      <description>A new version (0.1.5) of the TSstudio package was pushed to CRAN last month. The release includes new functions as well as bug fixing, and update of the package license (modified from GPL-3 to MIT).
+New features  train_model - a flexible framework for training, testing, evaluating, and forecasting models. This function provides the ability to run multiple models with backtesting or single training/testing partitions. This function will replace the ts_backtesting function which will deprecated in the next release.</description>
+    </item>
+    
+  </channel>
+</rss>
