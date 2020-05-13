@@ -11,6 +11,439 @@
 14    
 15    
 16    <item>
+17      <title>coronavirus v0.2.0 is now on CRAN</title>
+18      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+19      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+20      
+21      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+22      <description>
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Version 0.2.0 of the &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;coronavirus&lt;/a&gt; R data package was pushed today to CRAN. The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19&#34;&gt;Coronavirus dataset&lt;/a&gt;. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#experimental&#34;&gt;experimental&lt;/a&gt; to &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#maturing&#34;&gt;maturing&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Additional resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github page - &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34; class=&#34;uri&#34;&gt;https://github.com/RamiKrispin/coronavirus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Package site available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/index.html&#34;&gt;here&lt;/a&gt;, and vignettes available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Supporting dashboard available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus_dashboard/&#34;&gt;here&lt;/a&gt;, code available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus_dashboard&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CSV format of the dataset available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/tree/master/csv&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Raw data available &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;key-changes-and-new-features&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Key changes and new features&lt;/h3&gt;
+&lt;p&gt;Below are the main updates for version 0.2.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Columns names - updating the geographic location fields with the changes in the raw data:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Province.State&lt;/code&gt; changed to &lt;code&gt;province&lt;/code&gt; (US states removed from the raw data)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Country.Region&lt;/code&gt; changed to &lt;code&gt;country&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;The data on the Github version is automatically get updated on a daily basis with &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/blob/master/.github/workflows/data_refresh.yml&#34;&gt;Github Actions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update_dataset&lt;/code&gt; function- enables to update the installed version with new data that available on the Github version, more details below&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;covid_south_korea&lt;/code&gt; and &lt;code&gt;covid_iran&lt;/code&gt; that were avialble on the dev version were removed from the package and moved to new package &lt;a href=&#34;https://github.com/RamiKrispin/covid19wiki&#34;&gt;covid19wiki&lt;/a&gt;, for now available only on Github&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-structure&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data structure&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;coronavirus&lt;/code&gt; dataset using long format and it has the following fields:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt; - The date of the summary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;province&lt;/code&gt; - The province or state, when applicable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;country&lt;/code&gt; - The country or region name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lat&lt;/code&gt; - Latitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;long&lt;/code&gt; - Longitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt; - the type of case (i.e., confirmed, death)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cases&lt;/code&gt; - the number of daily cases (corresponding to the case type)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(coronavirus)
+
+head(coronavirus)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         date province     country lat long      type cases
+## 1 2020-01-22          Afghanistan  33   65 confirmed     0
+## 2 2020-01-23          Afghanistan  33   65 confirmed     0
+## 3 2020-01-24          Afghanistan  33   65 confirmed     0
+## 4 2020-01-25          Afghanistan  33   65 confirmed     0
+## 5 2020-01-26          Afghanistan  33   65 confirmed     0
+## 6 2020-01-27          Afghanistan  33   65 confirmed     0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;keep-the-data-updated&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Keep the data updated&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides data for an ongoing event that gets updated on a daily basis. In order to enable users to update the CRAN installed version with the most recent data available on the Github version, I created the &lt;code&gt;update_dataset&lt;/code&gt; function. This function check if new data available on the Github version and update the package if needed:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;update_dataset(silence = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;silence&lt;/code&gt; argument if TRUE, will automatically install updates without prompt question (default is &lt;code&gt;FALSE&lt;/code&gt;). More details available on the following &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html&#34;&gt;vignette&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In order to make the new data available, you will have to restart your R session.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarising-and-visualizing&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;summarising and visualizing&lt;/h3&gt;
+&lt;p&gt;Here are some examples for summarising and visualizing of the data with the use of the &lt;strong&gt;dplyr&lt;/strong&gt;, &lt;strong&gt;tidyr&lt;/strong&gt;, and &lt;strong&gt;plotly&lt;/strong&gt; packages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
+library(tidyr)
+library(plotly)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;cases-summary&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Cases summary&lt;/h4&gt;
+&lt;p&gt;We will start with grouping the dataset by case type and calculate the current worldwide total active cases, and the recovery and death rates:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;total_cases &amp;lt;- coronavirus %&amp;gt;% 
+  group_by(type) %&amp;gt;%
+  summarise(cases = sum(cases)) %&amp;gt;%
+  mutate(type = factor(type, levels = c(&amp;quot;confirmed&amp;quot;, &amp;quot;death&amp;quot;, &amp;quot;recovered&amp;quot;)))
+
+total_cases&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 2
+##   type        cases
+##   &amp;lt;fct&amp;gt;       &amp;lt;int&amp;gt;
+## 1 confirmed 4261747
+## 2 death      291942
+## 3 recovered 1493414&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The total active cases are the difference between the total confirmed cases and the total recovered and death cases:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;total_cases$cases[1] - total_cases$cases[2] - total_cases$cases[3]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2476391&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The worldwide recovery rate is:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;round(100 * total_cases$cases[3] / total_cases$cases[1], 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 35.04&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And worldwide death rate is:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;round(100 * total_cases$cases[2] / total_cases$cases[1], 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 6.85&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following plot presents the cases (active, recovered, and death) distribution over time:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coronavirus %&amp;gt;% 
+  group_by(type, date) %&amp;gt;%
+  summarise(total_cases = sum(cases)) %&amp;gt;%
+  pivot_wider(names_from = type, values_from = total_cases) %&amp;gt;%
+  arrange(date) %&amp;gt;%
+  mutate(active = confirmed - death - recovered) %&amp;gt;%
+  mutate(active_total = cumsum(active),
+                recovered_total = cumsum(recovered),
+                death_total = cumsum(death)) %&amp;gt;%
+  plot_ly(x = ~ date,
+                  y = ~ active_total,
+                  name = &amp;#39;Active&amp;#39;, 
+                  fillcolor = &amp;#39;#1f77b4&amp;#39;,
+                  type = &amp;#39;scatter&amp;#39;,
+                  mode = &amp;#39;none&amp;#39;, 
+                  stackgroup = &amp;#39;one&amp;#39;) %&amp;gt;%
+  add_trace(y = ~ death_total, 
+             name = &amp;quot;Death&amp;quot;,
+             fillcolor = &amp;#39;#E41317&amp;#39;) %&amp;gt;%
+  add_trace(y = ~recovered_total, 
+            name = &amp;#39;Recovered&amp;#39;, 
+            fillcolor = &amp;#39;forestgreen&amp;#39;) %&amp;gt;%
+  layout(title = &amp;quot;Distribution of Covid19 Cases Worldwide&amp;quot;,
+         legend = list(x = 0.1, y = 0.9),
+         yaxis = list(title = &amp;quot;Number of Cases&amp;quot;),
+         xaxis = list(title = &amp;quot;Source: Johns Hopkins University Center for Systems Science and Engineering&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;1417b582f5d58&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;1417b582f5d58&#34;,&#34;attrs&#34;:{&#34;1417b582f5d58&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;fillcolor&#34;:&#34;#1f77b4&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Active&#34;,&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter&#34;},&#34;1417b582f5d58.1&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;fillcolor&#34;:&#34;#E41317&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Death&#34;,&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter&#34;,&#34;inherit&#34;:true},&#34;1417b582f5d58.2&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;fillcolor&#34;:&#34;forestgreen&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Recovered&#34;,&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter&#34;,&#34;inherit&#34;:true}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;title&#34;:&#34;Distribution of Covid19 Cases Worldwide&#34;,&#34;legend&#34;:{&#34;x&#34;:0.1,&#34;y&#34;:0.9},&#34;yaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;title&#34;:&#34;Number of Cases&#34;},&#34;xaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;title&#34;:&#34;Source: Johns Hopkins University Center for Systems Science and Engineering&#34;},&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:true},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false},&#34;data&#34;:[{&#34;x&#34;:[&#34;2020-01-22&#34;,&#34;2020-01-23&#34;,&#34;2020-01-24&#34;,&#34;2020-01-25&#34;,&#34;2020-01-26&#34;,&#34;2020-01-27&#34;,&#34;2020-01-28&#34;,&#34;2020-01-29&#34;,&#34;2020-01-30&#34;,&#34;2020-01-31&#34;,&#34;2020-02-01&#34;,&#34;2020-02-02&#34;,&#34;2020-02-03&#34;,&#34;2020-02-04&#34;,&#34;2020-02-05&#34;,&#34;2020-02-06&#34;,&#34;2020-02-07&#34;,&#34;2020-02-08&#34;,&#34;2020-02-09&#34;,&#34;2020-02-10&#34;,&#34;2020-02-11&#34;,&#34;2020-02-12&#34;,&#34;2020-02-13&#34;,&#34;2020-02-14&#34;,&#34;2020-02-15&#34;,&#34;2020-02-16&#34;,&#34;2020-02-17&#34;,&#34;2020-02-18&#34;,&#34;2020-02-19&#34;,&#34;2020-02-20&#34;,&#34;2020-02-21&#34;,&#34;2020-02-22&#34;,&#34;2020-02-23&#34;,&#34;2020-02-24&#34;,&#34;2020-02-25&#34;,&#34;2020-02-26&#34;,&#34;2020-02-27&#34;,&#34;2020-02-28&#34;,&#34;2020-02-29&#34;,&#34;2020-03-01&#34;,&#34;2020-03-02&#34;,&#34;2020-03-03&#34;,&#34;2020-03-04&#34;,&#34;2020-03-05&#34;,&#34;2020-03-06&#34;,&#34;2020-03-07&#34;,&#34;2020-03-08&#34;,&#34;2020-03-09&#34;,&#34;2020-03-10&#34;,&#34;2020-03-11&#34;,&#34;2020-03-12&#34;,&#34;2020-03-13&#34;,&#34;2020-03-14&#34;,&#34;2020-03-15&#34;,&#34;2020-03-16&#34;,&#34;2020-03-17&#34;,&#34;2020-03-18&#34;,&#34;2020-03-19&#34;,&#34;2020-03-20&#34;,&#34;2020-03-21&#34;,&#34;2020-03-22&#34;,&#34;2020-03-23&#34;,&#34;2020-03-24&#34;,&#34;2020-03-25&#34;,&#34;2020-03-26&#34;,&#34;2020-03-27&#34;,&#34;2020-03-28&#34;,&#34;2020-03-29&#34;,&#34;2020-03-30&#34;,&#34;2020-03-31&#34;,&#34;2020-04-01&#34;,&#34;2020-04-02&#34;,&#34;2020-04-03&#34;,&#34;2020-04-04&#34;,&#34;2020-04-05&#34;,&#34;2020-04-06&#34;,&#34;2020-04-07&#34;,&#34;2020-04-08&#34;,&#34;2020-04-09&#34;,&#34;2020-04-10&#34;,&#34;2020-04-11&#34;,&#34;2020-04-12&#34;,&#34;2020-04-13&#34;,&#34;2020-04-14&#34;,&#34;2020-04-15&#34;,&#34;2020-04-16&#34;,&#34;2020-04-17&#34;,&#34;2020-04-18&#34;,&#34;2020-04-19&#34;,&#34;2020-04-20&#34;,&#34;2020-04-21&#34;,&#34;2020-04-22&#34;,&#34;2020-04-23&#34;,&#34;2020-04-24&#34;,&#34;2020-04-25&#34;,&#34;2020-04-26&#34;,&#34;2020-04-27&#34;,&#34;2020-04-28&#34;,&#34;2020-04-29&#34;,&#34;2020-04-30&#34;,&#34;2020-05-01&#34;,&#34;2020-05-02&#34;,&#34;2020-05-03&#34;,&#34;2020-05-04&#34;,&#34;2020-05-05&#34;,&#34;2020-05-06&#34;,&#34;2020-05-07&#34;,&#34;2020-05-08&#34;,&#34;2020-05-09&#34;,&#34;2020-05-10&#34;,&#34;2020-05-11&#34;,&#34;2020-05-12&#34;],&#34;y&#34;:[510,606,879,1353,2010,2784,5340,5907,7920,9492,11495,15953,18832,22548,25947,28673,31661,33698,36000,37803,39006,38953,52702,57304,57969,58589,58807,58777,57396,55773,55678,53228,53095,51705,49793,48234,46655,44529,43288,42657,41619,41452,40696,40743,42477,43931,45326,47109,49953,54258,55306,69564,77664,84964,96386,108338,122740,147710,173421,199763,224294,263172,291092,332179,382784,434256,489640,535885,578495,635336,689777,747391,808267,861926,916643,966135,1009722,1058175,1110684,1173733,1219766,1293570,1330927,1369147,1404249,1462254,1515065,1562310,1609708,1653322,1688905,1727650,1775758,1806149,1857548,1899148,1935601,1969473,1996197,2009664,2054524,2090634,2134023,2168794,2206620,2246801,2291410,2341116,2369074,2410010,2434963,2476391],&#34;fillcolor&#34;:&#34;#1f77b4&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Active&#34;,&#34;type&#34;:&#34;scatter&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;}},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null},{&#34;x&#34;:[&#34;2020-01-22&#34;,&#34;2020-01-23&#34;,&#34;2020-01-24&#34;,&#34;2020-01-25&#34;,&#34;2020-01-26&#34;,&#34;2020-01-27&#34;,&#34;2020-01-28&#34;,&#34;2020-01-29&#34;,&#34;2020-01-30&#34;,&#34;2020-01-31&#34;,&#34;2020-02-01&#34;,&#34;2020-02-02&#34;,&#34;2020-02-03&#34;,&#34;2020-02-04&#34;,&#34;2020-02-05&#34;,&#34;2020-02-06&#34;,&#34;2020-02-07&#34;,&#34;2020-02-08&#34;,&#34;2020-02-09&#34;,&#34;2020-02-10&#34;,&#34;2020-02-11&#34;,&#34;2020-02-12&#34;,&#34;2020-02-13&#34;,&#34;2020-02-14&#34;,&#34;2020-02-15&#34;,&#34;2020-02-16&#34;,&#34;2020-02-17&#34;,&#34;2020-02-18&#34;,&#34;2020-02-19&#34;,&#34;2020-02-20&#34;,&#34;2020-02-21&#34;,&#34;2020-02-22&#34;,&#34;2020-02-23&#34;,&#34;2020-02-24&#34;,&#34;2020-02-25&#34;,&#34;2020-02-26&#34;,&#34;2020-02-27&#34;,&#34;2020-02-28&#34;,&#34;2020-02-29&#34;,&#34;2020-03-01&#34;,&#34;2020-03-02&#34;,&#34;2020-03-03&#34;,&#34;2020-03-04&#34;,&#34;2020-03-05&#34;,&#34;2020-03-06&#34;,&#34;2020-03-07&#34;,&#34;2020-03-08&#34;,&#34;2020-03-09&#34;,&#34;2020-03-10&#34;,&#34;2020-03-11&#34;,&#34;2020-03-12&#34;,&#34;2020-03-13&#34;,&#34;2020-03-14&#34;,&#34;2020-03-15&#34;,&#34;2020-03-16&#34;,&#34;2020-03-17&#34;,&#34;2020-03-18&#34;,&#34;2020-03-19&#34;,&#34;2020-03-20&#34;,&#34;2020-03-21&#34;,&#34;2020-03-22&#34;,&#34;2020-03-23&#34;,&#34;2020-03-24&#34;,&#34;2020-03-25&#34;,&#34;2020-03-26&#34;,&#34;2020-03-27&#34;,&#34;2020-03-28&#34;,&#34;2020-03-29&#34;,&#34;2020-03-30&#34;,&#34;2020-03-31&#34;,&#34;2020-04-01&#34;,&#34;2020-04-02&#34;,&#34;2020-04-03&#34;,&#34;2020-04-04&#34;,&#34;2020-04-05&#34;,&#34;2020-04-06&#34;,&#34;2020-04-07&#34;,&#34;2020-04-08&#34;,&#34;2020-04-09&#34;,&#34;2020-04-10&#34;,&#34;2020-04-11&#34;,&#34;2020-04-12&#34;,&#34;2020-04-13&#34;,&#34;2020-04-14&#34;,&#34;2020-04-15&#34;,&#34;2020-04-16&#34;,&#34;2020-04-17&#34;,&#34;2020-04-18&#34;,&#34;2020-04-19&#34;,&#34;2020-04-20&#34;,&#34;2020-04-21&#34;,&#34;2020-04-22&#34;,&#34;2020-04-23&#34;,&#34;2020-04-24&#34;,&#34;2020-04-25&#34;,&#34;2020-04-26&#34;,&#34;2020-04-27&#34;,&#34;2020-04-28&#34;,&#34;2020-04-29&#34;,&#34;2020-04-30&#34;,&#34;2020-05-01&#34;,&#34;2020-05-02&#34;,&#34;2020-05-03&#34;,&#34;2020-05-04&#34;,&#34;2020-05-05&#34;,&#34;2020-05-06&#34;,&#34;2020-05-07&#34;,&#34;2020-05-08&#34;,&#34;2020-05-09&#34;,&#34;2020-05-10&#34;,&#34;2020-05-11&#34;,&#34;2020-05-12&#34;],&#34;y&#34;:[17,18,26,42,56,82,131,133,171,213,259,362,426,492,564,634,719,806,906,1013,1113,1118,1371,1523,1666,1770,1868,2007,2122,2247,2251,2458,2469,2629,2708,2770,2814,2872,2941,2996,3085,3160,3254,3347,3459,3558,3801,3987,4263,4614,4722,5408,5830,6472,7150,7956,8823,9946,11422,13125,14825,16759,19014,21785,24788,28288,31798,35323,39439,44238,49675,55817,61812,67981,73077,78767,86662,93354,100882,108113,114146,119853,125561,132439,140659,147946,156804,163214,167772,173097,180236,186912,193665,199997,206187,209900,214444,220801,227665,233360,238619,243813,247470,251537,257239,263855,269567,274898,279311,282709,286330,291942],&#34;fillcolor&#34;:&#34;#E41317&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Death&#34;,&#34;type&#34;:&#34;scatter&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(255,127,14,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(255,127,14,1)&#34;}},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(255,127,14,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(255,127,14,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(255,127,14,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null},{&#34;x&#34;:[&#34;2020-01-22&#34;,&#34;2020-01-23&#34;,&#34;2020-01-24&#34;,&#34;2020-01-25&#34;,&#34;2020-01-26&#34;,&#34;2020-01-27&#34;,&#34;2020-01-28&#34;,&#34;2020-01-29&#34;,&#34;2020-01-30&#34;,&#34;2020-01-31&#34;,&#34;2020-02-01&#34;,&#34;2020-02-02&#34;,&#34;2020-02-03&#34;,&#34;2020-02-04&#34;,&#34;2020-02-05&#34;,&#34;2020-02-06&#34;,&#34;2020-02-07&#34;,&#34;2020-02-08&#34;,&#34;2020-02-09&#34;,&#34;2020-02-10&#34;,&#34;2020-02-11&#34;,&#34;2020-02-12&#34;,&#34;2020-02-13&#34;,&#34;2020-02-14&#34;,&#34;2020-02-15&#34;,&#34;2020-02-16&#34;,&#34;2020-02-17&#34;,&#34;2020-02-18&#34;,&#34;2020-02-19&#34;,&#34;2020-02-20&#34;,&#34;2020-02-21&#34;,&#34;2020-02-22&#34;,&#34;2020-02-23&#34;,&#34;2020-02-24&#34;,&#34;2020-02-25&#34;,&#34;2020-02-26&#34;,&#34;2020-02-27&#34;,&#34;2020-02-28&#34;,&#34;2020-02-29&#34;,&#34;2020-03-01&#34;,&#34;2020-03-02&#34;,&#34;2020-03-03&#34;,&#34;2020-03-04&#34;,&#34;2020-03-05&#34;,&#34;2020-03-06&#34;,&#34;2020-03-07&#34;,&#34;2020-03-08&#34;,&#34;2020-03-09&#34;,&#34;2020-03-10&#34;,&#34;2020-03-11&#34;,&#34;2020-03-12&#34;,&#34;2020-03-13&#34;,&#34;2020-03-14&#34;,&#34;2020-03-15&#34;,&#34;2020-03-16&#34;,&#34;2020-03-17&#34;,&#34;2020-03-18&#34;,&#34;2020-03-19&#34;,&#34;2020-03-20&#34;,&#34;2020-03-21&#34;,&#34;2020-03-22&#34;,&#34;2020-03-23&#34;,&#34;2020-03-24&#34;,&#34;2020-03-25&#34;,&#34;2020-03-26&#34;,&#34;2020-03-27&#34;,&#34;2020-03-28&#34;,&#34;2020-03-29&#34;,&#34;2020-03-30&#34;,&#34;2020-03-31&#34;,&#34;2020-04-01&#34;,&#34;2020-04-02&#34;,&#34;2020-04-03&#34;,&#34;2020-04-04&#34;,&#34;2020-04-05&#34;,&#34;2020-04-06&#34;,&#34;2020-04-07&#34;,&#34;2020-04-08&#34;,&#34;2020-04-09&#34;,&#34;2020-04-10&#34;,&#34;2020-04-11&#34;,&#34;2020-04-12&#34;,&#34;2020-04-13&#34;,&#34;2020-04-14&#34;,&#34;2020-04-15&#34;,&#34;2020-04-16&#34;,&#34;2020-04-17&#34;,&#34;2020-04-18&#34;,&#34;2020-04-19&#34;,&#34;2020-04-20&#34;,&#34;2020-04-21&#34;,&#34;2020-04-22&#34;,&#34;2020-04-23&#34;,&#34;2020-04-24&#34;,&#34;2020-04-25&#34;,&#34;2020-04-26&#34;,&#34;2020-04-27&#34;,&#34;2020-04-28&#34;,&#34;2020-04-29&#34;,&#34;2020-04-30&#34;,&#34;2020-05-01&#34;,&#34;2020-05-02&#34;,&#34;2020-05-03&#34;,&#34;2020-05-04&#34;,&#34;2020-05-05&#34;,&#34;2020-05-06&#34;,&#34;2020-05-07&#34;,&#34;2020-05-08&#34;,&#34;2020-05-09&#34;,&#34;2020-05-10&#34;,&#34;2020-05-11&#34;,&#34;2020-05-12&#34;],&#34;y&#34;:[28,30,36,39,52,61,107,126,143,222,284,472,623,852,1124,1487,2011,2616,3244,3946,4683,5150,6295,8058,9395,10865,12583,14352,16121,18177,18890,22886,23394,25227,27905,30384,33277,36711,39782,42716,45602,48228,51170,53796,55865,58358,60694,62494,64404,67003,68324,70251,72624,76034,78088,80840,83312,84975,87420,91692,97899,98351,108000,113787,122150,130915,139415,149082,164566,178034,193198,210269,225814,246152,260023,276534,300054,328703,353989,376104,402120,421722,448672,473980,510516,541592,567765,591719,623307,645308,679905,710046,738980,789585,817405,845985,873677,906955,948425,1013886,1052415,1093137,1125236,1162724,1198832,1245413,1284741,1322050,1375624,1408980,1456209,1493414],&#34;fillcolor&#34;:&#34;forestgreen&#34;,&#34;mode&#34;:&#34;none&#34;,&#34;stackgroup&#34;:&#34;one&#34;,&#34;name&#34;:&#34;Recovered&#34;,&#34;type&#34;:&#34;scatter&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(44,160,44,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(44,160,44,1)&#34;}},&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(44,160,44,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(44,160,44,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(44,160,44,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;frame&#34;:null}],&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_click&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;selectize&#34;:false,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0},&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;distribution-of-confirmed-cases-by-country&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Distribution of confirmed cases by country&lt;/h4&gt;
+&lt;p&gt;The next plot summarize the distribution of confrimed cases by country with the use of the treemap plot:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;conf_df &amp;lt;- coronavirus %&amp;gt;% 
+  filter(type == &amp;quot;confirmed&amp;quot;) %&amp;gt;%
+  group_by(country) %&amp;gt;%
+  summarise(total_cases = sum(cases)) %&amp;gt;%
+  arrange(-total_cases) %&amp;gt;%
+  mutate(parents = &amp;quot;Confirmed&amp;quot;) %&amp;gt;%
+  ungroup() 
+  
+  plot_ly(data = conf_df,
+          type= &amp;quot;treemap&amp;quot;,
+          values = ~total_cases,
+          labels= ~ country,
+          parents=  ~parents,
+          domain = list(column=0),
+          name = &amp;quot;Confirmed&amp;quot;,
+          textinfo=&amp;quot;label+value+percent parent&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;1417b52e6534e&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;1417b52e6534e&#34;,&#34;attrs&#34;:{&#34;1417b52e6534e&#34;:{&#34;values&#34;:{},&#34;labels&#34;:{},&#34;parents&#34;:{},&#34;domain&#34;:{&#34;column&#34;:0},&#34;textinfo&#34;:&#34;label+value+percent parent&#34;,&#34;name&#34;:&#34;Confirmed&#34;,&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;treemap&#34;}},&#34;layout&#34;:{&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:false},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false},&#34;data&#34;:[{&#34;values&#34;:[1369376,232243,228030,227741,221216,178349,178214,173171,141475,110767,84018,74292,72419,72059,53779,43183,42925,38324,34336,31721,30419,30380,27913,27272,25149,24873,24671,23242,19661,16921,16660,16529,16023,15968,15961,15778,14749,12272,11350,11350,10962,10900,10789,10277,10243,10093,8783,8221,8157,6980,6742,6563,6418,6067,6003,5531,5279,5154,5127,4963,4787,3894,3721,3538,3313,3017,2964,2913,2744,2693,2689,2519,2298,2207,2158,2080,2023,1995,1857,1804,1801,1746,1674,1661,1497,1491,1465,1461,1256,1199,1170,1102,1037,1032,998,950,919,904,903,889,876,870,863,854,820,804,766,758,737,730,729,717,715,712,642,638,576,509,507,506,441,440,439,423,375,357,338,333,332,327,324,288,286,267,261,217,211,209,208,199,194,186,184,180,143,141,129,122,116,113,104,96,93,85,82,65,64,57,47,45,42,39,36,25,25,24,24,22,21,19,18,18,18,17,16,16,15,15,12,11,11,11,10,9,9,8,6],&#34;labels&#34;:[&#34;US&#34;,&#34;Russia&#34;,&#34;Spain&#34;,&#34;United Kingdom&#34;,&#34;Italy&#34;,&#34;France&#34;,&#34;Brazil&#34;,&#34;Germany&#34;,&#34;Turkey&#34;,&#34;Iran&#34;,&#34;China&#34;,&#34;India&#34;,&#34;Canada&#34;,&#34;Peru&#34;,&#34;Belgium&#34;,&#34;Netherlands&#34;,&#34;Saudi Arabia&#34;,&#34;Mexico&#34;,&#34;Pakistan&#34;,&#34;Chile&#34;,&#34;Ecuador&#34;,&#34;Switzerland&#34;,&#34;Portugal&#34;,&#34;Sweden&#34;,&#34;Qatar&#34;,&#34;Belarus&#34;,&#34;Singapore&#34;,&#34;Ireland&#34;,&#34;United Arab Emirates&#34;,&#34;Poland&#34;,&#34;Bangladesh&#34;,&#34;Israel&#34;,&#34;Ukraine&#34;,&#34;Japan&#34;,&#34;Austria&#34;,&#34;Romania&#34;,&#34;Indonesia&#34;,&#34;Colombia&#34;,&#34;Philippines&#34;,&#34;South Africa&#34;,&#34;Korea, South&#34;,&#34;Dominican Republic&#34;,&#34;Denmark&#34;,&#34;Kuwait&#34;,&#34;Serbia&#34;,&#34;Egypt&#34;,&#34;Panama&#34;,&#34;Czechia&#34;,&#34;Norway&#34;,&#34;Australia&#34;,&#34;Malaysia&#34;,&#34;Argentina&#34;,&#34;Morocco&#34;,&#34;Algeria&#34;,&#34;Finland&#34;,&#34;Bahrain&#34;,&#34;Kazakhstan&#34;,&#34;Moldova&#34;,&#34;Ghana&#34;,&#34;Afghanistan&#34;,&#34;Nigeria&#34;,&#34;Luxembourg&#34;,&#34;Oman&#34;,&#34;Armenia&#34;,&#34;Hungary&#34;,&#34;Thailand&#34;,&#34;Bolivia&#34;,&#34;Iraq&#34;,&#34;Greece&#34;,&#34;Azerbaijan&#34;,&#34;Cameroon&#34;,&#34;Uzbekistan&#34;,&#34;Guinea&#34;,&#34;Croatia&#34;,&#34;Bosnia and Herzegovina&#34;,&#34;Honduras&#34;,&#34;Bulgaria&#34;,&#34;Senegal&#34;,&#34;Cote d&#39;Ivoire&#34;,&#34;Cuba&#34;,&#34;Iceland&#34;,&#34;Estonia&#34;,&#34;North Macedonia&#34;,&#34;Sudan&#34;,&#34;New Zealand&#34;,&#34;Lithuania&#34;,&#34;Slovakia&#34;,&#34;Slovenia&#34;,&#34;Djibouti&#34;,&#34;Guatemala&#34;,&#34;Somalia&#34;,&#34;Congo (Kinshasa)&#34;,&#34;Kyrgyzstan&#34;,&#34;Tunisia&#34;,&#34;El Salvador&#34;,&#34;Latvia&#34;,&#34;Kosovo&#34;,&#34;Maldives&#34;,&#34;Cyprus&#34;,&#34;Sri Lanka&#34;,&#34;Albania&#34;,&#34;Lebanon&#34;,&#34;Gabon&#34;,&#34;Niger&#34;,&#34;Guinea-Bissau&#34;,&#34;Costa Rica&#34;,&#34;Burkina Faso&#34;,&#34;Andorra&#34;,&#34;Paraguay&#34;,&#34;Mali&#34;,&#34;Tajikistan&#34;,&#34;Uruguay&#34;,&#34;Kenya&#34;,&#34;Diamond Princess&#34;,&#34;Georgia&#34;,&#34;San Marino&#34;,&#34;Jordan&#34;,&#34;Tanzania&#34;,&#34;Jamaica&#34;,&#34;Malta&#34;,&#34;Zambia&#34;,&#34;Taiwan*&#34;,&#34;Equatorial Guinea&#34;,&#34;Venezuela&#34;,&#34;West Bank and Gaza&#34;,&#34;Chad&#34;,&#34;Sierra Leone&#34;,&#34;Congo (Brazzaville)&#34;,&#34;Mauritius&#34;,&#34;Benin&#34;,&#34;Montenegro&#34;,&#34;Vietnam&#34;,&#34;Rwanda&#34;,&#34;Cabo Verde&#34;,&#34;Ethiopia&#34;,&#34;Nepal&#34;,&#34;Liberia&#34;,&#34;Haiti&#34;,&#34;Sao Tome and Principe&#34;,&#34;Togo&#34;,&#34;South Sudan&#34;,&#34;Madagascar&#34;,&#34;Eswatini&#34;,&#34;Burma&#34;,&#34;Central African Republic&#34;,&#34;Brunei&#34;,&#34;Uganda&#34;,&#34;Cambodia&#34;,&#34;Trinidad and Tobago&#34;,&#34;Guyana&#34;,&#34;Mozambique&#34;,&#34;Monaco&#34;,&#34;Bahamas&#34;,&#34;Barbados&#34;,&#34;Liechtenstein&#34;,&#34;Yemen&#34;,&#34;Libya&#34;,&#34;Malawi&#34;,&#34;Syria&#34;,&#34;Angola&#34;,&#34;Mongolia&#34;,&#34;Eritrea&#34;,&#34;Zimbabwe&#34;,&#34;Antigua and Barbuda&#34;,&#34;Nicaragua&#34;,&#34;Botswana&#34;,&#34;Timor-Leste&#34;,&#34;Gambia&#34;,&#34;Grenada&#34;,&#34;Laos&#34;,&#34;Belize&#34;,&#34;Fiji&#34;,&#34;Saint Lucia&#34;,&#34;Saint Vincent and the Grenadines&#34;,&#34;Dominica&#34;,&#34;Namibia&#34;,&#34;Burundi&#34;,&#34;Saint Kitts and Nevis&#34;,&#34;Holy See&#34;,&#34;Bhutan&#34;,&#34;Comoros&#34;,&#34;Seychelles&#34;,&#34;Suriname&#34;,&#34;Mauritania&#34;,&#34;MS Zaandam&#34;,&#34;Papua New Guinea&#34;,&#34;Western Sahara&#34;],&#34;parents&#34;:[&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;,&#34;Confirmed&#34;],&#34;domain&#34;:{&#34;column&#34;:0},&#34;textinfo&#34;:&#34;label+value+percent parent&#34;,&#34;name&#34;:&#34;Confirmed&#34;,&#34;type&#34;:&#34;treemap&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;rgba(255,255,255,1)&#34;}},&#34;frame&#34;:null}],&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_click&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;selectize&#34;:false,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0},&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;package-contributers&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Package contributers&lt;/h3&gt;
+&lt;p&gt;I would like to thank all the people that contributed to the package development and asked questions, report, and filed issues about issues with the data.&lt;/p&gt;
+&lt;p&gt;A special thanks for Amanda Dobbyn (&lt;span class=&#34;citation&#34;&gt;@dobbleobble&lt;/span&gt;) and Jarrett Byrnes (&lt;span class=&#34;citation&#34;&gt;@jebyrnes&lt;/span&gt;) for their pull request and suggestion that lead for the kick of the &lt;a href=&#34;http://imachordata.com/2020/05/07/the-covid19r-project/&#34;&gt;covid19R proejct&lt;/a&gt;, and to Mine Cetinkaya-Rundel (&lt;span class=&#34;citation&#34;&gt;@minebocek&lt;/span&gt;) for providing a better format for the dataset documenation!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+23    </item>
+24    
+16    <item>
+17      <title>coronavirus v0.2.0 is now on CRAN</title>
+18      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+19      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+20      
+21      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+22      <description>&lt;p&gt;Version 0.2.0 of the &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;coronavirus&lt;/a&gt; R data package was pushed today to CRAN. The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19&#34;&gt;Coronavirus dataset&lt;/a&gt;. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#experimental&#34;&gt;experimental&lt;/a&gt; to &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#maturing&#34;&gt;maturing&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Additional resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github page - &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;https://github.com/RamiKrispin/coronavirus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Package site available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/index.html&#34;&gt;here&lt;/a&gt;, and vignettes available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Supporting dashboard available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus_dashboard/&#34;&gt;here&lt;/a&gt;, code available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus_dashboard&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CSV format of the dataset available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/tree/master/csv&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Raw data available &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;key-changes-and-new-features&#34;&gt;Key changes and new features&lt;/h3&gt;
+&lt;p&gt;Below are the main updates for version 0.2.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Columns names - updating the geographic location fields with the changes in the raw data:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Province.State&lt;/code&gt; changed to &lt;code&gt;province&lt;/code&gt; (US states removed from the raw data)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Country.Region&lt;/code&gt; changed to &lt;code&gt;country&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The data on the Github version is automatically get updated on a daily basis with &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/blob/master/.github/workflows/data_refresh.yml&#34;&gt;Github Actions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update_dataset&lt;/code&gt; function- enables to update the installed version with new data that available on the Github version, more details below&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;covid_south_korea&lt;/code&gt; and &lt;code&gt;covid_iran&lt;/code&gt; that were avialble on the dev version were removed from the package and moved to new package &lt;a href=&#34;https://github.com/RamiKrispin/covid19wiki&#34;&gt;covid19wiki&lt;/a&gt;, for now available only on Github&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data-structure&#34;&gt;Data structure&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;coronavirus&lt;/code&gt; dataset using long format and it has the following fields:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt; - The date of the summary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;province&lt;/code&gt; - The province or state, when applicable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;country&lt;/code&gt; - The country or region name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lat&lt;/code&gt; - Latitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;long&lt;/code&gt; - Longitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt; - the type of case (i.e., confirmed, death)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cases&lt;/code&gt; - the number of daily cases (corresponding to the case type)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(coronavirus)
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(coronavirus)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;##         date province     country lat long      type cases
+## 1 2020-01-22          Afghanistan  33   65 confirmed     0
+## 2 2020-01-23          Afghanistan  33   65 confirmed     0
+## 3 2020-01-24          Afghanistan  33   65 confirmed     0
+## 4 2020-01-25          Afghanistan  33   65 confirmed     0
+## 5 2020-01-26          Afghanistan  33   65 confirmed     0
+## 6 2020-01-27          Afghanistan  33   65 confirmed     0
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;keep-the-data-updated&#34;&gt;Keep the data updated&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides data for an ongoing event that gets updated on a daily basis. In order to enable users to update the CRAN installed version with the most recent data available on the Github version, I created the &lt;code&gt;update_dataset&lt;/code&gt; function. This function check if new data available on the Github version and update the package if needed:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;update_dataset&lt;/span&gt;(silence &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;silence&lt;/code&gt; argument if TRUE, will automatically install updates without prompt question (default is &lt;code&gt;FALSE&lt;/code&gt;). More details available on the following &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html&#34;&gt;vignette&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In order to make the new data available, you will have to restart your R session.&lt;/p&gt;
+&lt;h3 id=&#34;summarising-and-visualizing&#34;&gt;summarising and visualizing&lt;/h3&gt;
+&lt;p&gt;Here are some examples for summarising and visualizing of the data with the use of the &lt;strong&gt;dplyr&lt;/strong&gt;, &lt;strong&gt;tidyr&lt;/strong&gt;, and &lt;strong&gt;plotly&lt;/strong&gt; packages.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(dplyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(plotly)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;cases-summary&#34;&gt;Cases summary&lt;/h4&gt;
+&lt;p&gt;We will start with grouping the dataset by case type and calculate the current worldwide total active cases, and the recovery and death rates:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;total_cases &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(type) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;factor&lt;/span&gt;(type, levels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;confirmed&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;death&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;recovered&amp;#34;&lt;/span&gt;)))
+
+total_cases
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 2
+##   type        cases
+##   &amp;lt;fct&amp;gt;       &amp;lt;int&amp;gt;
+## 1 confirmed 4261747
+## 2 death      291942
+## 3 recovered 1493414
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The total active cases are the difference between the total confirmed cases and the total recovered and death cases:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[2] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[3]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 2476391
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The worldwide recovery rate is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[3] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1], &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 35.04
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And worldwide death rate is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[2] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1], &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 6.85
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The following plot presents the cases (active, recovered, and death) distribution over time:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(type, date) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(total_cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; type, values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; total_cases) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;arrange&lt;/span&gt;(date) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(active &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; confirmed &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; death &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; recovered) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(active_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(active),
+                recovered_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(recovered),
+                death_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(death)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_ly&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; date,
+                  y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; active_total,
+                  name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Active&amp;#39;&lt;/span&gt;, 
+                  fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#1f77b4&amp;#39;&lt;/span&gt;,
+                  type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;,
+                  mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;, 
+                  stackgroup &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;add_trace&lt;/span&gt;(y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; death_total, 
+             name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Death&amp;#34;&lt;/span&gt;,
+             fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#E41317&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;add_trace&lt;/span&gt;(y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;recovered_total, 
+            name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Recovered&amp;#39;&lt;/span&gt;, 
+            fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;forestgreen&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;layout&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Distribution of Covid19 Cases Worldwide&amp;#34;&lt;/span&gt;,
+         legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.9&lt;/span&gt;),
+         yaxis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Number of Cases&amp;#34;&lt;/span&gt;),
+         xaxis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Source: Johns Hopkins University Center for Systems Science and Engineering&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;distribution-of-confirmed-cases-by-country&#34;&gt;Distribution of confirmed cases by country&lt;/h4&gt;
+&lt;p&gt;The next plot summarize the distribution of confrimed cases by country with the use of the treemap plot:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;conf_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(type &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;confirmed&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(country) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(total_cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;arrange&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;total_cases) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(parents &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Confirmed&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ungroup&lt;/span&gt;() 
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_ly&lt;/span&gt;(data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conf_df,
+          type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;treemap&amp;#34;&lt;/span&gt;,
+          values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;total_cases,
+          labels&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; country,
+          parents&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;parents,
+          domain &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(column&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+          name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Confirmed&amp;#34;&lt;/span&gt;,
+          textinfo&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label+value+percent parent&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;package-contributers&#34;&gt;Package contributers&lt;/h3&gt;
+&lt;p&gt;I would like to thank all the people that contributed to the package development and asked questions, report, and filed issues about issues with the data.&lt;/p&gt;
+&lt;p&gt;A special thanks for Amanda Dobbyn (@dobbleobble) and Jarrett Byrnes (@jebyrnes) for their pull request and suggestion that lead for the kick of the &lt;a href=&#34;http://imachordata.com/2020/05/07/the-covid19r-project/&#34;&gt;covid19R proejct&lt;/a&gt;, and to Mine Cetinkaya-Rundel (@minebocek) for providing a better format for the dataset documenation!&lt;/p&gt;
+</description>
+23    </item>
+24    
+16    <item>
+17      <title>coronavirus v0.2.0 is now on CRAN</title>
+18      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+19      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+20      
+21      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+22      <description>&lt;p&gt;Version 0.2.0 of the &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;coronavirus&lt;/a&gt; R data package was pushed today to CRAN. The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19&#34;&gt;Coronavirus dataset&lt;/a&gt;. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#experimental&#34;&gt;experimental&lt;/a&gt; to &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#maturing&#34;&gt;maturing&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Additional resources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github page - &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;https://github.com/RamiKrispin/coronavirus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Package site available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/index.html&#34;&gt;here&lt;/a&gt;, and vignettes available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Supporting dashboard available &lt;a href=&#34;https://ramikrispin.github.io/coronavirus_dashboard/&#34;&gt;here&lt;/a&gt;, code available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus_dashboard&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CSV format of the dataset available &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/tree/master/csv&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Raw data available &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;key-changes-and-new-features&#34;&gt;Key changes and new features&lt;/h3&gt;
+&lt;p&gt;Below are the main updates for version 0.2.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Columns names - updating the geographic location fields with the changes in the raw data:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Province.State&lt;/code&gt; changed to &lt;code&gt;province&lt;/code&gt; (US states removed from the raw data)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Country.Region&lt;/code&gt; changed to &lt;code&gt;country&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The data on the Github version is automatically get updated on a daily basis with &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus/blob/master/.github/workflows/data_refresh.yml&#34;&gt;Github Actions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update_dataset&lt;/code&gt; function- enables to update the installed version with new data that available on the Github version, more details below&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;covid_south_korea&lt;/code&gt; and &lt;code&gt;covid_iran&lt;/code&gt; that were avialble on the dev version were removed from the package and moved to new package &lt;a href=&#34;https://github.com/RamiKrispin/covid19wiki&#34;&gt;covid19wiki&lt;/a&gt;, for now available only on Github&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data-structure&#34;&gt;Data structure&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;coronavirus&lt;/code&gt; dataset using long format and it has the following fields:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt; - The date of the summary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;province&lt;/code&gt; - The province or state, when applicable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;country&lt;/code&gt; - The country or region name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lat&lt;/code&gt; - Latitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;long&lt;/code&gt; - Longitude point&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt; - the type of case (i.e., confirmed, death)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cases&lt;/code&gt; - the number of daily cases (corresponding to the case type)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(coronavirus)
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(coronavirus)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;##         date province     country lat long      type cases
+## 1 2020-01-22          Afghanistan  33   65 confirmed     0
+## 2 2020-01-23          Afghanistan  33   65 confirmed     0
+## 3 2020-01-24          Afghanistan  33   65 confirmed     0
+## 4 2020-01-25          Afghanistan  33   65 confirmed     0
+## 5 2020-01-26          Afghanistan  33   65 confirmed     0
+## 6 2020-01-27          Afghanistan  33   65 confirmed     0
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;keep-the-data-updated&#34;&gt;Keep the data updated&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides data for an ongoing event that gets updated on a daily basis. In order to enable users to update the CRAN installed version with the most recent data available on the Github version, I created the &lt;code&gt;update_dataset&lt;/code&gt; function. This function check if new data available on the Github version and update the package if needed:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;update_dataset&lt;/span&gt;(silence &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;silence&lt;/code&gt; argument if TRUE, will automatically install updates without prompt question (default is &lt;code&gt;FALSE&lt;/code&gt;). More details available on the following &lt;a href=&#34;https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html&#34;&gt;vignette&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In order to make the new data available, you will have to restart your R session.&lt;/p&gt;
+&lt;h3 id=&#34;summarising-and-visualizing&#34;&gt;summarising and visualizing&lt;/h3&gt;
+&lt;p&gt;Here are some examples for summarising and visualizing of the data with the use of the &lt;strong&gt;dplyr&lt;/strong&gt;, &lt;strong&gt;tidyr&lt;/strong&gt;, and &lt;strong&gt;plotly&lt;/strong&gt; packages.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(dplyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(tidyr)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(plotly)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;cases-summary&#34;&gt;Cases summary&lt;/h4&gt;
+&lt;p&gt;We will start with grouping the dataset by case type and calculate the current worldwide total active cases, and the recovery and death rates:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;total_cases &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(type) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;factor&lt;/span&gt;(type, levels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;confirmed&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;death&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;recovered&amp;#34;&lt;/span&gt;)))
+
+total_cases
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 2
+##   type        cases
+##   &amp;lt;fct&amp;gt;       &amp;lt;int&amp;gt;
+## 1 confirmed 4261747
+## 2 death      291942
+## 3 recovered 1493414
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The total active cases are the difference between the total confirmed cases and the total recovered and death cases:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[2] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[3]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 2476391
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The worldwide recovery rate is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[3] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1], &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 35.04
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And worldwide death rate is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[2] &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; total_cases&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;cases[1], &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;## [1] 6.85
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The following plot presents the cases (active, recovered, and death) distribution over time:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(type, date) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(total_cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; type, values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; total_cases) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;arrange&lt;/span&gt;(date) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(active &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; confirmed &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; death &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; recovered) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(active_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(active),
+                recovered_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(recovered),
+                death_total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cumsum&lt;/span&gt;(death)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_ly&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; date,
+                  y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; active_total,
+                  name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Active&amp;#39;&lt;/span&gt;, 
+                  fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#1f77b4&amp;#39;&lt;/span&gt;,
+                  type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;,
+                  mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;, 
+                  stackgroup &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;add_trace&lt;/span&gt;(y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; death_total, 
+             name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Death&amp;#34;&lt;/span&gt;,
+             fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#E41317&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;add_trace&lt;/span&gt;(y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;recovered_total, 
+            name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Recovered&amp;#39;&lt;/span&gt;, 
+            fillcolor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;forestgreen&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;layout&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Distribution of Covid19 Cases Worldwide&amp;#34;&lt;/span&gt;,
+         legend &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.1&lt;/span&gt;, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.9&lt;/span&gt;),
+         yaxis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Number of Cases&amp;#34;&lt;/span&gt;),
+         xaxis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Source: Johns Hopkins University Center for Systems Science and Engineering&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;preserved67d60d7729350a1&lt;/p&gt;
+&lt;h4 id=&#34;distribution-of-confirmed-cases-by-country&#34;&gt;Distribution of confirmed cases by country&lt;/h4&gt;
+&lt;p&gt;The next plot summarize the distribution of confrimed cases by country with the use of the treemap plot:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;conf_df &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; coronavirus &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(type &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;confirmed&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(country) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(total_cases &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(cases)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;arrange&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;total_cases) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(parents &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Confirmed&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;ungroup&lt;/span&gt;() 
+  
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_ly&lt;/span&gt;(data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conf_df,
+          type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;treemap&amp;#34;&lt;/span&gt;,
+          values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;total_cases,
+          labels&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; country,
+          parents&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;parents,
+          domain &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(column&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;),
+          name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Confirmed&amp;#34;&lt;/span&gt;,
+          textinfo&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label+value+percent parent&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;preserveb2f64db860b15243&lt;/p&gt;
+&lt;h3 id=&#34;package-contributers&#34;&gt;Package contributers&lt;/h3&gt;
+&lt;p&gt;I would like to thank all the people that contributed to the package development and asked questions, report, and filed issues about issues with the data.&lt;/p&gt;
+&lt;p&gt;A special thanks for Amanda Dobbyn (@dobbleobble) and Jarrett Byrnes (@jebyrnes) for their pull request and suggestion that lead for the kick of the &lt;a href=&#34;http://imachordata.com/2020/05/07/the-covid19r-project/&#34;&gt;covid19R proejct&lt;/a&gt;, and to Mine Cetinkaya-Rundel (@minebocek) for providing a better format for the dataset documenation!&lt;/p&gt;
+</description>
+23    </item>
+24    
+16    <item>
 17      <title>covid19italy v0.2.0 is now on CRAN</title>
 18      <link>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</link>
 19      <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>

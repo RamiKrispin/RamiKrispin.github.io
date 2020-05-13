@@ -6,10 +6,41 @@
     <description>Recent content in R on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>coronavirus v0.2.0 is now on CRAN</title>
+      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+      <description>Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.</description>
+    </item>
+    
+    <item>
+      <title>coronavirus v0.2.0 is now on CRAN</title>
+      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+      <description>Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.</description>
+    </item>
+    
+    <item>
+      <title>coronavirus v0.2.0 is now on CRAN</title>
+      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+      <description>Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.</description>
+    </item>
     
     <item>
       <title>covid19italy v0.2.0 is now on CRAN</title>

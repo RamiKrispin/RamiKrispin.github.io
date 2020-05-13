@@ -3,37 +3,72 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/tags/covid19italy/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <loc>/categories/coronavirus/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/covid19/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/covid19italy/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/data/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/data/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/dataviz/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/r/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -63,11 +98,6 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-12-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/tsstudio/</loc>
     <lastmod>2019-12-11T00:00:00+00:00</lastmod>
   </url>
@@ -89,16 +119,6 @@
   
   <url>
     <loc>/projects/</loc>
-    <lastmod>2019-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/projects.knit/</loc>
-    <lastmod>2019-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/projects.utf8/</loc>
     <lastmod>2019-11-30T00:00:00+00:00</lastmod>
   </url>
   

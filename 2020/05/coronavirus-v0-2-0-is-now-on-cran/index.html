@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.66.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Rami Krispin">
+<meta name="keywords" content="covid19">
+<meta name="description" content="Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.">
+
+
+<meta property="og:description" content="Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="coronavirus v0.2.0 is now on CRAN">
+<meta name="twitter:title" content="coronavirus v0.2.0 is now on CRAN">
+<meta property="og:url" content="/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+<meta property="twitter:url" content="/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+<meta property="og:site_name" content="Rami Krispin">
+<meta property="og:description" content="Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.">
+<meta name="twitter:description" content="Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.
+Additional resources:
+ Github page - https://github.com/RamiKrispin/coronavirus Package site available here, and vignettes available here Supporting dashboard available here, code available here CSV format of the dataset available here Raw data available here  Key changes and new features Below are the main updates for version 0.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-05-13T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-05-13T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="covid19">
+    
+      <meta property="article:section" content="data">
+    
+      <meta property="article:section" content="coronavirus">
+    
+  
+  
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="covid19italy">
+    
+      <meta property="article:tag" content="data">
+    
+      <meta property="article:tag" content="dataviz">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@Rami_Krispin">
+
+
+  <meta name="twitter:creator" content="@Rami_Krispin">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+  <meta property="twitter:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+
+
+    <title>coronavirus v0.2.0 is now on CRAN</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-126702581-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Rami Krispin</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Rami Krispin</h4>
+        
+          <h5 class="sidebar-profile-bio">Time series analysis, forecasting, machine learning, and data visualization</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/projects">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-code"></i>
+      
+      <span class="sidebar-button-desc">Projects</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/RamiKrispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/">
+    
+      <i class="sidebar-button-icon fa fa-linkedin-square"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">R-bloggers</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      coronavirus v0.2.0 is now on CRAN
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-05-13T00:00:00Z">
+        
+  May 13, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/covid19">covid19</a>, 
+    
+      <a class="category-link" href="/categories/data">data</a>, 
+    
+      <a class="category-link" href="/categories/coronavirus">coronavirus</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Version 0.2.0 of the <a href="https://github.com/RamiKrispin/coronavirus">coronavirus</a> R data package was pushed today to CRAN. The <strong>coronavirus</strong> package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) <a href="https://github.com/CSSEGISandData/COVID-19">Coronavirus dataset</a>. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from <a href="https://www.tidyverse.org/lifecycle/#experimental">experimental</a> to <a href="https://www.tidyverse.org/lifecycle/#maturing">maturing</a>.</p>
+<p>Additional resources:</p>
+<ul>
+<li>Github page - <a href="https://github.com/RamiKrispin/coronavirus">https://github.com/RamiKrispin/coronavirus</a></li>
+<li>Package site available <a href="https://ramikrispin.github.io/coronavirus/index.html">here</a>, and vignettes available <a href="https://ramikrispin.github.io/coronavirus/articles/">here</a></li>
+<li>Supporting dashboard available <a href="https://ramikrispin.github.io/coronavirus_dashboard/">here</a>, code available <a href="https://github.com/RamiKrispin/coronavirus_dashboard">here</a></li>
+<li>CSV format of the dataset available <a href="https://github.com/RamiKrispin/coronavirus/tree/master/csv">here</a></li>
+<li>Raw data available <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">here</a></li>
+</ul>
+<h3 id="key-changes-and-new-features">Key changes and new features</h3>
+<p>Below are the main updates for version 0.2.0:</p>
+<ul>
+<li>Columns names - updating the geographic location fields with the changes in the raw data:
+<ul>
+<li><code>Province.State</code> changed to <code>province</code> (US states removed from the raw data)</li>
+<li><code>Country.Region</code> changed to <code>country</code></li>
+</ul>
+</li>
+<li>The data on the Github version is automatically get updated on a daily basis with <a href="https://github.com/RamiKrispin/coronavirus/blob/master/.github/workflows/data_refresh.yml">Github Actions</a></li>
+<li><code>update_dataset</code> function- enables to update the installed version with new data that available on the Github version, more details below</li>
+<li>The <code>covid_south_korea</code> and <code>covid_iran</code> that were avialble on the dev version were removed from the package and moved to new package <a href="https://github.com/RamiKrispin/covid19wiki">covid19wiki</a>, for now available only on Github</li>
+</ul>
+<h3 id="data-structure">Data structure</h3>
+<p>The <code>coronavirus</code> dataset using long format and it has the following fields:</p>
+<ul>
+<li><code>date</code> - The date of the summary</li>
+<li><code>province</code> - The province or state, when applicable</li>
+<li><code>country</code> - The country or region name</li>
+<li><code>lat</code> - Latitude point</li>
+<li><code>long</code> - Longitude point</li>
+<li><code>type</code> - the type of case (i.e., confirmed, death)</li>
+<li><code>cases</code> - the number of daily cases (corresponding to the case type)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(coronavirus)
+
+<span style="color:#a6e22e">head</span>(coronavirus)
+</code></pre></div><pre><code>##         date province     country lat long      type cases
+## 1 2020-01-22          Afghanistan  33   65 confirmed     0
+## 2 2020-01-23          Afghanistan  33   65 confirmed     0
+## 3 2020-01-24          Afghanistan  33   65 confirmed     0
+## 4 2020-01-25          Afghanistan  33   65 confirmed     0
+## 5 2020-01-26          Afghanistan  33   65 confirmed     0
+## 6 2020-01-27          Afghanistan  33   65 confirmed     0
+</code></pre><h3 id="keep-the-data-updated">Keep the data updated</h3>
+<p>The <strong>coronavirus</strong> package provides data for an ongoing event that gets updated on a daily basis. In order to enable users to update the CRAN installed version with the most recent data available on the Github version, I created the <code>update_dataset</code> function. This function check if new data available on the Github version and update the package if needed:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">update_dataset</span>(silence <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</code></pre></div><p>The <code>silence</code> argument if TRUE, will automatically install updates without prompt question (default is <code>FALSE</code>). More details available on the following <a href="https://ramikrispin.github.io/coronavirus/articles/update_dataset_function.html">vignette</a>.</p>
+<p>In order to make the new data available, you will have to restart your R session.</p>
+<h3 id="summarising-and-visualizing">summarising and visualizing</h3>
+<p>Here are some examples for summarising and visualizing of the data with the use of the <strong>dplyr</strong>, <strong>tidyr</strong>, and <strong>plotly</strong> packages.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(dplyr)
+<span style="color:#a6e22e">library</span>(tidyr)
+<span style="color:#a6e22e">library</span>(plotly)
+</code></pre></div><h4 id="cases-summary">Cases summary</h4>
+<p>We will start with grouping the dataset by case type and calculate the current worldwide total active cases, and the recovery and death rates:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">total_cases <span style="color:#f92672">&lt;-</span> coronavirus <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">group_by</span>(type) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">summarise</span>(cases <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(cases)) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(type <span style="color:#f92672">=</span> <span style="color:#a6e22e">factor</span>(type, levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;confirmed&#34;</span>, <span style="color:#e6db74">&#34;death&#34;</span>, <span style="color:#e6db74">&#34;recovered&#34;</span>)))
+
+total_cases
+</code></pre></div><pre><code>## # A tibble: 3 x 2
+##   type        cases
+##   &lt;fct&gt;       &lt;int&gt;
+## 1 confirmed 4261747
+## 2 death      291942
+## 3 recovered 1493414
+</code></pre><p>The total active cases are the difference between the total confirmed cases and the total recovered and death cases:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">total_cases<span style="color:#f92672">$</span>cases[1] <span style="color:#f92672">-</span> total_cases<span style="color:#f92672">$</span>cases[2] <span style="color:#f92672">-</span> total_cases<span style="color:#f92672">$</span>cases[3]
+</code></pre></div><pre><code>## [1] 2476391
+</code></pre><p>The worldwide recovery rate is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">round</span>(<span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> total_cases<span style="color:#f92672">$</span>cases[3] <span style="color:#f92672">/</span> total_cases<span style="color:#f92672">$</span>cases[1], <span style="color:#ae81ff">2</span>)
+</code></pre></div><pre><code>## [1] 35.04
+</code></pre><p>And worldwide death rate is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">round</span>(<span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> total_cases<span style="color:#f92672">$</span>cases[2] <span style="color:#f92672">/</span> total_cases<span style="color:#f92672">$</span>cases[1], <span style="color:#ae81ff">2</span>)
+</code></pre></div><pre><code>## [1] 6.85
+</code></pre><p>The following plot presents the cases (active, recovered, and death) distribution over time:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">coronavirus <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">group_by</span>(type, date) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">summarise</span>(total_cases <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(cases)) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">pivot_wider</span>(names_from <span style="color:#f92672">=</span> type, values_from <span style="color:#f92672">=</span> total_cases) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">arrange</span>(date) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(active <span style="color:#f92672">=</span> confirmed <span style="color:#f92672">-</span> death <span style="color:#f92672">-</span> recovered) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(active_total <span style="color:#f92672">=</span> <span style="color:#a6e22e">cumsum</span>(active),
+                recovered_total <span style="color:#f92672">=</span> <span style="color:#a6e22e">cumsum</span>(recovered),
+                death_total <span style="color:#f92672">=</span> <span style="color:#a6e22e">cumsum</span>(death)) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">plot_ly</span>(x <span style="color:#f92672">=</span> <span style="color:#f92672">~</span> date,
+                  y <span style="color:#f92672">=</span> <span style="color:#f92672">~</span> active_total,
+                  name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Active&#39;</span>, 
+                  fillcolor <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#1f77b4&#39;</span>,
+                  type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;scatter&#39;</span>,
+                  mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>, 
+                  stackgroup <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;one&#39;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">add_trace</span>(y <span style="color:#f92672">=</span> <span style="color:#f92672">~</span> death_total, 
+             name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Death&#34;</span>,
+             fillcolor <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#E41317&#39;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">add_trace</span>(y <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>recovered_total, 
+            name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Recovered&#39;</span>, 
+            fillcolor <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;forestgreen&#39;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">layout</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Distribution of Covid19 Cases Worldwide&#34;</span>,
+         legend <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>),
+         yaxis <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Number of Cases&#34;</span>),
+         xaxis <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Source: Johns Hopkins University Center for Systems Science and Engineering&#34;</span>))
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h4 id="distribution-of-confirmed-cases-by-country">Distribution of confirmed cases by country</h4>
+<p>The next plot summarize the distribution of confrimed cases by country with the use of the treemap plot:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">conf_df <span style="color:#f92672">&lt;-</span> coronavirus <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;confirmed&#34;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">group_by</span>(country) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">summarise</span>(total_cases <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(cases)) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">arrange</span>(<span style="color:#f92672">-</span>total_cases) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(parents <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Confirmed&#34;</span>) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">ungroup</span>() 
+  
+  <span style="color:#a6e22e">plot_ly</span>(data <span style="color:#f92672">=</span> conf_df,
+          type<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;treemap&#34;</span>,
+          values <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>total_cases,
+          labels<span style="color:#f92672">=</span> <span style="color:#f92672">~</span> country,
+          parents<span style="color:#f92672">=</span>  <span style="color:#f92672">~</span>parents,
+          domain <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(column<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>),
+          name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Confirmed&#34;</span>,
+          textinfo<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;label+value+percent parent&#34;</span>)
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="package-contributers">Package contributers</h3>
+<p>I would like to thank all the people that contributed to the package development and asked questions, report, and filed issues about issues with the data.</p>
+<p>A special thanks for Amanda Dobbyn (@dobbleobble) and Jarrett Byrnes (@jebyrnes) for their pull request and suggestion that lead for the kick of the <a href="http://imachordata.com/2020/05/07/the-covid19r-project/">covid19R proejct</a>, and to Mine Cetinkaya-Rundel (@minebocek) for providing a better format for the dataset documenation!</p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/covid19italy/">covid19italy</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/data/">data</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/dataviz/">dataviz</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Rami Krispin. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/05/coronavirus-v0-2-0-is-now-on-cran/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F05%2Fcoronavirus-v0-2-0-is-now-on-cran%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F05%2Fcoronavirus-v0-2-0-is-now-on-cran%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F05%2Fcoronavirus-v0-2-0-is-now-on-cran%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Rami Krispin</h4>
+    
+      <div id="about-card-bio">Time series analysis, forecasting, machine learning, and data visualization</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Cupertino, CA
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('/images/background.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2020\/05\/coronavirus-v0-2-0-is-now-on-cran\/';
+          
+            this.page.identifier = '\/2020\/05\/coronavirus-v0-2-0-is-now-on-cran\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
