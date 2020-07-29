@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>covid19italy v0.3.0 is now on CRAN</title>
+      <link>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</guid>
+      <description>Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
+Additional resources:</description>
+    </item>
     
     <item>
       <title>coronavirus v0.2.0 is now on CRAN</title>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.66.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Rami Krispin">
+<meta name="keywords" content="covid19, Italy">
+<meta name="description" content="Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
+Additional resources:">
+
+
+<meta property="og:description" content="Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
+Additional resources:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="covid19italy v0.3.0 is now on CRAN">
+<meta name="twitter:title" content="covid19italy v0.3.0 is now on CRAN">
+<meta property="og:url" content="/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+<meta property="twitter:url" content="/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+<meta property="og:site_name" content="Rami Krispin">
+<meta property="og:description" content="Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
+Additional resources:">
+<meta name="twitter:description" content="Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
+Additional resources:">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-07-26T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-07-26T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="covid19italy">
+    
+      <meta property="article:tag" content="data">
+    
+      <meta property="article:tag" content="dataviz">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@Rami_Krispin">
+
+
+  <meta name="twitter:creator" content="@Rami_Krispin">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+  <meta property="twitter:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+
+
+    <title>covid19italy v0.3.0 is now on CRAN</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-126702581-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Rami Krispin</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Rami Krispin</h4>
+        
+          <h5 class="sidebar-profile-bio">Time series analysis, forecasting, machine learning, and data visualization</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/projects">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-code"></i>
+      
+      <span class="sidebar-button-desc">Projects</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/RamiKrispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/">
+    
+      <i class="sidebar-button-icon fa fa-linkedin-square"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">R-bloggers</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      covid19italy v0.3.0 is now on CRAN
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-07-26T00:00:00Z">
+        
+  July 26, 2020
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+
+
+<p>Version 0.3.0 of the <a href="https://github.com/RamiKrispin/covid19Italy">covid19italy</a> is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the <code>update_data</code> function enables you to get the most recent data available on the <a href="https://github.com/RamiKrispin/covid19italy">Github</a> version (updated on a daily basis).</p>
+<p>Additional resources:</p>
+<ul>
+<li>Github page - <a href="https://github.com/RamiKrispin/covid19italy" class="uri">https://github.com/RamiKrispin/covid19italy</a></li>
+<li>Package site available <a href="https://ramikrispin.github.io/covid19Italy/">here</a>, and vignettes available <a href="https://ramikrispin.github.io/covid19Italy/articles">here</a></li>
+<li>Supporting dashboard available <a href="https://ramikrispin.github.io/italy_dash/">here</a>, code available <a href="https://github.com/RamiKrispin/italy_dash">here</a></li>
+<li>CSV format of the dataset available <a href="https://github.com/RamiKrispin/covid19italy/tree/master/csv">here</a></li>
+<li>Data source - <a href="http://www.protezionecivile.it/">Italy Department of Civil Protection</a></li>
+</ul>
+<div id="key-changes" class="section level2">
+<h2>Key changes</h2>
+<p>The main updates in v0.3.0 related to changes in the data structure:</p>
+<ul>
+<li>Updates for the <code>italy_total</code> dataset:
+<ul>
+<li>Added <code>positive_clinical_activity</code> - positive cases emerged from clinical activity</li>
+<li>Added <code>positive_surveys_tests</code> - positive cases emerging from surveys and tests planned at the national level</li>
+</ul></li>
+<li>Updates for the <code>italy_region</code> dataset:
+<ul>
+<li>Added <code>positive_clinical_activity</code> - positive cases emerged from clinical activity</li>
+<li>Added <code>positive_surveys_tests</code> - positive cases emerging from surveys and tests planned at the regional level</li>
+</ul></li>
+</ul>
+<p>In addition, updates of the CI/CD of the package data refresh automation:</p>
+<ul>
+<li>Updated the data refresh automation - set a <a href="https://hub.docker.com/r/rkrispin/covid19italy">docker image</a> to support the data refresh automation with <a href="https://github.com/RamiKrispin/covid19Italy/blob/master/.github/workflows/data_refresh_docker.yml">Github Actions</a></li>
+<li>Set a CI/CD for the package supporting <a href="https://ramikrispin.github.io/italy_dash/">dashboard</a> with <a href="https://hub.docker.com/r/rkrispin/covid19italy">Docker</a> and <a href="https://github.com/RamiKrispin/italy_dash/blob/master/.github/workflows/dashboard_refresh_docker.yml">Github Actions</a></li>
+</ul>
+</div>
+<div id="refresh-the-data" class="section level2">
+<h2>Refresh the data</h2>
+<p>As the data on the Github version is getting updated on a daily basis, the <code>update_data</code> function enables to keep the data updated on the installed version. The function compared the data available on the installed version with the ones on the Github version, when new data is available, it will reinstall the package from Github. For example:</p>
+<pre class="r"><code>library(covid19italy)
+
+data(&quot;italy_total&quot;)
+
+max(italy_total$date)
+
+[1] &quot;2020-07-20&quot;
+
+update_data()
+Updates are available on the covid19italy Dev version, do you want to update? n/Y y
+
+These packages have more recent versions available.
+
+The data was refresed, please restart your session to have the new data available</code></pre>
+<p>After restarting the R session, the new data is available for use:</p>
+<pre class="r"><code>library(covid19italy)
+
+data(&quot;italy_total&quot;)
+
+max(italy_total$date)</code></pre>
+<pre><code>## [1] &quot;2020-07-27&quot;</code></pre>
+</div>
+<div id="visualize-the-distribution-of-the-cases" class="section level2">
+<h2>Visualize the distribution of the cases</h2>
+<p>The <code>italy_total</code> dataset provides a snapshot for the national daily cases distribution. That includes:</p>
+<ul>
+<li>Overall cases distribution:
+<ul>
+<li>Active</li>
+<li>Recovered</li>
+<li>Death</li>
+</ul></li>
+<li>Active cases distribution:
+<ul>
+<li>Intensive care</li>
+<li>Hospitalized with symptoms</li>
+<li>Home Confinement</li>
+</ul></li>
+</ul>
+<p>In the following examples, we will use <strong>plotly</strong> to visualize those distributions over time. Start with the general distribution of the cases:</p>
+<pre class="r"><code>library(plotly)
+
+plot_ly(data = italy_total,
+        x = ~ date,
+        y = ~ cumulative_positive_cases, 
+        name = &#39;Active&#39;, 
+        fillcolor = &#39;#1f77b4&#39;,
+        type = &#39;scatter&#39;,
+        mode = &#39;none&#39;, 
+        stackgroup = &#39;one&#39;) %&gt;%
+  add_trace( y = ~ death, 
+             name = &quot;Death&quot;,
+             fillcolor = &#39;#E41317&#39;) %&gt;%
+  add_trace(y = ~recovered, 
+            name = &#39;Recovered&#39;, 
+            fillcolor = &#39;forestgreen&#39;) %&gt;%
+  layout(title = &quot;Italy - Distribution of Covid19 Cases&quot;,
+         legend = list(x = 0.1, y = 0.9),
+         yaxis = list(title = &quot;Number of Cases&quot;),
+         xaxis = list(title = &quot;Source: Italy Department of Civil Protection&quot;))</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"a7ca6541ef97":["function () ","plotlyVisDat"]},"cur_data":"a7ca6541ef97","attrs":{"a7ca6541ef97":{"x":{},"y":{},"fillcolor":"#1f77b4","mode":"none","stackgroup":"one","name":"Active","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"a7ca6541ef97.1":{"x":{},"y":{},"fillcolor":"#E41317","mode":"none","stackgroup":"one","name":"Death","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true},"a7ca6541ef97.2":{"x":{},"y":{},"fillcolor":"forestgreen","mode":"none","stackgroup":"one","name":"Recovered","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Italy - Distribution of Covid19 Cases","legend":{"x":0.1,"y":0.9},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Cases"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Source: Italy Department of Civil Protection"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[221,311,385,588,821,1049,1577,1835,2263,2706,3296,3916,5061,6387,7985,8514,10590,12839,14955,17750,20603,23073,26062,28710,33190,37860,42681,46638,50418,54030,57521,62013,66414,70065,73880,75528,77635,80572,83049,85388,88274,91246,93187,94067,95262,96877,98273,100269,102253,103616,104291,105418,106607,106962,107771,108257,108237,107709,107699,106848,106527,105847,106103,105813,105205,104657,101551,100943,100704,100179,99980,98467,91528,89624,87961,84842,83324,82488,81266,78457,76440,72070,70187,68351,66553,65129,62752,60960,59322,57752,56594,55300,52942,50966,47986,46175,43691,42097,41367,39893,39297,38429,36976,35877,35262,34730,32872,31710,30637,28997,27485,26274,25909,24569,23925,23101,21543,21212,20972,20637,19573,18655,18303,17638,16836,16681,16496,15563,15255,15060,14884,14621,14642,14709,14242,13595,13459,13428,13303,13179,13157,12919,12493,12473,12456,12368,12440,12404,12248,12322,12404,12301,12442,12565,12581],"fillcolor":"#1f77b4","mode":"none","stackgroup":"one","name":"Active","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[7,10,12,17,21,29,34,52,79,107,148,197,233,366,463,631,827,1016,1266,1441,1809,2158,2503,2978,3405,4032,4825,5476,6077,6820,7503,8165,9134,10023,10779,11591,12428,13155,13915,14681,15362,15887,16523,17127,17669,18279,18849,19468,19899,20465,21067,21645,22170,22745,23227,23660,24114,24648,25085,25549,25969,26384,26644,26977,27359,27682,27967,28236,28710,28884,29079,29315,29684,29958,30201,30395,30560,30739,30911,31106,31368,31610,31763,31908,32007,32169,32330,32486,32616,32735,32785,32877,32955,33072,33142,33229,33340,33415,33475,33530,33601,33689,33774,33846,33899,33964,34043,34114,34167,34223,34301,34345,34371,34405,34448,34514,34561,34610,34634,34657,34675,34644,34678,34708,34716,34738,34744,34767,34788,34818,34833,34854,34861,34869,34899,34914,34926,34938,34945,34954,34967,34984,34997,35017,35028,35042,35045,35058,35073,35082,35092,35097,35102,35107,35112],"fillcolor":"#E41317","mode":"none","stackgroup":"one","name":"Death","type":"scatter","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[1,1,3,45,46,50,83,149,160,276,414,523,589,622,724,1004,1045,1258,1439,1966,2335,2749,2941,4025,4440,5129,6072,7024,7432,8326,9362,10361,10950,12384,13030,14620,15729,16847,18278,19758,20996,21815,22837,24392,26491,28470,30455,32534,34211,35435,37130,38092,40164,42727,44927,47055,48877,51600,54543,57576,60498,63120,64928,66624,68941,71252,75945,78249,79914,81654,82879,85231,93245,96276,99023,103031,105186,106587,109039,112541,115288,120205,122810,125176,127326,129401,132282,134560,136720,138840,140479,141981,144658,147101,150604,152844,155633,157507,158355,160092,160938,161895,163781,165078,165837,166584,168646,169939,171338,173085,174865,176370,177010,178526,179455,180544,181907,182453,182893,183426,184585,186111,186725,187615,188584,188891,189196,190248,190717,191083,191467,191944,192108,192241,192815,193640,193978,194273,194579,194928,195106,195441,196016,196246,196483,196806,196949,197162,197431,197628,197842,198192,198320,198446,198593],"fillcolor":"forestgreen","mode":"none","stackgroup":"one","name":"Recovered","type":"scatter","marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"line":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>And below is the distribution of the active cases:</p>
+<pre class="r"><code>plot_ly(data = italy_total,
+        x = ~ date,
+        y = ~home_confinement, 
+        name = &#39;Home Confinement&#39;, 
+        fillcolor = &#39;#FDBBBC&#39;,
+        type = &#39;scatter&#39;,
+        mode = &#39;none&#39;, 
+        stackgroup = &#39;one&#39;) %&gt;%
+  add_trace( y = ~ hospitalized_with_symptoms, 
+             name = &quot;Hospitalized with Symptoms&quot;,
+             fillcolor = &#39;#E41317&#39;) %&gt;%
+  add_trace(y = ~intensive_care, 
+                name = &#39;Intensive Care&#39;, 
+                fillcolor = &#39;#9E0003&#39;) %&gt;%
+  layout(title = &quot;Italy - Distribution of Active Covid19 Cases&quot;,
+         legend = list(x = 0.8, y = 0.9),
+         yaxis = list(title = &quot;Number of Cases&quot;),
+         xaxis = list(title = &quot;Source: Italy Department of Civil Protection&quot;))</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"visdat":{"a7ca8e679f7":["function () ","plotlyVisDat"]},"cur_data":"a7ca8e679f7","attrs":{"a7ca8e679f7":{"x":{},"y":{},"fillcolor":"#FDBBBC","mode":"none","stackgroup":"one","name":"Home Confinement","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"a7ca8e679f7.1":{"x":{},"y":{},"fillcolor":"#E41317","mode":"none","stackgroup":"one","name":"Hospitalized with Symptoms","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true},"a7ca8e679f7.2":{"x":{},"y":{},"fillcolor":"#9E0003","mode":"none","stackgroup":"one","name":"Intensive Care","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Italy - Distribution of Active Covid19 Cases","legend":{"x":0.8,"y":0.9},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Cases"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Source: Italy Department of Civil Protection"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[94,162,221,284,412,543,798,927,1000,1065,1155,1060,1843,2180,2936,2599,3724,5036,6201,7860,9268,10197,11108,12090,14935,19185,22116,23783,26522,28697,30920,33648,36653,39533,42588,43752,45420,48134,50456,52579,55270,58320,60313,61557,63084,64873,66534,68744,71063,72333,73094,74696,76778,78364,80031,80589,80758,81104,81510,81710,82286,82212,82722,83504,83619,83652,81708,81796,81808,81436,81678,80770,74426,73139,72157,69974,68679,67950,67449,65392,64132,60470,59012,57278,55597,54422,52452,51051,49770,48485,47428,46574,44504,42732,40118,38606,36561,35275,34844,33569,33202,32588,31359,30582,30111,29718,28028,27141,26270,24877,23518,22471,22213,21091,20649,20066,18750,18586,18510,18472,17605,16938,16685,16177,15479,15423,15280,14380,14143,14015,13849,13610,13623,13691,13232,12625,12519,12519,12410,12335,12324,12082,11639,11670,11635,11561,11648,11612,11467,11550,11642,11542,11670,11786,11796],"fillcolor":"#FDBBBC","mode":"none","stackgroup":"one","name":"Home Confinement","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[101,114,128,248,345,401,639,742,1034,1346,1790,2394,2651,3557,4316,5038,5838,6650,7426,8372,9663,11025,12894,14363,15757,16020,17708,19846,20692,21937,23112,24753,26029,26676,27386,27795,28192,28403,28540,28741,29010,28949,28976,28718,28485,28399,28242,28144,27847,28023,28011,27643,26893,25786,25007,25033,24906,24134,23805,22871,22068,21533,21372,20353,19723,19210,18149,17569,17357,17242,16823,16270,15769,15174,14636,13834,13618,13539,12865,12172,11453,10792,10400,10311,10207,9991,9624,9269,8957,8695,8613,8185,7917,7729,7379,7094,6680,6387,6099,5916,5742,5503,5301,5002,4864,4729,4581,4320,4131,3893,3747,3594,3489,3301,3113,2867,2632,2474,2314,2038,1853,1610,1515,1356,1260,1160,1120,1090,1025,963,956,940,945,946,940,899,871,844,826,776,768,777,797,750,771,757,743,745,732,724,713,713,731,735,740],"fillcolor":"#E41317","mode":"none","stackgroup":"one","name":"Hospitalized with Symptoms","type":"scatter","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2020-02-24","2020-02-25","2020-02-26","2020-02-27","2020-02-28","2020-02-29","2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05","2020-03-06","2020-03-07","2020-03-08","2020-03-09","2020-03-10","2020-03-11","2020-03-12","2020-03-13","2020-03-14","2020-03-15","2020-03-16","2020-03-17","2020-03-18","2020-03-19","2020-03-20","2020-03-21","2020-03-22","2020-03-23","2020-03-24","2020-03-25","2020-03-26","2020-03-27","2020-03-28","2020-03-29","2020-03-30","2020-03-31","2020-04-01","2020-04-02","2020-04-03","2020-04-04","2020-04-05","2020-04-06","2020-04-07","2020-04-08","2020-04-09","2020-04-10","2020-04-11","2020-04-12","2020-04-13","2020-04-14","2020-04-15","2020-04-16","2020-04-17","2020-04-18","2020-04-19","2020-04-20","2020-04-21","2020-04-22","2020-04-23","2020-04-24","2020-04-25","2020-04-26","2020-04-27","2020-04-28","2020-04-29","2020-04-30","2020-05-01","2020-05-02","2020-05-03","2020-05-04","2020-05-05","2020-05-06","2020-05-07","2020-05-08","2020-05-09","2020-05-10","2020-05-11","2020-05-12","2020-05-13","2020-05-14","2020-05-15","2020-05-16","2020-05-17","2020-05-18","2020-05-19","2020-05-20","2020-05-21","2020-05-22","2020-05-23","2020-05-24","2020-05-25","2020-05-26","2020-05-27","2020-05-28","2020-05-29","2020-05-30","2020-05-31","2020-06-01","2020-06-02","2020-06-03","2020-06-04","2020-06-05","2020-06-06","2020-06-07","2020-06-08","2020-06-09","2020-06-10","2020-06-11","2020-06-12","2020-06-13","2020-06-14","2020-06-15","2020-06-16","2020-06-17","2020-06-18","2020-06-19","2020-06-20","2020-06-21","2020-06-22","2020-06-23","2020-06-24","2020-06-25","2020-06-26","2020-06-27","2020-06-28","2020-06-29","2020-06-30","2020-07-01","2020-07-02","2020-07-03","2020-07-04","2020-07-05","2020-07-06","2020-07-07","2020-07-08","2020-07-09","2020-07-10","2020-07-11","2020-07-12","2020-07-13","2020-07-14","2020-07-15","2020-07-16","2020-07-17","2020-07-18","2020-07-19","2020-07-20","2020-07-21","2020-07-22","2020-07-23","2020-07-24","2020-07-25","2020-07-26","2020-07-27"],"y":[26,35,36,56,64,105,140,166,229,295,351,462,567,650,733,877,1028,1153,1328,1518,1672,1851,2060,2257,2498,2655,2857,3009,3204,3396,3489,3612,3732,3856,3906,3981,4023,4035,4053,4068,3994,3977,3898,3792,3693,3605,3497,3381,3343,3260,3186,3079,2936,2812,2733,2635,2573,2471,2384,2267,2173,2102,2009,1956,1863,1795,1694,1578,1539,1501,1479,1427,1333,1311,1168,1034,1027,999,952,893,855,808,775,762,749,716,676,640,595,572,553,541,521,505,489,475,450,435,424,408,353,338,316,293,287,283,263,249,236,227,220,209,207,177,163,168,161,152,148,127,115,107,103,105,97,98,96,93,87,82,79,71,74,72,70,71,69,65,67,68,65,60,57,53,50,50,49,47,49,48,49,46,41,44,45],"fillcolor":"#9E0003","mode":"none","stackgroup":"one","name":"Intensive Care","type":"scatter","marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"line":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="roadmap" class="section level2">
+<h2>Roadmap</h2>
+<p>The main goal for the next CRAN version release is to adopt the <a href="https://github.com/Covid19R">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html">data format standard</a> and add it to the <a href="https://github.com/Covid19R/covid19R">covid19r</a> package.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/covid19italy/">covid19italy</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/data/">data</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/dataviz/">dataviz</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Rami Krispin. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/05/coronavirus-v0-2-0-is-now-on-cran/" data-tooltip="coronavirus v0.2.0 is now on CRAN">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/covid19italy-v0-3-0-is-now-on-cran/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F07%2Fcovid19italy-v0-3-0-is-now-on-cran%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F07%2Fcovid19italy-v0-3-0-is-now-on-cran%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F07%2Fcovid19italy-v0-3-0-is-now-on-cran%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Rami Krispin</h4>
+    
+      <div id="about-card-bio">Time series analysis, forecasting, machine learning, and data visualization</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Cupertino, CA
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('/images/background.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2020\/07\/covid19italy-v0-3-0-is-now-on-cran\/';
+          
+            this.page.identifier = '\/2020\/07\/covid19italy-v0-3-0-is-now-on-cran\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
