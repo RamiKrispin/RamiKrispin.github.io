@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2020/09/deploying-flexdashboard-on-github-pages/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/flexdashboard/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/github/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rmarkdown/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/covid19italy/</loc>
     <lastmod>2020-07-29T00:00:00+00:00</lastmod>
   </url>
@@ -19,21 +54,6 @@
   
   <url>
     <loc>/tags/dataviz/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-07-29T00:00:00+00:00</lastmod>
   </url>
   
