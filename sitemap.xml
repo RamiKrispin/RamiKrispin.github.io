@@ -3,37 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2020/09/embedding-flexdashboard-in-pkgdown-site/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/flexdashboard/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pkgdown/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rmarkdown/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2020/09/deploying-flexdashboard-on-github-pages/</loc>
     <lastmod>2020-09-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/flexdashboard/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/github/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/rmarkdown/</loc>
-    <lastmod>2020-09-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-09-04T00:00:00+00:00</lastmod>
   </url>
   

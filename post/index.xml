@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Embedding flexdashboard in pkgdown site</title>
+      <link>/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
+      <description>In the previous post, I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in Github Pages. The focus of this post is on embedding flexdashboard oin pkgdown site. The pkgdown package is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format.
+Motivation Why would you like to embed a flexdashboard dashboard in a pkgdown site?</description>
+    </item>
     
     <item>
       <title>Deploying flexdashboard on Github Pages</title>

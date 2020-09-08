@@ -11,6 +11,98 @@
 14    
 15    
 16    <item>
+17      <title>Embedding flexdashboard in pkgdown site</title>
+18      <link>/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
+19      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+20      
+21      <guid>/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
+22      <description>
+
+
+&lt;p&gt;In the previous &lt;a href=&#34;https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/&#34;&gt;post&lt;/a&gt;, I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in &lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt;. The focus of this post is on embedding flexdashboard oin pkgdown site. The &lt;strong&gt;pkgdown&lt;/strong&gt; &lt;a href=&#34;https://pkgdown.r-lib.org/&#34;&gt;package&lt;/a&gt; is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-09-08-embedding-flexdashboard-in-pkgdown-site_files/example.gif&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;motivation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Motivation&lt;/h3&gt;
+&lt;p&gt;Why would you like to embed a flexdashboard dashboard in a pkgdown site? There are few reasons that I can think about, for example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Provide a summary and analysis of the package datasets&lt;/li&gt;
+&lt;li&gt;Demonstrate the use case of the package functionality&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My motivation for embedding flexdashboard into my pkgdown site was the first option above. A few weeks ago, while I was working on the &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;coronavirus&lt;/a&gt; and &lt;a href=&#34;https://github.com/RamiKrispin/covid19Italy&#34;&gt;covid19italy&lt;/a&gt; packages, I created a dashboard for each package with flexdashboard (&lt;a href=&#34;https://ramikrispin.github.io/coronavirus_dashboard/&#34;&gt;Coronavirus&lt;/a&gt; and &lt;a href=&#34;https://ramikrispin.github.io/italy_dash/&#34;&gt;Covid19 Italy&lt;/a&gt; dashboards). As flexdashboard is another R Markdown format, I was looking for a method to render flexdashboard as one of the package vignettes. That did not work (or render) as I expected, but I found a workaround for that by using the &lt;strong&gt;HTML&lt;/strong&gt; &lt;code&gt;iframe&lt;/code&gt; function.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;embedding-flexdashboard-with-iframe&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Embedding flexdashboard with iframe&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;iframe&lt;/code&gt; function is an &lt;strong&gt;HTML&lt;/strong&gt; for displaying a web page within a web page. To embed flexdashboard in pkgdown website, you will need:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A deployed flexdashboard with access URL (see this post for instruction for deployment of flexdashboard on Github Pages)&lt;/li&gt;
+&lt;li&gt;A rendered pkgdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once you have an end URL for the deployed flexdashboard dashboard (or generally any R Markdown format, Shiny app or any website), it is straightforward to deploy it by creating a dedicated vignette for embedding the dashboard as an article. The following example demonstrate step-by-step how to do it. We will start by creating a new vignette to host the dashboard. We will use the &lt;code&gt;use_vignette&lt;/code&gt; function from the &lt;a href=&#34;https://usethis.r-lib.org/&#34;&gt;usethis&lt;/a&gt; package inside your package project:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_vignette(name = &amp;quot;dashboard&amp;quot;, title = &amp;quot;Your Dashboard Name&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This function created an R Markdown tembplate file named &lt;code&gt;dashboard.Rmd&lt;/code&gt; inside the &lt;code&gt;vignettes&lt;/code&gt; folder:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;dashboard.Rmd&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: &amp;quot;Your Dashboard Name&amp;quot;
+output: rmarkdown::html_vignette
+vignette: &amp;gt;
+  %\VignetteIndexEntry{Your Dashboard Name}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = &amp;quot;#&amp;gt;&amp;quot;
+)
+```
+
+```{r setup}
+library(your_package_name)
+```&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we will edit the vignette template by removing the &lt;strong&gt;R&lt;/strong&gt; code chunks with basic &lt;strong&gt;HTML&lt;/strong&gt; code, setting &lt;code&gt;iframe&lt;/code&gt; function:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;dashboard.Rmd&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: &amp;quot;Your Dashboard Name&amp;quot;
+output: rmarkdown::html_vignette
+vignette: &amp;gt;
+  %\VignetteIndexEntry{Your Dashboard Name}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+&amp;lt;style&amp;gt;
+.dashboard {
+  position: fixed;
+  left: 0;
+  top: 50px;
+  bottom: 0;
+  right: 0;
+}
+.dashboard iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+&amp;lt;/style&amp;gt;
+
+&amp;lt;div class=&amp;quot;dashboard&amp;quot;&amp;gt; 
+&amp;lt;iframe src=&amp;quot;https://your.flexdashboard.url/&amp;quot;&amp;gt;
+&amp;lt;/iframe&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;strong&gt;HTML&lt;/strong&gt; code has two components, &lt;code&gt;style&lt;/code&gt;, and &lt;code&gt;iframe&lt;/code&gt;. As the name implies, the &lt;code&gt;style&lt;/code&gt; component set the page style and layout (position, size, etc.). The current setting will display the dashboard in full size. In the &lt;code&gt;iframe&lt;/code&gt; component, you simply need to set the flexdashboard URL address.&lt;/p&gt;
+&lt;p&gt;Once rendering the pkgdown files with the &lt;code&gt;build_site&lt;/code&gt; function, you should be able to view the dashboard under the article tab.&lt;/p&gt;
+&lt;p&gt;Here is an example for using this method for embedding the Covid19 Italy Dashboard on the covid19italy pkgdown website:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dashboard - &lt;a href=&#34;https://ramikrispin.github.io/italy_dash/&#34; class=&#34;uri&#34;&gt;https://ramikrispin.github.io/italy_dash/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Vignette - &lt;a href=&#34;https://github.com/RamiKrispin/covid19Italy/blob/master/vignettes/dashboard.Rmd&#34; class=&#34;uri&#34;&gt;https://github.com/RamiKrispin/covid19Italy/blob/master/vignettes/dashboard.Rmd&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Pkgdown website - &lt;a href=&#34;https://ramikrispin.github.io/covid19Italy/articles/dashboard.html&#34; class=&#34;uri&#34;&gt;https://ramikrispin.github.io/covid19Italy/articles/dashboard.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+23    </item>
+24    
+16    <item>
 17      <title>Deploying flexdashboard on Github Pages</title>
 18      <link>/2020/09/deploying-flexdashboard-on-github-pages/</link>
 19      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>

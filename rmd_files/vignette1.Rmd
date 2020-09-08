@@ -1,0 +1,19 @@
+---
+title: "Your Dashboard Name"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Your Dashboard Name}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(your_package_name)
+```

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,36 @@
     <item>
       <title>flexdashboard</title>
       <link>/tags/flexdashboard/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/flexdashboard/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pkgdown</title>
+      <link>/tags/pkgdown/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/pkgdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rmarkdown</title>
+      <link>/tags/rmarkdown/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rmarkdown/</guid>
       <description></description>
     </item>
     
@@ -26,24 +53,6 @@
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rmarkdown</title>
-      <link>/tags/rmarkdown/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rmarkdown/</guid>
       <description></description>
     </item>
     
