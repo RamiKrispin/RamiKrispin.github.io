@@ -6,10 +6,21 @@
     <description>Recent content in data on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/data/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introduction to the sfo Package</title>
+      <link>/2020/12/intro-to-sfo/</link>
+      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/12/intro-to-sfo/</guid>
+      <description>Happy to announce (in one month delay) a new package - sfo, which provides monthly statistics of the air passenger traffic at San Francisco International (SFO) airport. The package is available on CRAN.
+Additional information available:
+ Source code - https://github.com/RamiKrispin/sfo Package site - https://ramikrispin.github.io/sfo/index.html Vignettes - https://ramikrispin.github.io/sfo/articles Data source - San Francisco Open Data portal  The package provides the following two datasets:</description>
+    </item>
     
     <item>
       <title>covid19italy v0.3.0 is now on CRAN</title>

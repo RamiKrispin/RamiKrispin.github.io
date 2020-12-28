@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>time-series on Rami Krispin</title>
+    <link>/categories/time-series/</link>
+    <description>Recent content in time-series on Rami Krispin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/time-series/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introduction to the sfo Package</title>
+      <link>/2020/12/intro-to-sfo/</link>
+      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/12/intro-to-sfo/</guid>
+      <description>Happy to announce (in one month delay) a new package - sfo, which provides monthly statistics of the air passenger traffic at San Francisco International (SFO) airport. The package is available on CRAN.
+Additional information available:
+ Source code - https://github.com/RamiKrispin/sfo Package site - https://ramikrispin.github.io/sfo/index.html Vignettes - https://ramikrispin.github.io/sfo/articles Data source - San Francisco Open Data portal  The package provides the following two datasets:</description>
+    </item>
+    
+  </channel>
+</rss>
