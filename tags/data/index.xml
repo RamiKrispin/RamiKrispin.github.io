@@ -6,10 +6,21 @@
     <description>Recent content in data on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/data/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Introduction to USgas Package</title>
+      <link>/2020/12/intro-to-usgas/</link>
+      <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/12/intro-to-usgas/</guid>
+      <description>Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
+This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
+ Source code - https://github.</description>
+    </item>
     
     <item>
       <title>Introduction to the sfo Package</title>

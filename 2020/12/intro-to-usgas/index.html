@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.66.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Rami Krispin">
+<meta name="keywords" content="gas, time series, R">
+<meta name="description" content="Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
+This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
+ Source code - https://github.">
+
+
+<meta property="og:description" content="Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
+This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
+ Source code - https://github.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to USgas Package">
+<meta name="twitter:title" content="Introduction to USgas Package">
+<meta property="og:url" content="/2020/12/intro-to-usgas/">
+<meta property="twitter:url" content="/2020/12/intro-to-usgas/">
+<meta property="og:site_name" content="Rami Krispin">
+<meta property="og:description" content="Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
+This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
+ Source code - https://github.">
+<meta name="twitter:description" content="Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
+This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
+ Source code - https://github.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-12-30T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-12-30T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="time-series">
+    
+  
+  
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="time-series">
+    
+      <meta property="article:tag" content="gas">
+    
+      <meta property="article:tag" content="data">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@Rami_Krispin">
+
+
+  <meta name="twitter:creator" content="@Rami_Krispin">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+  <meta property="twitter:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+
+
+    <title>Introduction to USgas Package</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2020/12/intro-to-usgas/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-126702581-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Rami Krispin</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Rami Krispin</h4>
+        
+          <h5 class="sidebar-profile-bio">Time series analysis, forecasting, machine learning, and data visualization</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/projects">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-code"></i>
+      
+      <span class="sidebar-button-desc">Projects</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/RamiKrispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/">
+    
+      <i class="sidebar-button-icon fa fa-linkedin-square"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">R-bloggers</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Introduction to USgas Package
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-12-30T00:00:00Z">
+        
+  December 30, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/time-series">time-series</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+
+
+<p>Happy to announce that the <a href="https://ramikrispin.github.io/USgas/">USgas</a> package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.</p>
+<p>This package is a mirror of the <a href="https://github.com/RamiKrispin/USgrid">USgrid</a> package that focuses on electricity demand (and supply) in the US. Additional information available:</p>
+<ul>
+<li>Source code - <a href="https://github.com/RamiKrispin/USgas" class="uri">https://github.com/RamiKrispin/USgas</a></li>
+<li>Package site - <a href="https://ramikrispin.github.io/USgas/" class="uri">https://ramikrispin.github.io/USgas/</a></li>
+<li>Data source - US Energy Information Administration, <a href="https://www.eia.gov/" class="uri">https://www.eia.gov/</a></li>
+</ul>
+<div id="datasets" class="section level3">
+<h3>Datasets</h3>
+<p>Currently, there are three datasets in the package:</p>
+<ul>
+<li><code>us_monthly</code> - The monthly demand for natural gas in the US between 2001 and 2020</li>
+<li><code>us_total</code> - The US annual natural gas consumption by state-level between 1997 and 2019, and aggregate level between 1949 and 2019</li>
+<li><code>us_residential</code> - The US monthly natural gas residential consumption by state and aggregate level between 1989 and 2020</li>
+</ul>
+<p>While the first dataset describes only the US consumption, the second and third describe total and residential consumption by state, respectively.</p>
+<div id="visualize-the-demand-for-natural-gas" class="section level4">
+<h4>Visualize the demand for natural gas</h4>
+<p>The <code>us_monthly</code> dataset is a monthly series, representing the total demand (or consumption) of natural gas in the US since 2001:</p>
+<pre class="r"><code>library(USgas)
+
+data(&quot;us_monthly&quot;)
+
+head(us_monthly)</code></pre>
+<pre><code>##         date       y
+## 1 2001-01-01 2676998
+## 2 2001-02-01 2309464
+## 3 2001-03-01 2246633
+## 4 2001-04-01 1807170
+## 5 2001-05-01 1522382
+## 6 2001-06-01 1444378</code></pre>
+<p>Let’s use <strong>plotly</strong> to visualize the series:</p>
+<pre class="r"><code>library(plotly)
+
+plot_ly(data = us_monthly,
+        x = ~ date,
+        y = ~ y, 
+        type = &quot;scatter&quot;,
+        mode = &quot;line&quot;) %&gt;%
+  layout(title = &quot;US Monthly Natural Gas Consumption&quot;,
+         yaxis = list(title = &quot;Million Cubic Feet&quot;),
+         xaxis = list(title = &quot;Source: US Energy Information Administration&quot;))</code></pre>
+<div id="htmlwidget-1" style="width:768px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"12f901a6df52f":["function () ","plotlyVisDat"]},"cur_data":"12f901a6df52f","attrs":{"12f901a6df52f":{"x":{},"y":{},"mode":"line","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"US Monthly Natural Gas Consumption","yaxis":{"domain":[0,1],"automargin":true,"title":"Million Cubic Feet"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Source: US Energy Information Administration"},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01"],"y":[2676998,2309464,2246633,1807170,1522382,1444378,1598071,1669178,1494128,1649073,1700950,2120198,2487638,2242427,2258431,1880985,1611453,1591373,1748435,1725712,1542170,1645873,1913629,2378895,2700545,2500315,2197936,1743530,1514697,1368369,1600484,1651580,1428554,1553189,1753642,2263659,2675834,2511097,2100921,1745171,1573043,1483684,1584933,1577962,1482150,1557224,1782796,2327730,2561858,2242986,2205787,1724877,1522613,1534122,1686609,1695102,1422495,1428227,1663400,2326360,2165268,2144378,2126369,1681005,1526297,1550879,1758733,1751683,1462070,1644231,1765375,2122784,2475594,2566993,2128845,1810079,1559080,1555226,1659882,1896137,1590484,1627791,1834529,2399154,2733970,2503421,2278151,1823867,1576387,1604249,1708641,1682924,1460924,1635827,1868947,2399702,2729715,2332539,2170709,1741293,1504000,1527833,1657997,1736462,1574975,1666520,1776171,2491864,2809788,2480950,2142925,1691813,1617274,1649515,1825828,1878926,1637491,1664938,1973294,2714054,2888640,2452403,2230493,1825023,1667396,1657334,1890515,1891783,1655634,1744454,2031872,2541878,2756180,2500654,2127761,1953071,1873835,1868356,2069773,2008815,1807208,1901084,2167841,2503907,2878785,2567155,2521108,1967458,1752469,1742917,1926330,1927379,1766973,1866762,2316909,2920826,3204129,2741240,2557890,1961678,1810222,1745351,1881017,1933061,1809291,1912810,2357521,2679165,3114982,2925172,2591329,2007922,1858149,1899906,2067714,2052728,1901337,1987310,2249140,2588168,3091695,2652260,2356298,2083848,1965799,2000656,2186616,2208375,1947752,1925203,2159445,2866273,2913823,2340217,2523331,1932042,1892010,1910441,2141595,2093773,1920466,2031510,2357258,3086015,3340935,2710719,2796708,2350481,2055019,2063144,2350719,2313836,2156063,2285854,2715942,2999510,3409295,3010255,2906919,2204996,2126139,2119425,2409508,2440706,2217254,2327959,2778553,3148053,3295974,3032619,2708378,2245121,2070883,2135119,2494326,2406430,2173371],"mode":"line","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Likewise, the <code>us_total</code> dataset provides the state (and aggregate) level total consumption of natural gas. Unfurtantully, on the state level, the data is available only in annual format (as opposed to monthly):</p>
+<pre class="r"><code>data(&quot;us_total&quot;)
+
+head(us_total)</code></pre>
+<pre><code>##   year   state      y
+## 1 1997 Alabama 324158
+## 2 1998 Alabama 329134
+## 3 1999 Alabama 337270
+## 4 2000 Alabama 353614
+## 5 2001 Alabama 332693
+## 6 2002 Alabama 379343</code></pre>
+<p>The following plot describes the annual demand in New England states:</p>
+<pre class="r"><code>us_total %&gt;%
+  filter(state %in% c(&quot;Connecticut&quot;, &quot;Maine&quot;, &quot;Massachusetts&quot;,
+                      &quot;New Hampshire&quot;, &quot;Rhode Island&quot;, &quot;Vermont&quot;)) %&gt;%
+  plot_ly(x = ~ year, 
+          y = ~ y,
+          color = ~ state, 
+          type = &quot;scatter&quot;,
+          mode = &quot;line&quot;) %&gt;%
+  layout(title = &quot;New England States Annual Demand for Natural Gas Residential Consumption&quot;,
+         yaxis = list(title = &quot;Million Cubic Feet&quot;),
+         xaxis = list(title = &quot;Source: US Energy Information Administration&quot;))</code></pre>
+<div id="htmlwidget-2" style="width:768px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"visdat":{"12f904081cd9f":["function () ","plotlyVisDat"]},"cur_data":"12f904081cd9f","attrs":{"12f904081cd9f":{"x":{},"y":{},"mode":"line","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"New England States Annual Demand for Natural Gas Residential Consumption","yaxis":{"domain":[0,1],"automargin":true,"title":"Million Cubic Feet"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Source: US Energy Information Administration"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[144708,131497,152237,159712,146278,177587,154075,162642,168067,172682,180181,166801,185056,199426,230036,229156,234475,235859,254065,247958,239818,277931,283408],"mode":"line","type":"scatter","name":"Connecticut","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[6290,5716,6572,44779,95733,101536,70832,72565,57835,49605,63183,70146,70334,77575,71690,68266,64091,60663,52777,53128,43810,46464,44484],"mode":"line","type":"scatter","name":"Maine","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[402629,358846,344790,343314,349103,393194,403991,372532,378068,370664,408704,406719,395852,432297,449194,416350,421001,421671,444332,427946,448996,438577,433774],"mode":"line","type":"scatter","name":"Massachusetts","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[20848,19127,20313,24950,23398,24901,54147,61172,70484,62549,62132,71179,59950,60378,69978,72032,54028,57018,68682,57957,52071,49888,53624],"mode":"line","type":"scatter","name":"New Hampshire","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[117707,130751,118001,88419,95607,87805,78456,72609,80764,77204,87972,89256,92743,94110,100455,95476,85537,88886,93886,85977,92061,101796,99301],"mode":"line","type":"scatter","name":"Rhode Island","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[8061,7735,8033,10426,7919,8367,8400,8685,8372,8056,8867,8624,8638,8443,8611,8191,9602,10677,11950,12094,11926,13742,13866],"mode":"line","type":"scatter","name":"Vermont","marker":{"color":"rgba(255,217,47,1)","line":{"color":"rgba(255,217,47,1)"}},"textfont":{"color":"rgba(255,217,47,1)"},"error_y":{"color":"rgba(255,217,47,1)"},"error_x":{"color":"rgba(255,217,47,1)"},"line":{"color":"rgba(255,217,47,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Last but not least is the <code>us_residential</code> dataset, which describes the monthly demand for natural gas by residential consumers:</p>
+<pre class="r"><code>data(&quot;us_residential&quot;)
+
+head(us_residential)</code></pre>
+<pre><code>##         date   state    y
+## 1 1989-01-01 Alabama 7406
+## 2 1989-02-01 Alabama 7044
+## 3 1989-03-01 Alabama 7392
+## 4 1989-04-01 Alabama 4722
+## 5 1989-05-01 Alabama 2856
+## 6 1989-06-01 Alabama 1709</code></pre>
+<p>Similarly, we can plot the residential demand for natural gas in the West Cost states:</p>
+<pre class="r"><code>library(dplyr)
+
+
+us_residential %&gt;%
+  filter(state %in% c(&quot;Alaska&quot;, &quot;California&quot;,
+                             &quot;Oregon&quot;, &quot;Washington&quot;)) %&gt;%
+  plot_ly(x = ~ date, 
+                  y = ~ y,
+                  color = ~ state, 
+                  type = &quot;scatter&quot;,
+                  mode = &quot;line&quot;) %&gt;%
+  layout(title = &quot;West Cost Natural Gas Residential Consumption&quot;,
+         yaxis = list(title = &quot;Million Cubic Feet&quot;),
+         xaxis = list(title = &quot;Source: US Energy Information Administration&quot;))</code></pre>
+<div id="htmlwidget-3" style="width:768px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"visdat":{"12f9031950aae":["function () ","plotlyVisDat"]},"cur_data":"12f9031950aae","attrs":{"12f9031950aae":{"x":{},"y":{},"mode":"line","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"West Cost Natural Gas Residential Consumption","yaxis":{"domain":[0,1],"automargin":true,"title":"Million Cubic Feet"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Source: US Energy Information Administration"},"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["1989-01-01","1989-02-01","1989-03-01","1989-04-01","1989-05-01","1989-06-01","1989-07-01","1989-08-01","1989-09-01","1989-10-01","1989-11-01","1989-12-01","1990-01-01","1990-02-01","1990-03-01","1990-04-01","1990-05-01","1990-06-01","1990-07-01","1990-08-01","1990-09-01","1990-10-01","1990-11-01","1990-12-01","1991-01-01","1991-02-01","1991-03-01","1991-04-01","1991-05-01","1991-06-01","1991-07-01","1991-08-01","1991-09-01","1991-10-01","1991-11-01","1991-12-01","1992-01-01","1992-02-01","1992-03-01","1992-04-01","1992-05-01","1992-06-01","1992-07-01","1992-08-01","1992-09-01","1992-10-01","1992-11-01","1992-12-01","1993-01-01","1993-02-01","1993-03-01","1993-04-01","1993-05-01","1993-06-01","1993-07-01","1993-08-01","1993-09-01","1993-10-01","1993-11-01","1993-12-01","1994-01-01","1994-02-01","1994-03-01","1994-04-01","1994-05-01","1994-06-01","1994-07-01","1994-08-01","1994-09-01","1994-10-01","1994-11-01","1994-12-01","1995-01-01","1995-02-01","1995-03-01","1995-04-01","1995-05-01","1995-06-01","1995-07-01","1995-08-01","1995-09-01","1995-10-01","1995-11-01","1995-12-01","1996-01-01","1996-02-01","1996-03-01","1996-04-01","1996-05-01","1996-06-01","1996-07-01","1996-08-01","1996-09-01","1996-10-01","1996-11-01","1996-12-01","1997-01-01","1997-02-01","1997-03-01","1997-04-01","1997-05-01","1997-06-01","1997-07-01","1997-08-01","1997-09-01","1997-10-01","1997-11-01","1997-12-01","1998-01-01","1998-02-01","1998-03-01","1998-04-01","1998-05-01","1998-06-01","1998-07-01","1998-08-01","1998-09-01","1998-10-01","1998-11-01","1998-12-01","1999-01-01","1999-02-01","1999-03-01","1999-04-01","1999-05-01","1999-06-01","1999-07-01","1999-08-01","1999-09-01","1999-10-01","1999-11-01","1999-12-01","2000-01-01","2000-02-01","2000-03-01","2000-04-01","2000-05-01","2000-06-01","2000-07-01","2000-08-01","2000-09-01","2000-10-01","2000-11-01","2000-12-01","2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01"],"y":[1793,2148,1566,1223,858,638,432,370,536,895,1474,1656,1745,2090,1756,1181,771,548,409,407,527,929,1586,2216,1931,1847,1477,1258,907,662,470,438,600,926,1356,1691,1777,1933,1764,1346,1012,628,474,438,643,1209,1442,1682,2079,2138,1471,1288,891,577,423,402,513,1043,1261,1772,1815,1763,1952,1480,1026,651,491,416,567,1042,1497,2195,2059,1923,1912,1573,943,680,534,448,588,866,1411,2294,2054,2419,1918,1424,964,647,493,544,589,1238,1708,2181,2249,1618,1767,1177,789,508,463,418,743,1569,1684,2162,2240,1716,1529,1239,933,628,479,648,818,1346,1858,2183,2668,2223,2075,1315,939,559,486,481,870,1423,2127,2466,2355,1886,1764,1234,864,646,475,618,927,1455,1749,2014,1885,1828,1818,1183,981,612,520,538,819,1662,2187,2785,2057,1933,2115,1406,957,1192,421,592,828,1214,1401,2074,2216,1705,2046,1328,935,572,435,599,898,1368,2322,2430,3151,2049,2061,1410,919,538,467,513,1065,1552,2006,2469,2734,2239,1901,1323,869,581,506,563,843,1662,2584,2224,3324,2233,2198,1683,910,725,574,698,946,1594,3197,2533,2841,2545,2709,1536,1033,679,594,587,890,1628,2008,2795,3134,2751,2158,1611,1128,733,702,700,1032,1918,2581,2992,3175,2514,2454,1589,892,663,553,636,933,1417,2428,2725,2730,2054,2121,1574,946,667,630,607,771,1529,2019,3065,2862,2755,2287,1593,990,712,580,650,948,1581,2851,2451,3603,2334,2333,1467,1056,699,634,558,1093,1730,2743,3129,2526,2130,2304,1889,1115,585,497,590,987,1314,2420,2859,2169,2443,2201,1427,800,678,545,538,875,1768,2070,2218,2743,2212,2174,1473,883,589,499,531,1040,1429,2317,2683,2358,2067,1885,1242,864,534,479,534,831,1713,2313,2969,3188,2521,2666,1472,983,656,552,601,892,1579,2613,2525,2708,2620,2219,1483,1032,672,500,591,755,1319,2096,2612,2803,2265,2125,1442,982,531,413,456,823,1447,1978,2685,3653,2749,2611,1577,924,611,498,548,886],"mode":"line","type":"scatter","name":"Alaska","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1989-01-01","1989-02-01","1989-03-01","1989-04-01","1989-05-01","1989-06-01","1989-07-01","1989-08-01","1989-09-01","1989-10-01","1989-11-01","1989-12-01","1990-01-01","1990-02-01","1990-03-01","1990-04-01","1990-05-01","1990-06-01","1990-07-01","1990-08-01","1990-09-01","1990-10-01","1990-11-01","1990-12-01","1991-01-01","1991-02-01","1991-03-01","1991-04-01","1991-05-01","1991-06-01","1991-07-01","1991-08-01","1991-09-01","1991-10-01","1991-11-01","1991-12-01","1992-01-01","1992-02-01","1992-03-01","1992-04-01","1992-05-01","1992-06-01","1992-07-01","1992-08-01","1992-09-01","1992-10-01","1992-11-01","1992-12-01","1993-01-01","1993-02-01","1993-03-01","1993-04-01","1993-05-01","1993-06-01","1993-07-01","1993-08-01","1993-09-01","1993-10-01","1993-11-01","1993-12-01","1994-01-01","1994-02-01","1994-03-01","1994-04-01","1994-05-01","1994-06-01","1994-07-01","1994-08-01","1994-09-01","1994-10-01","1994-11-01","1994-12-01","1995-01-01","1995-02-01","1995-03-01","1995-04-01","1995-05-01","1995-06-01","1995-07-01","1995-08-01","1995-09-01","1995-10-01","1995-11-01","1995-12-01","1996-01-01","1996-02-01","1996-03-01","1996-04-01","1996-05-01","1996-06-01","1996-07-01","1996-08-01","1996-09-01","1996-10-01","1996-11-01","1996-12-01","1997-01-01","1997-02-01","1997-03-01","1997-04-01","1997-05-01","1997-06-01","1997-07-01","1997-08-01","1997-09-01","1997-10-01","1997-11-01","1997-12-01","1998-01-01","1998-02-01","1998-03-01","1998-04-01","1998-05-01","1998-06-01","1998-07-01","1998-08-01","1998-09-01","1998-10-01","1998-11-01","1998-12-01","1999-01-01","1999-02-01","1999-03-01","1999-04-01","1999-05-01","1999-06-01","1999-07-01","1999-08-01","1999-09-01","1999-10-01","1999-11-01","1999-12-01","2000-01-01","2000-02-01","2000-03-01","2000-04-01","2000-05-01","2000-06-01","2000-07-01","2000-08-01","2000-09-01","2000-10-01","2000-11-01","2000-12-01","2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01"],"y":[87958,75817,53779,37832,31161,26581,22730,22977,24184,28083,40070,63104,78572,73931,60247,37602,30979,25125,22555,22334,22093,24435,40091,76544,81885,52982,60602,46136,34795,28515,24971,22944,23383,26211,39238,67035,77875,61574,46860,37311,28422,24100,22397,22039,21969,24434,37291,75266,87565,66015,50594,36252,29411,25116,23646,22749,23934,25932,39240,70513,72586,66977,52478,35315,37223,26995,24541,23620,21949,25961,56469,76846,79509,50614,52461,43743,38489,28924,25181,21306,22148,24743,33646,56731,66779,58007,52226,36723,30001,25996,18649,21757,26104,30462,43702,62905,73871,65672,47664,38704,28268,23226,26444,20643,21448,24538,39940,68486,82305,76213,62009,54074,38119,33208,25149,21625,22038,26159,40200,68831,88358,77994,67420,62128,40605,32960,25727,23376,24496,25265,34488,65679,66741,65334,62855,39046,31735,27625,24448,22116,24496,31757,52106,68470,85495,71801,59144,41839,30699,23066,24195,22473,21331,29189,39037,64425,79491,64122,57999,43106,34646,26367,24891,23494,23150,31451,36668,65611,62742,61307,51363,46472,36234,27704,24968,22166,22084,25736,43421,73760,80607,68760,48651,35580,28303,26967,24110,22446,21547,30541,49852,74682,76870,62924,50895,40258,31785,28351,23745,21897,23432,28502,35080,59959,65421,55662,68793,47329,32929,26417,21133,20893,22020,28106,37412,65663,85741,62484,49689,37437,32317,26503,23004,21550,21367,27978,37115,67194,84770,69136,51311,38422,32935,24731,22623,20836,20849,25162,31620,66909,67619,63571,53611,40905,28637,26638,22862,20497,20461,26332,37012,72575,70666,58616,52024,44708,33082,26822,23450,22085,22790,27880,45455,67310,70482,65457,51570,34838,32739,27204,26695,25315,22626,24758,49546,81335,71879,60157,55899,38572,28728,23707,22631,20731,19607,24622,41236,70162,85488,64601,43465,31414,26196,22876,20894,21214,19699,28257,42264,75406,61049,49235,38959,30716,25224,21690,20299,18834,18456,21140,34011,57876,60216,40902,32140,29622,27358,20889,18932,17399,17032,19235,44392,73056,69803,43748,39795,28203,24772,21252,19533,18613,19918,22234,37485,66473,83528,53979,40607,29707,27253,20886,19094,18027,17775,23670,33950,62530,57512,54556,53115,32039,26759,21806,19784,15058,19154,22607,38251,63275,67257,74192,51706,30632,30649,21322,21403,18498,18490,25563,43975,60983,70232,52704,52770,27770,22897,22572,19821,19004],"mode":"line","type":"scatter","name":"California","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1989-01-01","1989-02-01","1989-03-01","1989-04-01","1989-05-01","1989-06-01","1989-07-01","1989-08-01","1989-09-01","1989-10-01","1989-11-01","1989-12-01","1990-01-01","1990-02-01","1990-03-01","1990-04-01","1990-05-01","1990-06-01","1990-07-01","1990-08-01","1990-09-01","1990-10-01","1990-11-01","1990-12-01","1991-01-01","1991-02-01","1991-03-01","1991-04-01","1991-05-01","1991-06-01","1991-07-01","1991-08-01","1991-09-01","1991-10-01","1991-11-01","1991-12-01","1992-01-01","1992-02-01","1992-03-01","1992-04-01","1992-05-01","1992-06-01","1992-07-01","1992-08-01","1992-09-01","1992-10-01","1992-11-01","1992-12-01","1993-01-01","1993-02-01","1993-03-01","1993-04-01","1993-05-01","1993-06-01","1993-07-01","1993-08-01","1993-09-01","1993-10-01","1993-11-01","1993-12-01","1994-01-01","1994-02-01","1994-03-01","1994-04-01","1994-05-01","1994-06-01","1994-07-01","1994-08-01","1994-09-01","1994-10-01","1994-11-01","1994-12-01","1995-01-01","1995-02-01","1995-03-01","1995-04-01","1995-05-01","1995-06-01","1995-07-01","1995-08-01","1995-09-01","1995-10-01","1995-11-01","1995-12-01","1996-01-01","1996-02-01","1996-03-01","1996-04-01","1996-05-01","1996-06-01","1996-07-01","1996-08-01","1996-09-01","1996-10-01","1996-11-01","1996-12-01","1997-01-01","1997-02-01","1997-03-01","1997-04-01","1997-05-01","1997-06-01","1997-07-01","1997-08-01","1997-09-01","1997-10-01","1997-11-01","1997-12-01","1998-01-01","1998-02-01","1998-03-01","1998-04-01","1998-05-01","1998-06-01","1998-07-01","1998-08-01","1998-09-01","1998-10-01","1998-11-01","1998-12-01","1999-01-01","1999-02-01","1999-03-01","1999-04-01","1999-05-01","1999-06-01","1999-07-01","1999-08-01","1999-09-01","1999-10-01","1999-11-01","1999-12-01","2000-01-01","2000-02-01","2000-03-01","2000-04-01","2000-05-01","2000-06-01","2000-07-01","2000-08-01","2000-09-01","2000-10-01","2000-11-01","2000-12-01","2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01"],"y":[3632,4026,3351,2054,1141,950,696,549,581,804,1835,2886,3807,3786,3219,1820,1476,1206,704,560,532,893,1973,3407,5334,3529,3075,2631,1936,1461,811,595,582,710,2106,3554,4367,3223,2477,1891,1248,772,610,526,648,1017,1993,4337,5789,4569,3843,2533,1769,945,768,672,698,959,2336,4896,4708,4373,3359,2394,1415,1086,751,611,637,1147,3247,5120,5117,3656,3532,2783,2048,1084,808,654,687,1128,2620,3952,5047,5586,4042,2821,2300,1386,839,673,821,1357,3164,5200,5671,5128,4242,3130,1883,1069,881,758,829,1536,2713,4684,6174,4624,4303,2900,2174,1684,944,668,767,1445,3180,5555,6435,5873,5125,3948,2796,1661,852,824,935,1617,3108,5391,6622,5776,5048,3475,2321,1530,997,801,977,1572,3552,6028,6324,5939,5046,3915,2653,1508,1054,882,893,1442,3342,5274,6445,6096,5257,3851,2776,1613,993,840,931,1464,3424,5167,5968,5064,4992,3838,3058,1600,997,819,904,1227,3179,5653,7559,6208,4601,2979,2077,1557,1006,799,998,1471,3569,5709,6861,5816,4374,3787,2311,1668,1101,855,1013,1632,3407,6982,6471,6150,6085,3858,2225,1403,975,868,1055,1712,3892,6350,7886,6842,4832,3471,2525,1452,1070,940,1030,2214,4145,6472,7865,7202,5457,5095,3176,1960,1204,965,1056,1825,3274,5974,7928,6702,6096,4327,2595,1350,1023,885,976,1849,4086,7002,6654,4893,4232,3946,2801,1937,1144,934,955,2073,4947,6304,7093,6525,5488,4400,2720,1529,1093,966,1029,2539,5645,7578,7455,5987,5894,3331,2205,1434,1197,765,1023,2512,4735,6797,8735,5795,4238,3452,2069,1102,919,859,1293,3347,5555,8890,7412,6749,4412,3197,1459,1213,979,894,970,1779,5703,6418,6219,4166,3525,3242,1694,963,840,821,1189,1763,5719,6927,6827,4904,4524,2244,1550,1127,920,622,1114,2776,3994,8788,9534,6406,5136,3766,2148,1326,866,778,1191,3149,5326,8214,6233,6335,5408,3483,1518,1299,945,897,1234,2639,5388,7246,7302,7977,5943,3332,1692,1297,962,959,1405,4322,5687,7047,6819,6263,5856,3288,2165,1575,1170,1000,1156],"mode":"line","type":"scatter","name":"Oregon","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1989-01-01","1989-02-01","1989-03-01","1989-04-01","1989-05-01","1989-06-01","1989-07-01","1989-08-01","1989-09-01","1989-10-01","1989-11-01","1989-12-01","1990-01-01","1990-02-01","1990-03-01","1990-04-01","1990-05-01","1990-06-01","1990-07-01","1990-08-01","1990-09-01","1990-10-01","1990-11-01","1990-12-01","1991-01-01","1991-02-01","1991-03-01","1991-04-01","1991-05-01","1991-06-01","1991-07-01","1991-08-01","1991-09-01","1991-10-01","1991-11-01","1991-12-01","1992-01-01","1992-02-01","1992-03-01","1992-04-01","1992-05-01","1992-06-01","1992-07-01","1992-08-01","1992-09-01","1992-10-01","1992-11-01","1992-12-01","1993-01-01","1993-02-01","1993-03-01","1993-04-01","1993-05-01","1993-06-01","1993-07-01","1993-08-01","1993-09-01","1993-10-01","1993-11-01","1993-12-01","1994-01-01","1994-02-01","1994-03-01","1994-04-01","1994-05-01","1994-06-01","1994-07-01","1994-08-01","1994-09-01","1994-10-01","1994-11-01","1994-12-01","1995-01-01","1995-02-01","1995-03-01","1995-04-01","1995-05-01","1995-06-01","1995-07-01","1995-08-01","1995-09-01","1995-10-01","1995-11-01","1995-12-01","1996-01-01","1996-02-01","1996-03-01","1996-04-01","1996-05-01","1996-06-01","1996-07-01","1996-08-01","1996-09-01","1996-10-01","1996-11-01","1996-12-01","1997-01-01","1997-02-01","1997-03-01","1997-04-01","1997-05-01","1997-06-01","1997-07-01","1997-08-01","1997-09-01","1997-10-01","1997-11-01","1997-12-01","1998-01-01","1998-02-01","1998-03-01","1998-04-01","1998-05-01","1998-06-01","1998-07-01","1998-08-01","1998-09-01","1998-10-01","1998-11-01","1998-12-01","1999-01-01","1999-02-01","1999-03-01","1999-04-01","1999-05-01","1999-06-01","1999-07-01","1999-08-01","1999-09-01","1999-10-01","1999-11-01","1999-12-01","2000-01-01","2000-02-01","2000-03-01","2000-04-01","2000-05-01","2000-06-01","2000-07-01","2000-08-01","2000-09-01","2000-10-01","2000-11-01","2000-12-01","2001-01-01","2001-02-01","2001-03-01","2001-04-01","2001-05-01","2001-06-01","2001-07-01","2001-08-01","2001-09-01","2001-10-01","2001-11-01","2001-12-01","2002-01-01","2002-02-01","2002-03-01","2002-04-01","2002-05-01","2002-06-01","2002-07-01","2002-08-01","2002-09-01","2002-10-01","2002-11-01","2002-12-01","2003-01-01","2003-02-01","2003-03-01","2003-04-01","2003-05-01","2003-06-01","2003-07-01","2003-08-01","2003-09-01","2003-10-01","2003-11-01","2003-12-01","2004-01-01","2004-02-01","2004-03-01","2004-04-01","2004-05-01","2004-06-01","2004-07-01","2004-08-01","2004-09-01","2004-10-01","2004-11-01","2004-12-01","2005-01-01","2005-02-01","2005-03-01","2005-04-01","2005-05-01","2005-06-01","2005-07-01","2005-08-01","2005-09-01","2005-10-01","2005-11-01","2005-12-01","2006-01-01","2006-02-01","2006-03-01","2006-04-01","2006-05-01","2006-06-01","2006-07-01","2006-08-01","2006-09-01","2006-10-01","2006-11-01","2006-12-01","2007-01-01","2007-02-01","2007-03-01","2007-04-01","2007-05-01","2007-06-01","2007-07-01","2007-08-01","2007-09-01","2007-10-01","2007-11-01","2007-12-01","2008-01-01","2008-02-01","2008-03-01","2008-04-01","2008-05-01","2008-06-01","2008-07-01","2008-08-01","2008-09-01","2008-10-01","2008-11-01","2008-12-01","2009-01-01","2009-02-01","2009-03-01","2009-04-01","2009-05-01","2009-06-01","2009-07-01","2009-08-01","2009-09-01","2009-10-01","2009-11-01","2009-12-01","2010-01-01","2010-02-01","2010-03-01","2010-04-01","2010-05-01","2010-06-01","2010-07-01","2010-08-01","2010-09-01","2010-10-01","2010-11-01","2010-12-01","2011-01-01","2011-02-01","2011-03-01","2011-04-01","2011-05-01","2011-06-01","2011-07-01","2011-08-01","2011-09-01","2011-10-01","2011-11-01","2011-12-01","2012-01-01","2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01"],"y":[6051,6660,5730,3625,1822,1501,1002,801,969,1622,3484,5091,5949,6383,5338,3315,2575,1945,1050,795,941,1966,3946,6144,8514,6250,5558,4714,3090,2292,1292,952,1105,1716,4403,6336,7286,5966,4719,3736,2377,1384,910,956,1310,2236,4236,7930,9680,7331,6669,4665,3123,2619,1424,1243,1376,2169,4650,8309,7905,7815,6670,4519,2648,1960,1460,1040,1263,2558,6171,9135,9018,7028,6878,5064,3088,1926,1361,1251,1411,2444,5683,7611,9011,10162,7642,5418,4456,2610,1628,1250,1572,2930,6207,9804,8735,7525,6526,3680,4487,2451,1995,1791,2002,3623,7594,11405,11762,9711,8950,5827,3221,2312,1765,1574,1667,2427,4731,7989,12151,9992,8964,6858,4654,3059,1958,1750,1953,4024,6596,9745,11393,10369,9196,6568,4583,3119,1997,1614,2023,3234,6796,10887,11086,10982,8884,7279,4900,3025,2008,1656,1780,5692,11145,15980,10931,11228,10270,7880,5536,3025,1881,1587,1784,3158,6861,9204,10368,9580,9371,7061,5102,2919,1899,1546,1838,2903,7581,10942,13304,10362,8373,5626,3552,2842,1860,1598,2024,3494,7531,10366,12508,9921,8268,7088,3692,2879,2015,1683,2063,3631,7456,12420,10414,11287,10365,6762,4308,2647,1887,1721,2136,3880,8040,12044,13609,11561,9168,6770,4683,2925,2029,1850,2218,4726,8341,12273,13347,12931,9964,9030,5940,3789,2357,1970,2232,4209,7086,11653,14455,12274,11195,8018,4895,2608,1934,1717,2006,4351,7793,12897,11018,8686,7948,6868,4974,3388,2180,1927,2006,4898,10024,11637,12605,11649,9926,8128,4993,2792,2063,1985,2014,5410,10715,13113,12997,11257,10663,5779,4010,2979,2045,1933,2181,5175,8711,12161,14568,10267,9142,6638,3713,2404,1728,1912,2209,6588,9774,14423,12903,12665,8911,5843,3390,2360,1916,1722,2089,3689,11480,11782,11781,8079,7225,5971,3103,1914,1700,1637,2613,4199,11216,12469,12921,9272,8903,4151,3170,2300,1855,1776,2551,5551,7845,16027,16845,12452,10426,7033,4046,2226,1802,1749,2441,6464,10582,14960,12237,12079,11113,7325,2831,2449,2010,1585,2610,6120,10052,13155,13304,15673,10491,6195,3194,2415,1974,1704,2622,8230,11277,12890,13006,10967,6508,3901,2786,2345,1994,2303],"mode":"line","type":"scatter","name":"Washington","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="road-map" class="section level3">
+<h3>Road map</h3>
+<p>The goal for the next release (potentially on Q2) is to add additional series related to the demand for natural gas in the US, such as prices, supply, and production, etc.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/time-series/">time-series</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/gas/">gas</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/data/">data</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/intro-to-sfo/" data-tooltip="Introduction to the sfo Package">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/12/intro-to-usgas/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/12/intro-to-usgas/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/12/intro-to-usgas/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Rami Krispin. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/12/intro-to-sfo/" data-tooltip="Introduction to the sfo Package">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/12/intro-to-usgas/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/12/intro-to-usgas/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/12/intro-to-usgas/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F12%2Fintro-to-usgas%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F12%2Fintro-to-usgas%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F12%2Fintro-to-usgas%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Rami Krispin</h4>
+    
+      <div id="about-card-bio">Time series analysis, forecasting, machine learning, and data visualization</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Cupertino, CA
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('/images/background.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2020\/12\/intro-to-usgas\/';
+          
+            this.page.identifier = '\/2020\/12\/intro-to-usgas\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
