@@ -6,10 +6,19 @@
     <description>Recent content in time-series on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/time-series/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Quantify the Covid19 Impact on the SFO Airport Passenger Air Traffic</title>
+      <link>/2021/01/covid19-effect/</link>
+      <pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/01/covid19-effect/</guid>
+      <description>The Covid19 pandemic had, and unfortunately still have, a significant impact on most of the major industries. While for some sectors, the impact was positive (such as online retails, internet and steaming providers, etc.), it was negative for others (such as transportation, tourism, entertainment, etc.). In both cases, we can leverage time series modeling to quantify the effect of the Covid19 on the sector.</description>
+    </item>
     
     <item>
       <title>Introduction to USgas Package</title>
