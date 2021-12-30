@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dataset on Rami Krispin</title>
+    <link>/tags/dataset/</link>
+    <description>Recent content in dataset on Rami Krispin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dataset/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introduction to the coronavirus package</title>
+      <link>/2020/03/introduction-to-the-coronavirus-package/</link>
+      <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/03/introduction-to-the-coronavirus-package/</guid>
+      <description>The coronavirus R dataset package provides a daily summary for the Coronavirus new cases by geographic location (i.e., country and province/state when applicable), and case type (confirmed, recovered, and death). The raw data pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus repository.
+Note: More granular data for the main countries affected by the virus (South Korea, Italy, Iran, etc.</description>
+    </item>
+    
+  </channel>
+</rss>
