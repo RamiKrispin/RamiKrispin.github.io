@@ -2,21 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>trainLM on Rami Krispin</title>
-    <link>/tags/trainlm/</link>
+    <link>https://ramikrispin.github.io/tags/trainlm/</link>
     <description>Recent content in trainLM on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/trainlm/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/tags/trainlm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to the forecastLM package</title>
-      <link>/2020/02/introduction-to-the-forecastlm-package/</link>
+      <link>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</link>
       <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/02/introduction-to-the-forecastlm-package/</guid>
+      <guid>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</guid>
       <description>I am pleased to announce a new R package - forecastLM. The package, as the name implies, provides applications for forecasting regular time series data with a linear regression model (based on the lm function from the stats package). It supports both ts and tsibble objects as inputs and enables simple extractions of features from the input object on the fly. Example for such features:</description>
     </item>
     

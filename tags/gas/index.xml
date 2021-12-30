@@ -2,21 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gas on Rami Krispin</title>
-    <link>/tags/gas/</link>
+    <link>https://ramikrispin.github.io/tags/gas/</link>
     <description>Recent content in gas on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/gas/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 30 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/tags/gas/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to USgas Package</title>
-      <link>/2020/12/intro-to-usgas/</link>
+      <link>https://ramikrispin.github.io/2020/12/intro-to-usgas/</link>
       <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/12/intro-to-usgas/</guid>
+      <guid>https://ramikrispin.github.io/2020/12/intro-to-usgas/</guid>
       <description>Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
 This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
  Source code - https://github.</description>

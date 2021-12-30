@@ -2,49 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>timeseries on Rami Krispin</title>
-    <link>/tags/timeseries/</link>
+    <link>https://ramikrispin.github.io/tags/timeseries/</link>
     <description>Recent content in timeseries on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/timeseries/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/tags/timeseries/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to the forecastLM package</title>
-      <link>/2020/02/introduction-to-the-forecastlm-package/</link>
+      <link>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</link>
       <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/02/introduction-to-the-forecastlm-package/</guid>
+      <guid>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</guid>
       <description>I am pleased to announce a new R package - forecastLM. The package, as the name implies, provides applications for forecasting regular time series data with a linear regression model (based on the lm function from the stats package). It supports both ts and tsibble objects as inputs and enables simple extractions of features from the input object on the fly. Example for such features:</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.5 on CRAN</title>
-      <link>/2019/12/tsstudio-0-1-5-on-cran/</link>
+      <link>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</link>
       <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/12/tsstudio-0-1-5-on-cran/</guid>
+      <guid>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</guid>
       <description>A new version (0.1.5) of the TSstudio package was pushed to CRAN last month. The release includes new functions as well as bug fixing, and update of the package license (modified from GPL-3 to MIT).
 New features  train_model - a flexible framework for training, testing, evaluating, and forecasting models. This function provides the ability to run multiple models with backtesting or single training/testing partitions. This function will replace the ts_backtesting function which will deprecated in the next release.</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.3</title>
-      <link>/2018/12/tsstudio-0.1.3/</link>
+      <link>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</link>
       <pubDate>Sat, 01 Dec 2018 21:13:14 -0500</pubDate>
       
-      <guid>/2018/12/tsstudio-0.1.3/</guid>
+      <guid>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</guid>
       <description>I used the Thanksgiving break to push a new update of the TSstudio package to CRAN (version 0.1.3). The new version includes an update for the ts_backtesting function along with two new function - ts_to_prophet for converting time series objects to a prophet input format (i.e., ds and y columns), and ccf_plot for lags plot between two time series. The package can be installed from either CRAN or Github:</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.2</title>
-      <link>/2018/09/tsstudio-0.1.2/</link>
+      <link>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</link>
       <pubDate>Fri, 28 Sep 2018 21:13:14 -0500</pubDate>
       
-      <guid>/2018/09/tsstudio-0.1.2/</guid>
+      <guid>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</guid>
       <description>Happy to announce the release of TSstudio 0.1.2 to CRAN. The TSstudio package provides tools for descriptive and predictive analysis of time series data, utilizing the visualization enegin of the plotly package and forecasting models from the forecast, forecastHybrid and bsts packages.
 Installation Install the stable version from CRAN:
 install.packages(&amp;quot;TSstudio&amp;quot;) or install the development version from Github:

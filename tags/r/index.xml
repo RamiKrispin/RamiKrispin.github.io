@@ -2,30 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Rami Krispin</title>
-    <link>/tags/r/</link>
+    <link>https://ramikrispin.github.io/tags/r/</link>
     <description>Recent content in R on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 06 Jan 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Thu, 30 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Geospatial Visualization with the tmap package</title>
+      <link>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</link>
+      <pubDate>Thu, 30 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</guid>
+      <description>
+&lt;script src=&#34;{{&lt; blogdown/postref &gt;}}index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+</description>
+    </item>
     
     <item>
       <title>Quantify the Covid19 Impact on the SFO Airport Passenger Air Traffic</title>
-      <link>/2021/01/covid19-effect/</link>
+      <link>https://ramikrispin.github.io/2021/01/covid19-effect/</link>
       <pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/2021/01/covid19-effect/</guid>
+      <guid>https://ramikrispin.github.io/2021/01/covid19-effect/</guid>
       <description>The Covid19 pandemic had, and unfortunately still have, a significant impact on most of the major industries. While for some sectors, the impact was positive (such as online retails, internet and steaming providers, etc.), it was negative for others (such as transportation, tourism, entertainment, etc.). In both cases, we can leverage time series modeling to quantify the effect of the Covid19 on the sector.</description>
     </item>
     
     <item>
       <title>Introduction to USgas Package</title>
-      <link>/2020/12/intro-to-usgas/</link>
+      <link>https://ramikrispin.github.io/2020/12/intro-to-usgas/</link>
       <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/12/intro-to-usgas/</guid>
+      <guid>https://ramikrispin.github.io/2020/12/intro-to-usgas/</guid>
       <description>Happy to announce that the USgas package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.
 This package is a mirror of the USgrid package that focuses on electricity demand (and supply) in the US. Additional information available:
  Source code - https://github.</description>
@@ -33,10 +42,10 @@ This package is a mirror of the USgrid package that focuses on electricity deman
     
     <item>
       <title>Introduction to the sfo Package</title>
-      <link>/2020/12/intro-to-sfo/</link>
+      <link>https://ramikrispin.github.io/2020/12/intro-to-sfo/</link>
       <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/12/intro-to-sfo/</guid>
+      <guid>https://ramikrispin.github.io/2020/12/intro-to-sfo/</guid>
       <description>Happy to announce (in a one month delay) a new package - sfo, which provides monthly statistics of the air passenger traffic at San Francisco International (SFO) airport. The package is available on CRAN.
 Additional information available:
  Source code - https://github.com/RamiKrispin/sfo Package site - https://ramikrispin.github.io/sfo/index.html Vignettes - https://ramikrispin.github.io/sfo/articles Data source - San Francisco Open Data portal  The package provides the following two datasets:</description>
@@ -44,86 +53,86 @@ Additional information available:
     
     <item>
       <title>Embedding flexdashboard in pkgdown site</title>
-      <link>/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
+      <link>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
       <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
+      <guid>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
       <description>In the previous post, I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in Github Pages. The focus of this post is on embedding flexdashboard oin pkgdown site. The pkgdown package is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format.
 Motivation Why would you like to embed a flexdashboard dashboard in a pkgdown site?</description>
     </item>
     
     <item>
       <title>Deploying flexdashboard on Github Pages</title>
-      <link>/2020/09/deploying-flexdashboard-on-github-pages/</link>
+      <link>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</link>
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/deploying-flexdashboard-on-github-pages/</guid>
+      <guid>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</guid>
       <description>One of Github’s coolest features is Github Pages, which enables you to create and deploy websites under github.com domain for free. The most common usage of Github Pages is the deployment of project documentation. The R community is widely using it to deploy different R Markdown formats such as package documentation with pkgdown, blogs with blogdown, books with bookdown, etc. Recently, as I was looking for a way to share Covid19 data, I had this eureka moment realizing that it should be straightforward to deploy flexdashboard or any other format of R Markdown (none Shiny) on Github Pages.</description>
     </item>
     
     <item>
       <title>covid19italy v0.3.0 is now on CRAN</title>
-      <link>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</link>
+      <link>https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</guid>
+      <guid>https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/</guid>
       <description>Version 0.3.0 of the covid19italy is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the update_data function enables you to get the most recent data available on the Github version (updated on a daily basis).
 Additional resources:</description>
     </item>
     
     <item>
       <title>coronavirus v0.2.0 is now on CRAN</title>
-      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+      <link>https://ramikrispin.github.io/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+      <guid>https://ramikrispin.github.io/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
       <description>Version 0.2.0 of the coronavirus R data package was pushed today to CRAN. The coronavirus package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus dataset. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from experimental to maturing.</description>
     </item>
     
     <item>
       <title>covid19italy v0.2.0 is now on CRAN</title>
-      <link>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</link>
+      <link>https://ramikrispin.github.io/2020/05/covid19italy-v0-2-0-is-now-on-cran/</link>
       <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</guid>
+      <guid>https://ramikrispin.github.io/2020/05/covid19italy-v0-2-0-is-now-on-cran/</guid>
       <description>Last week I pushed an update of the covid19italy package to CRAN (v0.2.0). The covid19italy R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) pandemic outbreak in Italy. The package includes the following three datasets:
  italy_total - daily summary of the outbreak on the national level italy_region - daily summary of the outbreak on the region level italy_province - daily summary of the outbreak on the province level  More details about the datasets available on the following vignette</description>
     </item>
     
     <item>
       <title>Introduction to the forecastLM package</title>
-      <link>/2020/02/introduction-to-the-forecastlm-package/</link>
+      <link>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</link>
       <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/02/introduction-to-the-forecastlm-package/</guid>
+      <guid>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</guid>
       <description>I am pleased to announce a new R package - forecastLM. The package, as the name implies, provides applications for forecasting regular time series data with a linear regression model (based on the lm function from the stats package). It supports both ts and tsibble objects as inputs and enables simple extractions of features from the input object on the fly. Example for such features:</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.5 on CRAN</title>
-      <link>/2019/12/tsstudio-0-1-5-on-cran/</link>
+      <link>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</link>
       <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/12/tsstudio-0-1-5-on-cran/</guid>
+      <guid>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</guid>
       <description>A new version (0.1.5) of the TSstudio package was pushed to CRAN last month. The release includes new functions as well as bug fixing, and update of the package license (modified from GPL-3 to MIT).
 New features  train_model - a flexible framework for training, testing, evaluating, and forecasting models. This function provides the ability to run multiple models with backtesting or single training/testing partitions. This function will replace the ts_backtesting function which will deprecated in the next release.</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.3</title>
-      <link>/2018/12/tsstudio-0.1.3/</link>
+      <link>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</link>
       <pubDate>Sat, 01 Dec 2018 21:13:14 -0500</pubDate>
       
-      <guid>/2018/12/tsstudio-0.1.3/</guid>
+      <guid>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</guid>
       <description>I used the Thanksgiving break to push a new update of the TSstudio package to CRAN (version 0.1.3). The new version includes an update for the ts_backtesting function along with two new function - ts_to_prophet for converting time series objects to a prophet input format (i.e., ds and y columns), and ccf_plot for lags plot between two time series. The package can be installed from either CRAN or Github:</description>
     </item>
     
     <item>
       <title>TSstudio 0.1.2</title>
-      <link>/2018/09/tsstudio-0.1.2/</link>
+      <link>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</link>
       <pubDate>Fri, 28 Sep 2018 21:13:14 -0500</pubDate>
       
-      <guid>/2018/09/tsstudio-0.1.2/</guid>
+      <guid>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</guid>
       <description>Happy to announce the release of TSstudio 0.1.2 to CRAN. The TSstudio package provides tools for descriptive and predictive analysis of time series data, utilizing the visualization enegin of the plotly package and forecasting models from the forecast, forecastHybrid and bsts packages.
 Installation Install the stable version from CRAN:
 install.packages(&amp;quot;TSstudio&amp;quot;) or install the development version from Github:

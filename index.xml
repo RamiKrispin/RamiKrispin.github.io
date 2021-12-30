@@ -1,33 +1,400 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  2  <channel>
  3    <title>Rami Krispin</title>
- 4    <link>/</link>
+ 4    <link>https://ramikrispin.github.io/</link>
  5    <description>Recent content on Rami Krispin</description>
  6    <generator>Hugo -- gohugo.io</generator>
  7    <language>en-us</language>
-11    <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +0000</lastBuildDate>
+11    <lastBuildDate>Thu, 30 Dec 2021 00:00:00 +0000</lastBuildDate>
 12    
-13        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+13        <atom:link href="https://ramikrispin.github.io/index.xml" rel="self" type="application/rss+xml" />
 14    
 15    
 16    <item>
+17      <title>Introduction to Geospatial Visualization with the tmap package</title>
+18      <link>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</link>
+19      <pubDate>Thu, 30 Dec 2021 00:00:00 +0000</pubDate>
+20      
+21      <guid>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</guid>
+22      <description>&lt;p&gt;I had super fun exploring the &lt;a href=&#34;https://cran.r-project.org/web/packages/tmap/index.html&#34;&gt;tmap&lt;/a&gt; package functionality while preparing a presentation about geospatial visualization for the &lt;a href=&#34;https://ramikrispin.github.io/gis-dataviz-workshop/#1&#34;&gt;Abuja R-Ladies/R Users meetup&lt;/a&gt;, so I decided to write a short tutorial about it.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;tmap&lt;/strong&gt; package provides a set of functions and tools for creating thematic maps such as choropleths and bubble maps. The package follows the &lt;strong&gt;ggplot2&lt;/strong&gt; syntax style enabling users to add different layers to the map. By default, the plot output is static, but it also has an interactive mode providing a wrapper to the JavaScript &lt;a href=&#34;https://leafletjs.com/&#34;&gt;leaflet&lt;/a&gt; library (similar to &lt;strong&gt;mapview&lt;/strong&gt; and &lt;strong&gt;leaflet&lt;/strong&gt; packages). This tutorial focuses on the basic functionality of the package covering:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Plotting &lt;code&gt;sf&lt;/code&gt; objects&lt;/li&gt;
+&lt;li&gt;Customize the plot colors&lt;/li&gt;
+&lt;li&gt;Setting titles and legends&lt;/li&gt;
+&lt;li&gt;Global options and attributes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-2-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;libraries&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Libraries&lt;/h4&gt;
+&lt;p&gt;In this tutorial, we will use the following libraries:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;tmap&lt;/strong&gt; - tools and functions for creating thematic maps&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;sf&lt;/strong&gt; - supports for &lt;code&gt;sf&lt;/code&gt; objects&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;covid19sf&lt;/strong&gt; - daily summary of COVID-19 cases and vaccination status in San Francisco&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dplyr&lt;/strong&gt; - to manipulate and filter the data&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RColorBrewer&lt;/strong&gt; - to set a color palettes for the plot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tmap)
+library(sf)
+library(covid19sf)
+library(dplyr)
+library(RColorBrewer)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-input&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Data input&lt;/h4&gt;
+&lt;p&gt;The &lt;strong&gt;tmap&lt;/strong&gt; package supports objects from the &lt;strong&gt;sf&lt;/strong&gt;, &lt;strong&gt;stars&lt;/strong&gt;, &lt;strong&gt;sp&lt;/strong&gt;, and &lt;strong&gt;raster&lt;/strong&gt; packages. I generally find it easier to work with &lt;code&gt;sf&lt;/code&gt; object as it is a &lt;code&gt;data.frame&lt;/code&gt; with extra attributes (nested geometry data). Therefore, it is significantly easier and faster to manipulate &lt;code&gt;sf&lt;/code&gt; objects with the use of &lt;strong&gt;dplyr&lt;/strong&gt; or similar applications.&lt;/p&gt;
+&lt;p&gt;In the examples below, we will use the &lt;code&gt;covid19sf_vaccine_geo&lt;/code&gt; dataset from the &lt;a href=&#34;https://github.com/RamiKrispin/covid19sf&#34;&gt;covid19sf&lt;/a&gt; package. This dataset represents the COVID-19 vaccinations given to SF residents by geographic region of their residential address. The dataset comes as an &lt;code&gt;sf&lt;/code&gt; object, therefore, no additional reformatting is needed:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(covid19sf_vaccine_geo)
+
+head(covid19sf_vaccine_geo)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Simple feature collection with 6 features and 8 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -122.4773 ymin: 37.73155 xmax: -122.3843 ymax: 37.80602
+## Geodetic CRS:  WGS 84
+##                               id             area_type count_vaccinated_by_dph
+## 1                 Bernal Heights Analysis Neighborhood                    5106
+## 2 Financial District/South Beach Analysis Neighborhood                    1841
+## 3                      Glen Park Analysis Neighborhood                     573
+## 4                 Haight Ashbury Analysis Neighborhood                     823
+## 5                   Hayes Valley Analysis Neighborhood                    2401
+## 6                   Inner Sunset Analysis Neighborhood                    1220
+##   count_vaccinated count_series_completed acs_population
+## 1            21109                  19781          25167
+## 2            22782                  20215          21537
+## 3             7257                   6804           8651
+## 4            14360                  13279          19275
+## 5            16351                  14930          19711
+## 6            23414                  21829          29539
+##   percent_pop_series_completed        last_updated
+## 1                    0.7859896 2021-12-15 04:45:07
+## 2                    0.9386173 2021-12-15 04:45:09
+## 3                    0.7864987 2021-12-15 04:45:09
+## 4                    0.6889235 2021-12-15 04:45:09
+## 5                    0.7574451 2021-12-15 04:45:09
+## 6                    0.7389891 2021-12-15 04:45:09
+##                         geometry
+## 1 MULTIPOLYGON (((-122.4036 3...
+## 2 MULTIPOLYGON (((-122.3875 3...
+## 3 MULTIPOLYGON (((-122.4474 3...
+## 4 MULTIPOLYGON (((-122.432 37...
+## 5 MULTIPOLYGON (((-122.4208 3...
+## 6 MULTIPOLYGON (((-122.4529 3...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The dataset includes the following fields:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;id&lt;/code&gt; - Area id&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;area_type&lt;/code&gt; - Area type, c(“Analysis Neighborhood”, “Summary”)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;count_vaccinated_by_dph&lt;/code&gt; - Count of residents in the given geographic region who has received at least one dose administered by DPH&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;count_vaccinated&lt;/code&gt; - Count of residents in the given geographic region who has received at least one dose regardless of who administered the vaccine&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;count_series_completed&lt;/code&gt; - Count of residents in the given geographic region who has completed a vaccine series&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acs_population&lt;/code&gt; - 2019 5-year American Community Survey population estimate for the given geographic region (all ages)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;percent_pop_series_completed&lt;/code&gt; - The total count of population that has completed a vaccine series by population estimate (acs_population)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;last_updated&lt;/code&gt; - Last update of the data in POSIXc format)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;geometry&lt;/code&gt; - The area polygon data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the examples below, we will plot the percentage of San Francisco’s fully vaccinated population by neighborhood. The dataset contains both neighborhood and aggregated level data. Therefore, before starting, we will filter the data by the neighborhood level and remove the aggregated data:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- covid19sf_vaccine_geo %&amp;gt;% 
+  filter(area_type == &amp;quot;Analysis Neighborhood&amp;quot;) %&amp;gt;%
+  mutate(perc_complated = percent_pop_series_completed * 100)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We created the &lt;code&gt;perc_complated&lt;/code&gt; variable, a transformation of the &lt;code&gt;percent_pop_series_completed&lt;/code&gt; variable from decimal to percentage format.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;basic-map&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Basic map&lt;/h4&gt;
+&lt;p&gt;Before starting, following changes in the default options of the sf package from version &lt;code&gt;1.0-1&lt;/code&gt;, the default option is to use s2 spherical geometry when coordinates are ellipsoidal. That can cause some issues with the &lt;strong&gt;tmap&lt;/strong&gt; package, therefore we will set this functionality as &lt;code&gt;FALSE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sf_use_s2(FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will start with a basic plot of the percentage of the vaccinated population in San Francisco. The &lt;code&gt;tm_shape&lt;/code&gt; function specifies the shape object, and the &lt;code&gt;tm_polygons&lt;/code&gt; function draws the polygons and fills the color based on the input variable:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(col = &amp;quot;perc_complated&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-7-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;By default, the &lt;code&gt;tm_polygons&lt;/code&gt; function bucket the continues variable into groups. In the case above, the percentage of vaccinated population, into groups of tens. The &lt;code&gt;style&lt;/code&gt; and &lt;code&gt;n&lt;/code&gt; arguments enable you to control the splitting or bucketing method (e.g., by fixed breaks, standard divination, quantile, log scale, etc.) and the number of groups, respectively. For example, let’s use the &lt;code&gt;equal&lt;/code&gt; style and set the percentage groups into 10 equal buckets:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              n = 10,
+              style = &amp;quot;equal&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;)  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-8-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;color-setting&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Color setting&lt;/h4&gt;
+&lt;p&gt;Let’s now modify the plot’s colors. The &lt;code&gt;palette&lt;/code&gt; argument on &lt;code&gt;tm_polygons&lt;/code&gt; function enables you to define the map fill color palette. For example, we will use the &lt;code&gt;RdYlBu&lt;/code&gt; from the &lt;strong&gt;RColorBrewer&lt;/strong&gt; package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;display.brewer.pal(n=7, name = &amp;quot;RdYlBu&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-9-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;)  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-10-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;palette&lt;/code&gt; argument supports R’s main color palettes packages, such as &lt;strong&gt;RColorBrewer&lt;/strong&gt; and &lt;strong&gt;viridis&lt;/strong&gt;. You can customize and modify the default palettes with the &lt;code&gt;palette_explorer&lt;/code&gt; function, a Shiny app from the &lt;strong&gt;tmaptools&lt;/strong&gt; package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tmaptools)
+
+palette_explorer()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;images/tmaptools%20app.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;tm_layout&lt;/code&gt; function enables setting and modifying the plot’s main elements: title, margins, aspect ratio, colors, frame, legend, etc. In the following example, we will modify the previous plot and set the background to black using the &lt;code&gt;bg.color&lt;/code&gt; argument. As the default text color is black, we will modify the legend title color to white with the &lt;code&gt;attr.color&lt;/code&gt; argument:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_layout(bg.color = &amp;quot;black&amp;quot;,
+            attr.color = &amp;quot;white&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-11-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;An alternative approach for setting the plot colors is to use a built-in color style. The &lt;code&gt;tm_style&lt;/code&gt; function provides a predefined styles. That includes the following styles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;white&lt;/code&gt; - White background, commonly used colors (default)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gray&lt;/code&gt;/&lt;code&gt;grey&lt;/code&gt; - Grey background, useful to highlight sequential palettes (e.g. in choropleths)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;natural&lt;/code&gt; - Emulation of natural view: blue waters and green land&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bw&lt;/code&gt; - Greyscale, obviously useful for greyscale printing&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;classic&lt;/code&gt; - Classic styled maps (recommended)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cobalt&lt;/code&gt; - Inspired by latex beamer style cobalt&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;albatross&lt;/code&gt; - Inspired by latex beamer style albatross&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;beaver&lt;/code&gt; - Inspired by latex beamer style beaver&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For example, let’s use the &lt;code&gt;cobalt&lt;/code&gt; style:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_style(&amp;quot;cobalt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-12-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;titles-and-legends&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Titles and legends&lt;/h4&gt;
+&lt;p&gt;After we set the color theme it is time to set the plot title and customize the legend with the &lt;code&gt;tm_layout&lt;/code&gt; function. We will use the function &lt;code&gt;title&lt;/code&gt; argument (not to be confused with the &lt;code&gt;title&lt;/code&gt; argument of the &lt;code&gt;tm_polygons&lt;/code&gt; function):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_style(&amp;quot;cobalt&amp;quot;) +
+  tm_layout(title = &amp;quot;COVID-19 Vaccines Given to San Franciscans by Geography&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-13-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can customize the title position with the &lt;code&gt;title.position&lt;/code&gt; argument, using a vector of two values (see &lt;code&gt;?title.position&lt;/code&gt; for more details).&lt;/p&gt;
+&lt;p&gt;It may make sense to move the plot’s legend to the bottom right. We will use the following legend arguments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;legend.position&lt;/code&gt; - to set the legend position&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend.outside&lt;/code&gt; - if set to &lt;code&gt;TRUE&lt;/code&gt;, will position the legend outside the plot margin&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend.title.size&lt;/code&gt; - set the legend title font size&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend.text.size&lt;/code&gt; - set the legend font size&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_style(&amp;quot;cobalt&amp;quot;) +
+  tm_layout(title = &amp;quot;COVID-19 Vaccines Given to San Franciscans by Geography&amp;quot;,
+            legend.position =c(&amp;quot;right&amp;quot;, &amp;quot;bottom&amp;quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-14-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You can note that both the title and legend have some overlapping with the plot itself. We will use the &lt;code&gt;inner.margins&lt;/code&gt; argument to modify the plot margins. This argument is a vector of four values specifying the bottom, left, top, and right margin:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_style(&amp;quot;cobalt&amp;quot;) +
+  tm_layout(title = &amp;quot;COVID-19 Vaccines Given to San Franciscans by Geography&amp;quot;,
+            legend.position =c(&amp;quot;right&amp;quot;, &amp;quot;bottom&amp;quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9, 
+            inner.margins = c(0.01, 0.01, .12, .25))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-15-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, we will label the polygons with their names with the &lt;code&gt;tm_text&lt;/code&gt; function. The &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;size&lt;/code&gt; arguments define the labels variable and the font size, respectively:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+  tm_style(&amp;quot;cobalt&amp;quot;) +
+  tm_text(text = &amp;quot;id&amp;quot;, 
+          size = 0.6) +
+  tm_layout(title = &amp;quot;COVID-19 Vaccines Given to San Franciscans by Geography&amp;quot;,
+            legend.position =c(&amp;quot;right&amp;quot;, &amp;quot;bottom&amp;quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9, 
+            inner.margins = c(0.01, 0.01, .12, .25))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-16-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot-attributes&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Plot attributes&lt;/h4&gt;
+&lt;p&gt;Last but not least, we will review the &lt;strong&gt;tmap&lt;/strong&gt; package global options. The &lt;code&gt;tmap_options&lt;/code&gt; function defines the default global attributes of the plot:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(tmap_options(), 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $unit
+## [1] &amp;quot;metric&amp;quot;
+## 
+## $limits
+## facets.plot facets.view 
+##          64           4 
+## 
+## $max.categories
+## [1] 30
+## 
+## $max.raster
+##  plot  view 
+## 1e+06 1e+06 
+## 
+## $show.messages
+## [1] TRUE
+## 
+## $show.warnings
+## [1] TRUE
+## 
+## $output.format
+## [1] &amp;quot;png&amp;quot;
+## 
+## $output.size
+## [1] 49
+## 
+## $output.dpi
+## [1] 300
+## 
+## $output.dpi.animation
+## [1] 100&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In total, there are 111 attributes:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;names(tmap_options())&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   [1] &amp;quot;unit&amp;quot;                    &amp;quot;limits&amp;quot;                 
+##   [3] &amp;quot;max.categories&amp;quot;          &amp;quot;max.raster&amp;quot;             
+##   [5] &amp;quot;show.messages&amp;quot;           &amp;quot;show.warnings&amp;quot;          
+##   [7] &amp;quot;output.format&amp;quot;           &amp;quot;output.size&amp;quot;            
+##   [9] &amp;quot;output.dpi&amp;quot;              &amp;quot;output.dpi.animation&amp;quot;   
+##  [11] &amp;quot;check.and.fix&amp;quot;           &amp;quot;title&amp;quot;                  
+##  [13] &amp;quot;scale&amp;quot;                   &amp;quot;title.size&amp;quot;             
+##  [15] &amp;quot;bg.color&amp;quot;                &amp;quot;aes.color&amp;quot;              
+##  [17] &amp;quot;aes.palette&amp;quot;             &amp;quot;attr.color&amp;quot;             
+##  [19] &amp;quot;sepia.intensity&amp;quot;         &amp;quot;saturation&amp;quot;             
+##  [21] &amp;quot;frame&amp;quot;                   &amp;quot;frame.lwd&amp;quot;              
+##  [23] &amp;quot;frame.double.line&amp;quot;       &amp;quot;asp&amp;quot;                    
+##  [25] &amp;quot;outer.margins&amp;quot;           &amp;quot;inner.margins&amp;quot;          
+##  [27] &amp;quot;between.margin&amp;quot;          &amp;quot;outer.bg.color&amp;quot;         
+##  [29] &amp;quot;fontface&amp;quot;                &amp;quot;fontfamily&amp;quot;             
+##  [31] &amp;quot;compass.type&amp;quot;            &amp;quot;earth.boundary&amp;quot;         
+##  [33] &amp;quot;earth.boundary.color&amp;quot;    &amp;quot;earth.boundary.lwd&amp;quot;     
+##  [35] &amp;quot;earth.datum&amp;quot;             &amp;quot;space.color&amp;quot;            
+##  [37] &amp;quot;legend.show&amp;quot;             &amp;quot;legend.only&amp;quot;            
+##  [39] &amp;quot;legend.outside&amp;quot;          &amp;quot;legend.outside.position&amp;quot;
+##  [41] &amp;quot;legend.outside.size&amp;quot;     &amp;quot;legend.position&amp;quot;        
+##  [43] &amp;quot;legend.stack&amp;quot;            &amp;quot;legend.just&amp;quot;            
+##  [45] &amp;quot;legend.width&amp;quot;            &amp;quot;legend.height&amp;quot;          
+##  [47] &amp;quot;legend.hist.height&amp;quot;      &amp;quot;legend.hist.width&amp;quot;      
+##  [49] &amp;quot;legend.title.color&amp;quot;      &amp;quot;legend.title.size&amp;quot;      
+##  [51] &amp;quot;legend.title.fontface&amp;quot;   &amp;quot;legend.title.fontfamily&amp;quot;
+##  [53] &amp;quot;legend.text.color&amp;quot;       &amp;quot;legend.text.size&amp;quot;       
+##  [55] &amp;quot;legend.text.fontface&amp;quot;    &amp;quot;legend.text.fontfamily&amp;quot; 
+##  [57] &amp;quot;legend.hist.size&amp;quot;        &amp;quot;legend.format&amp;quot;          
+##  [59] &amp;quot;legend.frame&amp;quot;            &amp;quot;legend.frame.lwd&amp;quot;       
+##  [61] &amp;quot;legend.bg.color&amp;quot;         &amp;quot;legend.bg.alpha&amp;quot;        
+##  [63] &amp;quot;legend.hist.bg.color&amp;quot;    &amp;quot;legend.hist.bg.alpha&amp;quot;   
+##  [65] &amp;quot;title.snap.to.legend&amp;quot;    &amp;quot;title.position&amp;quot;         
+##  [67] &amp;quot;title.color&amp;quot;             &amp;quot;title.fontface&amp;quot;         
+##  [69] &amp;quot;title.fontfamily&amp;quot;        &amp;quot;title.bg.color&amp;quot;         
+##  [71] &amp;quot;title.bg.alpha&amp;quot;          &amp;quot;panel.show&amp;quot;             
+##  [73] &amp;quot;panel.labels&amp;quot;            &amp;quot;panel.label.size&amp;quot;       
+##  [75] &amp;quot;panel.label.color&amp;quot;       &amp;quot;panel.label.fontface&amp;quot;   
+##  [77] &amp;quot;panel.label.fontfamily&amp;quot;  &amp;quot;panel.label.bg.color&amp;quot;   
+##  [79] &amp;quot;panel.label.height&amp;quot;      &amp;quot;panel.label.rot&amp;quot;        
+##  [81] &amp;quot;main.title&amp;quot;              &amp;quot;main.title.size&amp;quot;        
+##  [83] &amp;quot;main.title.color&amp;quot;        &amp;quot;main.title.fontface&amp;quot;    
+##  [85] &amp;quot;main.title.fontfamily&amp;quot;   &amp;quot;main.title.position&amp;quot;    
+##  [87] &amp;quot;attr.outside&amp;quot;            &amp;quot;attr.outside.position&amp;quot;  
+##  [89] &amp;quot;attr.outside.size&amp;quot;       &amp;quot;attr.position&amp;quot;          
+##  [91] &amp;quot;attr.just&amp;quot;               &amp;quot;basemaps&amp;quot;               
+##  [93] &amp;quot;basemaps.alpha&amp;quot;          &amp;quot;overlays&amp;quot;               
+##  [95] &amp;quot;overlays.alpha&amp;quot;          &amp;quot;qtm.scalebar&amp;quot;           
+##  [97] &amp;quot;qtm.minimap&amp;quot;             &amp;quot;qtm.mouse.coordinates&amp;quot;  
+##  [99] &amp;quot;alpha&amp;quot;                   &amp;quot;colorNA&amp;quot;                
+## [101] &amp;quot;projection&amp;quot;              &amp;quot;symbol.size.fixed&amp;quot;      
+## [103] &amp;quot;dot.size.fixed&amp;quot;          &amp;quot;text.size.variable&amp;quot;     
+## [105] &amp;quot;bbox&amp;quot;                    &amp;quot;set.bounds&amp;quot;             
+## [107] &amp;quot;set.view&amp;quot;                &amp;quot;set.zoom.limits&amp;quot;        
+## [109] &amp;quot;view.legend.position&amp;quot;    &amp;quot;control.position&amp;quot;       
+## [111] &amp;quot;leaflet.options&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For example, we can check the default plot background and text color as we set above with the &lt;code&gt;bg.color&lt;/code&gt; and &lt;code&gt;attr.color&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmap_options()$bg.color&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;white&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmap_options()$attr.color&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;black&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmap_options()$style&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a nice example, from the &lt;code&gt;tmap_options&lt;/code&gt; documentation, of setting a black style option (for more examples, see &lt;code&gt;?tmap_options&lt;/code&gt;). First, we will define the key elements of the plot color schema as a list:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;black_style  &amp;lt;- structure(
+    list(
+        bg.color = &amp;quot;black&amp;quot;,
+        aes.color = c(fill = &amp;quot;grey40&amp;quot;, borders = &amp;quot;grey40&amp;quot;, 
+                      symbols = &amp;quot;grey80&amp;quot;, dots = &amp;quot;grey80&amp;quot;, 
+                      lines = &amp;quot;white&amp;quot;, text = &amp;quot;white&amp;quot;, 
+                      na = &amp;quot;grey30&amp;quot;, null = &amp;quot;grey15&amp;quot;),
+        aes.palette = list(seq = &amp;quot;plasma&amp;quot;, div = &amp;quot;PiYG&amp;quot;, cat = &amp;quot;Dark2&amp;quot;),
+        attr.color = &amp;quot;white&amp;quot;,
+        panel.label.color = &amp;quot;white&amp;quot;,
+        panel.label.bg.color = &amp;quot;grey40&amp;quot;,
+        main.title.color = &amp;quot;white&amp;quot;,
+        inner.margins = c(0.01, 0.01, .12, .25),
+        legend.text.size = 0.9,
+        legend.title.size = 1.2,
+        legend.outside = FALSE
+    ),
+    style = &amp;quot;black&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using the &lt;code&gt;tmap_options&lt;/code&gt; function, we will assign the new style to the global options:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmap_options(black_style)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can confirm that the default option for &lt;code&gt;bg.color&lt;/code&gt; is now black:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmap_options()$bg.color&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;black&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After we updated the global options, let’s replot the map:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tm_shape(df) + 
+  tm_polygons(&amp;quot;perc_complated&amp;quot;,
+              palette = &amp;quot;RdYlBu&amp;quot;,
+              title = &amp;quot;% Group&amp;quot;) +
+   tm_text(text = &amp;quot;id&amp;quot;, 
+          size = 0.6) +
+  tm_layout(title = &amp;quot;COVID-19 Vaccines Given to San Franciscans by Geography&amp;quot;,
+            legend.position =c(&amp;quot;right&amp;quot;, &amp;quot;bottom&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;staticunnamed-chunk-23-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;additional-resources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Additional resources&lt;/h4&gt;
+&lt;p&gt;Below are some additional resources and documentation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;tmap&lt;/strong&gt; package:
+&lt;ul&gt;
+&lt;li&gt;Documentation - &lt;a href=&#34;https://cran.r-project.org/web/packages/tmap/index.html&#34; class=&#34;uri&#34;&gt;https://cran.r-project.org/web/packages/tmap/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Github - &lt;a href=&#34;https://github.com/r-tmap/tmap&#34; class=&#34;uri&#34;&gt;https://github.com/r-tmap/tmap&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;covid19sf&lt;/strong&gt; package:
+&lt;ul&gt;
+&lt;li&gt;Documentation - &lt;a href=&#34;https://ramikrispin.github.io/covid19sf/&#34; class=&#34;uri&#34;&gt;https://ramikrispin.github.io/covid19sf/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Gibhub - &lt;a href=&#34;https://github.com/RamiKrispin/covid19sf&#34; class=&#34;uri&#34;&gt;https://github.com/RamiKrispin/covid19sf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Geospatial Visualization of the Covid19 Cases - &lt;a href=&#34;https://ramikrispin.github.io/covid19sf/articles/geo.html&#34; class=&#34;uri&#34;&gt;https://ramikrispin.github.io/covid19sf/articles/geo.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;sf&lt;/strong&gt; package:
+&lt;ul&gt;
+&lt;li&gt;Documentation - &lt;a href=&#34;https://r-spatial.github.io/sf/&#34; class=&#34;uri&#34;&gt;https://r-spatial.github.io/sf/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Gibhub - &lt;a href=&#34;https://github.com/r-spatial/sf&#34; class=&#34;uri&#34;&gt;https://github.com/r-spatial/sf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+23    </item>
+24    
+16    <item>
 17      <title>Quantify the Covid19 Impact on the SFO Airport Passenger Air Traffic</title>
-18      <link>/2021/01/covid19-effect/</link>
+18      <link>https://ramikrispin.github.io/2021/01/covid19-effect/</link>
 19      <pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2021/01/covid19-effect/</guid>
+21      <guid>https://ramikrispin.github.io/2021/01/covid19-effect/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;The Covid19 pandemic had, and unfortunately still have, a significant impact on most of the major industries. While for some sectors, the impact was positive (such as online retails, internet and steaming providers, etc.), it was negative for others (such as transportation, tourism, entertainment, etc.). In both cases, we can leverage time series modeling to quantify the effect of the Covid19 on the sector.&lt;/p&gt;
@@ -311,22 +678,22 @@ post_covid&lt;/code&gt;&lt;/pre&gt;
 24    
 16    <item>
 17      <title>Introduction to USgas Package</title>
-18      <link>/2020/12/intro-to-usgas/</link>
+18      <link>https://ramikrispin.github.io/2020/12/intro-to-usgas/</link>
 19      <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/12/intro-to-usgas/</guid>
+21      <guid>https://ramikrispin.github.io/2020/12/intro-to-usgas/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Happy to announce that the &lt;a href=&#34;https://ramikrispin.github.io/USgas/&#34;&gt;USgas&lt;/a&gt; package is now on CRAN. The package provides an overview of natural gas demand in the US in a time-series format (state and aggregate levels), with more than 100 series.&lt;/p&gt;
@@ -437,22 +804,22 @@ us_residential %&amp;gt;%
 24    
 16    <item>
 17      <title>Introduction to the sfo Package</title>
-18      <link>/2020/12/intro-to-sfo/</link>
+18      <link>https://ramikrispin.github.io/2020/12/intro-to-sfo/</link>
 19      <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/12/intro-to-sfo/</guid>
+21      <guid>https://ramikrispin.github.io/2020/12/intro-to-sfo/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Happy to announce (in a one month delay) a new package - &lt;a href=&#34;https://ramikrispin.github.io/sfo/index.html&#34;&gt;sfo&lt;/a&gt;, which provides monthly statistics of the air passenger traffic at San Francisco International (SFO) airport. The package is available on &lt;a href=&#34;https://cran.r-project.org/web/packages/sfo/index.html&#34;&gt;CRAN&lt;/a&gt;.&lt;/p&gt;
@@ -641,15 +1008,15 @@ sfo_passengers %&amp;gt;%
 24    
 16    <item>
 17      <title>Embedding flexdashboard in pkgdown site</title>
-18      <link>/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
+18      <link>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
 19      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
+21      <guid>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
 22      <description>
 
 
 &lt;p&gt;In the previous &lt;a href=&#34;https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/&#34;&gt;post&lt;/a&gt;, I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in &lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt;. The focus of this post is on embedding flexdashboard oin pkgdown site. The &lt;strong&gt;pkgdown&lt;/strong&gt; &lt;a href=&#34;https://pkgdown.r-lib.org/&#34;&gt;package&lt;/a&gt; is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-08-embedding-flexdashboard-in-pkgdown-site_files/example.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-08-embedding-flexdashboard-in-pkgdown-site_files/example.gif&#34; /&gt;&lt;/p&gt;
 &lt;div id=&#34;motivation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Motivation&lt;/h3&gt;
 &lt;p&gt;Why would you like to embed a flexdashboard dashboard in a pkgdown site? There are few reasons that I can think about, for example:&lt;/p&gt;
@@ -733,10 +1100,10 @@ vignette: &amp;gt;
 24    
 16    <item>
 17      <title>Deploying flexdashboard on Github Pages</title>
-18      <link>/2020/09/deploying-flexdashboard-on-github-pages/</link>
+18      <link>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</link>
 19      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/09/deploying-flexdashboard-on-github-pages/</guid>
+21      <guid>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</guid>
 22      <description>
 
 
@@ -746,7 +1113,7 @@ vignette: &amp;gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/RamiKrispin/italy_dash&#34;&gt;Covid19 Italy&lt;/a&gt; dashboard, supporting the &lt;a href=&#34;https://github.com/RamiKrispin/covid19italy&#34;&gt;covid19italy&lt;/a&gt; package&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://ramikrispin.github.io/uswildfire/&#34;&gt;US Wildfire&lt;/a&gt; dashboard, tracking the ongoing wildfire in the US&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-03-deploying-flexdashboard-on-github-pages_files/corona_dash.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-03-deploying-flexdashboard-on-github-pages_files/corona_dash.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This post provides a short tutorial for deploying flexdashboard on Github Pages.&lt;/p&gt;
 &lt;div id=&#34;flexdashboard-on-github-pages&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Flexdashboard on Github Pages&lt;/h3&gt;
@@ -761,7 +1128,7 @@ vignette: &amp;gt;
 &lt;div id=&#34;simple-example&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Simple example&lt;/h3&gt;
 &lt;p&gt;The following example demonstrates the deployment process of flexdashboard on Github Pages. We will start by creating a new repository for the deployment (can also deploy on an existing repository as well) using the Github web interface:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_repo.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_repo.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Note that the repository must be public to expose it on a Github page. We will set the name, keep all the checkboxes unchecked, and create the repository.&lt;/p&gt;
 &lt;p&gt;The next step is to create a local folder and sync it with the &lt;code&gt;origin&lt;/code&gt; on Github. There are few methods for doing it, such as local file manager (e.g., Finder on Mac, File Explorer on Windows, etc.), terminal (or command line), RStudio, etc. For simplicity, I will use here RStudio by creating new project by following those steps:&lt;/p&gt;
 &lt;ul&gt;
@@ -769,23 +1136,23 @@ vignette: &amp;gt;
 &lt;li&gt;Select the &lt;code&gt;New Project…&lt;/code&gt; option&lt;/li&gt;
 &lt;li&gt;Select the first option, &lt;code&gt;New Directory&lt;/code&gt;, on the &lt;code&gt;New Project&lt;/code&gt; window (screenshot below)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project.png&#34; /&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Set the folder path and name, leave the checkboxes unchecked, and click the &lt;code&gt;create project&lt;/code&gt; button&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project_folder.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project_folder.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Before we sync the new folder with the &lt;code&gt;origin&lt;/code&gt; on Github, let’s create the dashboard. We will start by creating the &lt;code&gt;_site.yml&lt;/code&gt; file. The &lt;code&gt;_site.yml&lt;/code&gt; is a setting file that enables us to configure the R Markdown file’s rendering options. Creating this file can be done by clicking on the top left menu &lt;code&gt;File&lt;/code&gt; -&amp;gt; &lt;code&gt;New File&lt;/code&gt; -&amp;gt; &lt;code&gt;Text File&lt;/code&gt;, which will pop-up a new file on the source pane, and we will save it as &lt;code&gt;_site.yml&lt;/code&gt;. As typically, Github pages is rendering the website from the &lt;code&gt;docs&lt;/code&gt; folder, we will set the R Markdown HTML output to the docs folder. Paste the following code and save it:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;name: &amp;quot;flexdashboard-example&amp;quot;
 output_dir: docs&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;More details about the &lt;code&gt;_site.yml&lt;/code&gt; file available &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Next, we will use the built-in flexdashboard template by selecting on Rstudio on the top left options &lt;code&gt;File&lt;/code&gt; -&amp;gt; &lt;code&gt;New File&lt;/code&gt; -&amp;gt; &lt;code&gt;R Markdown&lt;/code&gt;. The &lt;strong&gt;New R Markdown&lt;/strong&gt; window should pop-up, select the &lt;code&gt;From Template&lt;/code&gt; option on the left, and then choose the &lt;code&gt;Flex Dashboard&lt;/code&gt; template. Note that you probably won’t have this template available on this template menu if the &lt;strong&gt;flexdashboard&lt;/strong&gt; package is not installed.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/markdown%20temp.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/markdown%20temp.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Once creating the template, a new file will pop-up on the source pane named &lt;code&gt;Untitled1&lt;/code&gt; (or &lt;code&gt;Untitiledn&lt;/code&gt; if more n-1 un-named files are already opened). To run the dashboard as a website, we will name the file as &lt;code&gt;index.Rmd&lt;/code&gt; (saving it on RStudio as &lt;code&gt;index&lt;/code&gt; will automatically name it as &lt;code&gt;index.Rmd&lt;/code&gt;), which will render it into &lt;code&gt;index.html&lt;/code&gt; file. By default, the dashboard template comes with a layout of two empty columns (where the second column splitted into two raws). For making this example more appealing, I will drop three interactive plots from the &lt;strong&gt;Plotly&lt;/strong&gt; package &lt;a href=&#34;https://plotly.com/r/&#34;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Now we are ready to render the dashboard! Click on the &lt;code&gt;Knit&lt;/code&gt; option (under the file name tab on the source pane), and this is the output you should expect (just without the plots which I added for the example):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/render%20dash.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/render%20dash.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;You can noticed on the screenshot above that the dashboard file name (on the dashboard top right) is &lt;code&gt;index.html&lt;/code&gt;. In addition, the &lt;code&gt;HTML&lt;/code&gt; output was rendered automatically into the &lt;code&gt;docs&lt;/code&gt; folder (see the folder on the buttom right of the screenshot) as we set on the &lt;code&gt;_site.yml&lt;/code&gt; file before.&lt;/p&gt;
 &lt;p&gt;The last step of the deployment is to sync the local repo with the &lt;code&gt;origin&lt;/code&gt; and set the website. To set the &lt;code&gt;git&lt;/code&gt; you can use the repository details from Github to linked it with the local folder:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/setting%20repo.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/setting%20repo.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We will init a git work space on the local folder we created for the project, and commit the folder content by using the origin address from the red box above:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;git init
 git add *
@@ -793,10 +1160,10 @@ git commit -m &amp;quot;init commit&amp;quot;
 git remote add origin git@github.com:RamiKrispin/flexdashboard_example.git
 git push -u origin master&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, if all went well, you should see the content of the local folder on the Github repository. The last step would be to set the Github Page. Go to the repository &lt;code&gt;settings&lt;/code&gt; -&amp;gt; &lt;code&gt;options&lt;/code&gt; -&amp;gt; &lt;code&gt;Github Pages&lt;/code&gt; and set the page source by selecting the &lt;code&gt;master&lt;/code&gt; branch and the &lt;code&gt;docs&lt;/code&gt; folder, and save the changes. Once saved, you should get the deployed Github Page URL on top:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/github%20pages.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/github%20pages.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;And… it deployed!&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://ramikrispin.github.io/flexdashboard_example/&#34; class=&#34;uri&#34;&gt;https://ramikrispin.github.io/flexdashboard_example/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/dashboard.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/dashboard.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Note that the page URL is a combination of &lt;code&gt;https://Your_Github_User_Name.github.io/Repository_Name/&lt;/code&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;resources&#34; class=&#34;section level3&#34;&gt;
@@ -814,19 +1181,19 @@ git push -u origin master&lt;/code&gt;&lt;/pre&gt;
 24    
 16    <item>
 17      <title>covid19italy v0.3.0 is now on CRAN</title>
-18      <link>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</link>
+18      <link>https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/</link>
 19      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/07/covid19italy-v0-3-0-is-now-on-cran/</guid>
+21      <guid>https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Version 0.3.0 of the &lt;a href=&#34;https://github.com/RamiKrispin/covid19Italy&#34;&gt;covid19italy&lt;/a&gt; is now available on CRAN. The package provides a daily snapshot of the covid19 cases in Italy by province, region and national levels. While the data on the package is getting refreshed once every few months, the &lt;code&gt;update_data&lt;/code&gt; function enables you to get the most recent data available on the &lt;a href=&#34;https://github.com/RamiKrispin/covid19italy&#34;&gt;Github&lt;/a&gt; version (updated on a daily basis).&lt;/p&gt;
@@ -955,19 +1322,19 @@ plot_ly(data = italy_total,
 24    
 16    <item>
 17      <title>coronavirus v0.2.0 is now on CRAN</title>
-18      <link>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
+18      <link>https://ramikrispin.github.io/2020/05/coronavirus-v0-2-0-is-now-on-cran/</link>
 19      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
+21      <guid>https://ramikrispin.github.io/2020/05/coronavirus-v0-2-0-is-now-on-cran/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Version 0.2.0 of the &lt;a href=&#34;https://github.com/RamiKrispin/coronavirus&#34;&gt;coronavirus&lt;/a&gt; R data package was pushed today to CRAN. The &lt;strong&gt;coronavirus&lt;/strong&gt; package provides a tidy format for Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) &lt;a href=&#34;https://github.com/CSSEGISandData/COVID-19&#34;&gt;Coronavirus dataset&lt;/a&gt;. Version 0.2.0 catch up with the significant changes in the data that took place since the initial release on February 24, changing the package status from &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#experimental&#34;&gt;experimental&lt;/a&gt; to &lt;a href=&#34;https://www.tidyverse.org/lifecycle/#maturing&#34;&gt;maturing&lt;/a&gt;.&lt;/p&gt;
@@ -1116,32 +1483,32 @@ total_cases&lt;/code&gt;&lt;/pre&gt;
 24    
 16    <item>
 17      <title>covid19italy v0.2.0 is now on CRAN</title>
-18      <link>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</link>
+18      <link>https://ramikrispin.github.io/2020/05/covid19italy-v0-2-0-is-now-on-cran/</link>
 19      <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/05/covid19italy-v0-2-0-is-now-on-cran/</guid>
+21      <guid>https://ramikrispin.github.io/2020/05/covid19italy-v0-2-0-is-now-on-cran/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet/leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/leafletfix/leafletfix.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-binding/leaflet.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-providers/leaflet-providers.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/HomeButton/home-button.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/HomeButton/home-button.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/HomeButton/easy-button-src.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/PopupTable/popup.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/leaflet/leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/leaflet/leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/leafletfix/leafletfix.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/rstudio_leaflet/rstudio_leaflet.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/leaflet-binding/leaflet.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/leaflet-providers/leaflet-providers.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/HomeButton/home-button.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/HomeButton/home-button.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/HomeButton/easy-button-src.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/PopupTable/popup.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Last week I pushed an update of the &lt;a href=&#34;https://covid19r.github.io/covid19italy/&#34;&gt;covid19italy&lt;/a&gt; package to CRAN (v0.2.0). The &lt;strong&gt;covid19italy&lt;/strong&gt; R package provides a tidy format dataset of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) pandemic outbreak in Italy. The package includes the following three datasets:&lt;/p&gt;
@@ -1232,19 +1599,19 @@ add_trace(data = total_tests,
 24    
 16    <item>
 17      <title>Introduction to the forecastLM package</title>
-18      <link>/2020/02/introduction-to-the-forecastlm-package/</link>
+18      <link>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</link>
 19      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2020/02/introduction-to-the-forecastlm-package/</guid>
+21      <guid>https://ramikrispin.github.io/2020/02/introduction-to-the-forecastlm-package/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;I am pleased to announce a new R package - &lt;a href=&#34;https://github.com/RamiKrispin/forecastLM&#34;&gt;forecastLM&lt;/a&gt;. The package, as the name implies, provides applications for forecasting regular time series data with a linear regression model (based on the &lt;code&gt;lm&lt;/code&gt; function from the &lt;strong&gt;stats&lt;/strong&gt; package). It supports both &lt;code&gt;ts&lt;/code&gt; and &lt;code&gt;tsibble&lt;/code&gt; objects as inputs and enables simple extractions of features from the input object on the fly. Example for such features:&lt;/p&gt;
@@ -1583,10 +1950,10 @@ For instance, you can observe from the series plot above that the peaks during t
 24    
 16    <item>
 17      <title>TSstudio 0.1.5 on CRAN</title>
-18      <link>/2019/12/tsstudio-0-1-5-on-cran/</link>
+18      <link>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</link>
 19      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
 20      
-21      <guid>/2019/12/tsstudio-0-1-5-on-cran/</guid>
+21      <guid>https://ramikrispin.github.io/2019/12/tsstudio-0-1-5-on-cran/</guid>
 22      <description>
 
 
@@ -1613,19 +1980,19 @@ For instance, you can observe from the series plot above that the peaks during t
 24    
 16    <item>
 17      <title>TSstudio 0.1.3</title>
-18      <link>/2018/12/tsstudio-0.1.3/</link>
+18      <link>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</link>
 19      <pubDate>Sat, 01 Dec 2018 21:13:14 -0500</pubDate>
 20      
-21      <guid>/2018/12/tsstudio-0.1.3/</guid>
+21      <guid>https://ramikrispin.github.io/2018/12/tsstudio-0.1.3/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;I used the Thanksgiving break to push a new update of the &lt;a href=&#34;https://github.com/RamiKrispin/TSstudio&#34;&gt;TSstudio&lt;/a&gt; package to CRAN (version 0.1.3). The new version includes an update for the &lt;code&gt;ts_backtesting&lt;/code&gt; function along with two new function - &lt;code&gt;ts_to_prophet&lt;/code&gt; for converting time series objects to a &lt;a href=&#34;https://facebook.github.io/prophet/docs/quick_start.html#r-api&#34;&gt;prophet&lt;/a&gt; input format (i.e., &lt;code&gt;ds&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; columns), and &lt;code&gt;ccf_plot&lt;/code&gt; for lags plot between two time series. The package can be installed from either CRAN or Github:&lt;/p&gt;
@@ -1764,19 +2131,19 @@ x_reg.forecast &amp;lt;- forecast::fourier(USgas, K = 5, h = h)&lt;/code&gt;&lt;
 24    
 16    <item>
 17      <title>TSstudio 0.1.2</title>
-18      <link>/2018/09/tsstudio-0.1.2/</link>
+18      <link>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</link>
 19      <pubDate>Fri, 28 Sep 2018 21:13:14 -0500</pubDate>
 20      
-21      <guid>/2018/09/tsstudio-0.1.2/</guid>
+21      <guid>https://ramikrispin.github.io/2018/09/tsstudio-0.1.2/</guid>
 22      <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://ramikrispin.github.io/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;Happy to announce the release of TSstudio 0.1.2 to CRAN. The TSstudio package provides tools for descriptive and predictive analysis of time series data, utilizing the visualization enegin of the &lt;a href=&#34;https://CRAN.R-project.org/package=plotly&#34;&gt;plotly&lt;/a&gt; package and forecasting models from the &lt;a href=&#34;https://CRAN.R-project.org/package=forecast&#34;&gt;forecast&lt;/a&gt;, &lt;a href=&#34;https://CRAN.R-project.org/package=forecastHybrid&#34;&gt;forecastHybrid&lt;/a&gt; and &lt;a href=&#34;https://CRAN.R-project.org/package=bsts&#34;&gt;bsts&lt;/a&gt; packages.&lt;/p&gt;

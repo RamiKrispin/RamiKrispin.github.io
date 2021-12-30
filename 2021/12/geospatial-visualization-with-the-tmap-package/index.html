@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.91.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Rami Krispin">
+<meta name="keywords" content="R, tmap, dataviz, covid19">
+<meta name="description" content="
+
+
+
+">
+
+
+<meta property="og:description" content="
+
+
+
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to Geospatial Visualization with the tmap package">
+<meta name="twitter:title" content="Introduction to Geospatial Visualization with the tmap package">
+<meta property="og:url" content="https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+<meta property="twitter:url" content="https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+<meta property="og:site_name" content="Rami Krispin">
+<meta property="og:description" content="
+
+
+
+">
+<meta name="twitter:description" content="
+
+
+
+">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-12-30T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-12-30T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="dataviz">
+    
+      <meta property="article:section" content="maps">
+    
+  
+  
+    
+      <meta property="article:tag" content="dataviz">
+    
+      <meta property="article:tag" content="maps">
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="tmap">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@Rami_Krispin">
+
+
+  <meta name="twitter:creator" content="@Rami_Krispin">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+  <meta property="twitter:image" content="https://avatars0.githubusercontent.com/u/12760966?s=400&u=654c914d9df714991b890ea38ac4fce0e55c0d8f&v=4">
+
+
+    <title>Introduction to Geospatial Visualization with the tmap package</title>
+
+    <link rel="icon" href="https://ramikrispin.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ramikrispin.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="https://ramikrispin.github.io/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-126702581-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ramikrispin.github.io/">Rami Krispin</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ramikrispin.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ramikrispin.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Rami Krispin</h4>
+        
+          <h5 class="sidebar-profile-bio">Time series analysis, forecasting, machine learning, and data visualization</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/projects">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-code"></i>
+      
+      <span class="sidebar-button-desc">Projects</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/RamiKrispin" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-linkedin-square"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">R-bloggers</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Introduction to Geospatial Visualization with the tmap package
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-12-30T00:00:00Z">
+        
+  December 30, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ramikrispin.github.io/categories/dataviz">dataviz</a>, 
+    
+      <a class="category-link" href="https://ramikrispin.github.io/categories/maps">maps</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>I had super fun exploring the <a href="https://cran.r-project.org/web/packages/tmap/index.html">tmap</a> package functionality while preparing a presentation about geospatial visualization for the <a href="https://ramikrispin.github.io/gis-dataviz-workshop/#1">Abuja R-Ladies/R Users meetup</a>, so I decided to write a short tutorial about it.</p>
+<p>The <strong>tmap</strong> package provides a set of functions and tools for creating thematic maps such as choropleths and bubble maps. The package follows the <strong>ggplot2</strong> syntax style enabling users to add different layers to the map. By default, the plot output is static, but it also has an interactive mode providing a wrapper to the JavaScript <a href="https://leafletjs.com/">leaflet</a> library (similar to <strong>mapview</strong> and <strong>leaflet</strong> packages). This tutorial focuses on the basic functionality of the package covering:</p>
+<ul>
+<li>Plotting <code>sf</code> objects</li>
+<li>Customize the plot colors</li>
+<li>Setting titles and legends</li>
+<li>Global options and attributes</li>
+</ul>
+<p><img src="staticunnamed-chunk-2-1.png" width="576" /></p>
+<div id="libraries" class="section level4">
+<h4>Libraries</h4>
+<p>In this tutorial, we will use the following libraries:</p>
+<ul>
+<li><strong>tmap</strong> - tools and functions for creating thematic maps</li>
+<li><strong>sf</strong> - supports for <code>sf</code> objects</li>
+<li><strong>covid19sf</strong> - daily summary of COVID-19 cases and vaccination status in San Francisco</li>
+<li><strong>dplyr</strong> - to manipulate and filter the data</li>
+<li><strong>RColorBrewer</strong> - to set a color palettes for the plot</li>
+</ul>
+<pre class="r"><code>library(tmap)
+library(sf)
+library(covid19sf)
+library(dplyr)
+library(RColorBrewer)</code></pre>
+</div>
+<div id="data-input" class="section level4">
+<h4>Data input</h4>
+<p>The <strong>tmap</strong> package supports objects from the <strong>sf</strong>, <strong>stars</strong>, <strong>sp</strong>, and <strong>raster</strong> packages. I generally find it easier to work with <code>sf</code> object as it is a <code>data.frame</code> with extra attributes (nested geometry data). Therefore, it is significantly easier and faster to manipulate <code>sf</code> objects with the use of <strong>dplyr</strong> or similar applications.</p>
+<p>In the examples below, we will use the <code>covid19sf_vaccine_geo</code> dataset from the <a href="https://github.com/RamiKrispin/covid19sf">covid19sf</a> package. This dataset represents the COVID-19 vaccinations given to SF residents by geographic region of their residential address. The dataset comes as an <code>sf</code> object, therefore, no additional reformatting is needed:</p>
+<pre class="r"><code>data(covid19sf_vaccine_geo)
+
+head(covid19sf_vaccine_geo)</code></pre>
+<pre><code>## Simple feature collection with 6 features and 8 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -122.4773 ymin: 37.73155 xmax: -122.3843 ymax: 37.80602
+## Geodetic CRS:  WGS 84
+##                               id             area_type count_vaccinated_by_dph
+## 1                 Bernal Heights Analysis Neighborhood                    5106
+## 2 Financial District/South Beach Analysis Neighborhood                    1841
+## 3                      Glen Park Analysis Neighborhood                     573
+## 4                 Haight Ashbury Analysis Neighborhood                     823
+## 5                   Hayes Valley Analysis Neighborhood                    2401
+## 6                   Inner Sunset Analysis Neighborhood                    1220
+##   count_vaccinated count_series_completed acs_population
+## 1            21109                  19781          25167
+## 2            22782                  20215          21537
+## 3             7257                   6804           8651
+## 4            14360                  13279          19275
+## 5            16351                  14930          19711
+## 6            23414                  21829          29539
+##   percent_pop_series_completed        last_updated
+## 1                    0.7859896 2021-12-15 04:45:07
+## 2                    0.9386173 2021-12-15 04:45:09
+## 3                    0.7864987 2021-12-15 04:45:09
+## 4                    0.6889235 2021-12-15 04:45:09
+## 5                    0.7574451 2021-12-15 04:45:09
+## 6                    0.7389891 2021-12-15 04:45:09
+##                         geometry
+## 1 MULTIPOLYGON (((-122.4036 3...
+## 2 MULTIPOLYGON (((-122.3875 3...
+## 3 MULTIPOLYGON (((-122.4474 3...
+## 4 MULTIPOLYGON (((-122.432 37...
+## 5 MULTIPOLYGON (((-122.4208 3...
+## 6 MULTIPOLYGON (((-122.4529 3...</code></pre>
+<p>The dataset includes the following fields:</p>
+<ul>
+<li><code>id</code> - Area id</li>
+<li><code>area_type</code> - Area type, c(“Analysis Neighborhood”, “Summary”)</li>
+<li><code>count_vaccinated_by_dph</code> - Count of residents in the given geographic region who has received at least one dose administered by DPH</li>
+<li><code>count_vaccinated</code> - Count of residents in the given geographic region who has received at least one dose regardless of who administered the vaccine</li>
+<li><code>count_series_completed</code> - Count of residents in the given geographic region who has completed a vaccine series</li>
+<li><code>acs_population</code> - 2019 5-year American Community Survey population estimate for the given geographic region (all ages)</li>
+<li><code>percent_pop_series_completed</code> - The total count of population that has completed a vaccine series by population estimate (acs_population)</li>
+<li><code>last_updated</code> - Last update of the data in POSIXc format)</li>
+<li><code>geometry</code> - The area polygon data</li>
+</ul>
+<p>In the examples below, we will plot the percentage of San Francisco’s fully vaccinated population by neighborhood. The dataset contains both neighborhood and aggregated level data. Therefore, before starting, we will filter the data by the neighborhood level and remove the aggregated data:</p>
+<pre class="r"><code>df &lt;- covid19sf_vaccine_geo %&gt;% 
+  filter(area_type == &quot;Analysis Neighborhood&quot;) %&gt;%
+  mutate(perc_complated = percent_pop_series_completed * 100)</code></pre>
+<p><strong>Note:</strong> We created the <code>perc_complated</code> variable, a transformation of the <code>percent_pop_series_completed</code> variable from decimal to percentage format.</p>
+</div>
+<div id="basic-map" class="section level4">
+<h4>Basic map</h4>
+<p>Before starting, following changes in the default options of the sf package from version <code>1.0-1</code>, the default option is to use s2 spherical geometry when coordinates are ellipsoidal. That can cause some issues with the <strong>tmap</strong> package, therefore we will set this functionality as <code>FALSE</code>:</p>
+<pre class="r"><code>sf_use_s2(FALSE)</code></pre>
+<p>We will start with a basic plot of the percentage of the vaccinated population in San Francisco. The <code>tm_shape</code> function specifies the shape object, and the <code>tm_polygons</code> function draws the polygons and fills the color based on the input variable:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(col = &quot;perc_complated&quot;,
+              title = &quot;% Group&quot;)</code></pre>
+<p><img src="staticunnamed-chunk-7-1.png" width="576" /></p>
+<p>By default, the <code>tm_polygons</code> function bucket the continues variable into groups. In the case above, the percentage of vaccinated population, into groups of tens. The <code>style</code> and <code>n</code> arguments enable you to control the splitting or bucketing method (e.g., by fixed breaks, standard divination, quantile, log scale, etc.) and the number of groups, respectively. For example, let’s use the <code>equal</code> style and set the percentage groups into 10 equal buckets:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              n = 10,
+              style = &quot;equal&quot;,
+              title = &quot;% Group&quot;)  </code></pre>
+<p><img src="staticunnamed-chunk-8-1.png" width="576" /></p>
+</div>
+<div id="color-setting" class="section level4">
+<h4>Color setting</h4>
+<p>Let’s now modify the plot’s colors. The <code>palette</code> argument on <code>tm_polygons</code> function enables you to define the map fill color palette. For example, we will use the <code>RdYlBu</code> from the <strong>RColorBrewer</strong> package:</p>
+<pre class="r"><code>display.brewer.pal(n=7, name = &quot;RdYlBu&quot;)</code></pre>
+<p><img src="staticunnamed-chunk-9-1.png" width="576" /></p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;)  </code></pre>
+<p><img src="staticunnamed-chunk-10-1.png" width="576" /></p>
+<p>The <code>palette</code> argument supports R’s main color palettes packages, such as <strong>RColorBrewer</strong> and <strong>viridis</strong>. You can customize and modify the default palettes with the <code>palette_explorer</code> function, a Shiny app from the <strong>tmaptools</strong> package:</p>
+<pre class="r"><code>library(tmaptools)
+
+palette_explorer()</code></pre>
+<p><img src="images/tmaptools%20app.png" /></p>
+<p>The <code>tm_layout</code> function enables setting and modifying the plot’s main elements: title, margins, aspect ratio, colors, frame, legend, etc. In the following example, we will modify the previous plot and set the background to black using the <code>bg.color</code> argument. As the default text color is black, we will modify the legend title color to white with the <code>attr.color</code> argument:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_layout(bg.color = &quot;black&quot;,
+            attr.color = &quot;white&quot;)</code></pre>
+<p><img src="staticunnamed-chunk-11-1.png" width="576" /></p>
+<p>An alternative approach for setting the plot colors is to use a built-in color style. The <code>tm_style</code> function provides a predefined styles. That includes the following styles:</p>
+<ul>
+<li><code>white</code> - White background, commonly used colors (default)</li>
+<li><code>gray</code>/<code>grey</code> - Grey background, useful to highlight sequential palettes (e.g. in choropleths)</li>
+<li><code>natural</code> - Emulation of natural view: blue waters and green land</li>
+<li><code>bw</code> - Greyscale, obviously useful for greyscale printing</li>
+<li><code>classic</code> - Classic styled maps (recommended)</li>
+<li><code>cobalt</code> - Inspired by latex beamer style cobalt</li>
+<li><code>albatross</code> - Inspired by latex beamer style albatross</li>
+<li><code>beaver</code> - Inspired by latex beamer style beaver</li>
+</ul>
+<p>For example, let’s use the <code>cobalt</code> style:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_style(&quot;cobalt&quot;)</code></pre>
+<p><img src="staticunnamed-chunk-12-1.png" width="576" /></p>
+</div>
+<div id="titles-and-legends" class="section level4">
+<h4>Titles and legends</h4>
+<p>After we set the color theme it is time to set the plot title and customize the legend with the <code>tm_layout</code> function. We will use the function <code>title</code> argument (not to be confused with the <code>title</code> argument of the <code>tm_polygons</code> function):</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_style(&quot;cobalt&quot;) +
+  tm_layout(title = &quot;COVID-19 Vaccines Given to San Franciscans by Geography&quot;)</code></pre>
+<p><img src="staticunnamed-chunk-13-1.png" width="576" /></p>
+<p><strong>Note:</strong> You can customize the title position with the <code>title.position</code> argument, using a vector of two values (see <code>?title.position</code> for more details).</p>
+<p>It may make sense to move the plot’s legend to the bottom right. We will use the following legend arguments:</p>
+<ul>
+<li><code>legend.position</code> - to set the legend position</li>
+<li><code>legend.outside</code> - if set to <code>TRUE</code>, will position the legend outside the plot margin</li>
+<li><code>legend.title.size</code> - set the legend title font size</li>
+<li><code>legend.text.size</code> - set the legend font size</li>
+</ul>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_style(&quot;cobalt&quot;) +
+  tm_layout(title = &quot;COVID-19 Vaccines Given to San Franciscans by Geography&quot;,
+            legend.position =c(&quot;right&quot;, &quot;bottom&quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9)</code></pre>
+<p><img src="staticunnamed-chunk-14-1.png" width="576" /></p>
+<p>You can note that both the title and legend have some overlapping with the plot itself. We will use the <code>inner.margins</code> argument to modify the plot margins. This argument is a vector of four values specifying the bottom, left, top, and right margin:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_style(&quot;cobalt&quot;) +
+  tm_layout(title = &quot;COVID-19 Vaccines Given to San Franciscans by Geography&quot;,
+            legend.position =c(&quot;right&quot;, &quot;bottom&quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9, 
+            inner.margins = c(0.01, 0.01, .12, .25))</code></pre>
+<p><img src="staticunnamed-chunk-15-1.png" width="576" /></p>
+<p>Next, we will label the polygons with their names with the <code>tm_text</code> function. The <code>text</code> and <code>size</code> arguments define the labels variable and the font size, respectively:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+  tm_style(&quot;cobalt&quot;) +
+  tm_text(text = &quot;id&quot;, 
+          size = 0.6) +
+  tm_layout(title = &quot;COVID-19 Vaccines Given to San Franciscans by Geography&quot;,
+            legend.position =c(&quot;right&quot;, &quot;bottom&quot;),
+            legend.outside = FALSE,
+            legend.title.size = 1.2,
+            legend.text.size = 0.9, 
+            inner.margins = c(0.01, 0.01, .12, .25))</code></pre>
+<p><img src="staticunnamed-chunk-16-1.png" width="576" /></p>
+</div>
+<div id="plot-attributes" class="section level4">
+<h4>Plot attributes</h4>
+<p>Last but not least, we will review the <strong>tmap</strong> package global options. The <code>tmap_options</code> function defines the default global attributes of the plot:</p>
+<pre class="r"><code>head(tmap_options(), 10)</code></pre>
+<pre><code>## $unit
+## [1] &quot;metric&quot;
+## 
+## $limits
+## facets.plot facets.view 
+##          64           4 
+## 
+## $max.categories
+## [1] 30
+## 
+## $max.raster
+##  plot  view 
+## 1e+06 1e+06 
+## 
+## $show.messages
+## [1] TRUE
+## 
+## $show.warnings
+## [1] TRUE
+## 
+## $output.format
+## [1] &quot;png&quot;
+## 
+## $output.size
+## [1] 49
+## 
+## $output.dpi
+## [1] 300
+## 
+## $output.dpi.animation
+## [1] 100</code></pre>
+<p>In total, there are 111 attributes:</p>
+<pre class="r"><code>names(tmap_options())</code></pre>
+<pre><code>##   [1] &quot;unit&quot;                    &quot;limits&quot;                 
+##   [3] &quot;max.categories&quot;          &quot;max.raster&quot;             
+##   [5] &quot;show.messages&quot;           &quot;show.warnings&quot;          
+##   [7] &quot;output.format&quot;           &quot;output.size&quot;            
+##   [9] &quot;output.dpi&quot;              &quot;output.dpi.animation&quot;   
+##  [11] &quot;check.and.fix&quot;           &quot;title&quot;                  
+##  [13] &quot;scale&quot;                   &quot;title.size&quot;             
+##  [15] &quot;bg.color&quot;                &quot;aes.color&quot;              
+##  [17] &quot;aes.palette&quot;             &quot;attr.color&quot;             
+##  [19] &quot;sepia.intensity&quot;         &quot;saturation&quot;             
+##  [21] &quot;frame&quot;                   &quot;frame.lwd&quot;              
+##  [23] &quot;frame.double.line&quot;       &quot;asp&quot;                    
+##  [25] &quot;outer.margins&quot;           &quot;inner.margins&quot;          
+##  [27] &quot;between.margin&quot;          &quot;outer.bg.color&quot;         
+##  [29] &quot;fontface&quot;                &quot;fontfamily&quot;             
+##  [31] &quot;compass.type&quot;            &quot;earth.boundary&quot;         
+##  [33] &quot;earth.boundary.color&quot;    &quot;earth.boundary.lwd&quot;     
+##  [35] &quot;earth.datum&quot;             &quot;space.color&quot;            
+##  [37] &quot;legend.show&quot;             &quot;legend.only&quot;            
+##  [39] &quot;legend.outside&quot;          &quot;legend.outside.position&quot;
+##  [41] &quot;legend.outside.size&quot;     &quot;legend.position&quot;        
+##  [43] &quot;legend.stack&quot;            &quot;legend.just&quot;            
+##  [45] &quot;legend.width&quot;            &quot;legend.height&quot;          
+##  [47] &quot;legend.hist.height&quot;      &quot;legend.hist.width&quot;      
+##  [49] &quot;legend.title.color&quot;      &quot;legend.title.size&quot;      
+##  [51] &quot;legend.title.fontface&quot;   &quot;legend.title.fontfamily&quot;
+##  [53] &quot;legend.text.color&quot;       &quot;legend.text.size&quot;       
+##  [55] &quot;legend.text.fontface&quot;    &quot;legend.text.fontfamily&quot; 
+##  [57] &quot;legend.hist.size&quot;        &quot;legend.format&quot;          
+##  [59] &quot;legend.frame&quot;            &quot;legend.frame.lwd&quot;       
+##  [61] &quot;legend.bg.color&quot;         &quot;legend.bg.alpha&quot;        
+##  [63] &quot;legend.hist.bg.color&quot;    &quot;legend.hist.bg.alpha&quot;   
+##  [65] &quot;title.snap.to.legend&quot;    &quot;title.position&quot;         
+##  [67] &quot;title.color&quot;             &quot;title.fontface&quot;         
+##  [69] &quot;title.fontfamily&quot;        &quot;title.bg.color&quot;         
+##  [71] &quot;title.bg.alpha&quot;          &quot;panel.show&quot;             
+##  [73] &quot;panel.labels&quot;            &quot;panel.label.size&quot;       
+##  [75] &quot;panel.label.color&quot;       &quot;panel.label.fontface&quot;   
+##  [77] &quot;panel.label.fontfamily&quot;  &quot;panel.label.bg.color&quot;   
+##  [79] &quot;panel.label.height&quot;      &quot;panel.label.rot&quot;        
+##  [81] &quot;main.title&quot;              &quot;main.title.size&quot;        
+##  [83] &quot;main.title.color&quot;        &quot;main.title.fontface&quot;    
+##  [85] &quot;main.title.fontfamily&quot;   &quot;main.title.position&quot;    
+##  [87] &quot;attr.outside&quot;            &quot;attr.outside.position&quot;  
+##  [89] &quot;attr.outside.size&quot;       &quot;attr.position&quot;          
+##  [91] &quot;attr.just&quot;               &quot;basemaps&quot;               
+##  [93] &quot;basemaps.alpha&quot;          &quot;overlays&quot;               
+##  [95] &quot;overlays.alpha&quot;          &quot;qtm.scalebar&quot;           
+##  [97] &quot;qtm.minimap&quot;             &quot;qtm.mouse.coordinates&quot;  
+##  [99] &quot;alpha&quot;                   &quot;colorNA&quot;                
+## [101] &quot;projection&quot;              &quot;symbol.size.fixed&quot;      
+## [103] &quot;dot.size.fixed&quot;          &quot;text.size.variable&quot;     
+## [105] &quot;bbox&quot;                    &quot;set.bounds&quot;             
+## [107] &quot;set.view&quot;                &quot;set.zoom.limits&quot;        
+## [109] &quot;view.legend.position&quot;    &quot;control.position&quot;       
+## [111] &quot;leaflet.options&quot;</code></pre>
+<p>For example, we can check the default plot background and text color as we set above with the <code>bg.color</code> and <code>attr.color</code>:</p>
+<pre class="r"><code>tmap_options()$bg.color</code></pre>
+<pre><code>## [1] &quot;white&quot;</code></pre>
+<pre class="r"><code>tmap_options()$attr.color</code></pre>
+<pre><code>## [1] &quot;black&quot;</code></pre>
+<pre class="r"><code>tmap_options()$style</code></pre>
+<pre><code>## NULL</code></pre>
+<p>Here is a nice example, from the <code>tmap_options</code> documentation, of setting a black style option (for more examples, see <code>?tmap_options</code>). First, we will define the key elements of the plot color schema as a list:</p>
+<pre class="r"><code>black_style  &lt;- structure(
+    list(
+        bg.color = &quot;black&quot;,
+        aes.color = c(fill = &quot;grey40&quot;, borders = &quot;grey40&quot;, 
+                      symbols = &quot;grey80&quot;, dots = &quot;grey80&quot;, 
+                      lines = &quot;white&quot;, text = &quot;white&quot;, 
+                      na = &quot;grey30&quot;, null = &quot;grey15&quot;),
+        aes.palette = list(seq = &quot;plasma&quot;, div = &quot;PiYG&quot;, cat = &quot;Dark2&quot;),
+        attr.color = &quot;white&quot;,
+        panel.label.color = &quot;white&quot;,
+        panel.label.bg.color = &quot;grey40&quot;,
+        main.title.color = &quot;white&quot;,
+        inner.margins = c(0.01, 0.01, .12, .25),
+        legend.text.size = 0.9,
+        legend.title.size = 1.2,
+        legend.outside = FALSE
+    ),
+    style = &quot;black&quot;
+)</code></pre>
+<p>Using the <code>tmap_options</code> function, we will assign the new style to the global options:</p>
+<pre class="r"><code>tmap_options(black_style)</code></pre>
+<p>You can confirm that the default option for <code>bg.color</code> is now black:</p>
+<pre class="r"><code>tmap_options()$bg.color</code></pre>
+<pre><code>## [1] &quot;black&quot;</code></pre>
+<p>After we updated the global options, let’s replot the map:</p>
+<pre class="r"><code>tm_shape(df) + 
+  tm_polygons(&quot;perc_complated&quot;,
+              palette = &quot;RdYlBu&quot;,
+              title = &quot;% Group&quot;) +
+   tm_text(text = &quot;id&quot;, 
+          size = 0.6) +
+  tm_layout(title = &quot;COVID-19 Vaccines Given to San Franciscans by Geography&quot;,
+            legend.position =c(&quot;right&quot;, &quot;bottom&quot;))</code></pre>
+<p><img src="staticunnamed-chunk-23-1.png" width="576" /></p>
+</div>
+<div id="additional-resources" class="section level4">
+<h4>Additional resources</h4>
+<p>Below are some additional resources and documentation:</p>
+<ul>
+<li><strong>tmap</strong> package:
+<ul>
+<li>Documentation - <a href="https://cran.r-project.org/web/packages/tmap/index.html" class="uri">https://cran.r-project.org/web/packages/tmap/index.html</a></li>
+<li>Github - <a href="https://github.com/r-tmap/tmap" class="uri">https://github.com/r-tmap/tmap</a></li>
+</ul></li>
+<li><strong>covid19sf</strong> package:
+<ul>
+<li>Documentation - <a href="https://ramikrispin.github.io/covid19sf/" class="uri">https://ramikrispin.github.io/covid19sf/</a></li>
+<li>Gibhub - <a href="https://github.com/RamiKrispin/covid19sf" class="uri">https://github.com/RamiKrispin/covid19sf</a></li>
+<li>Geospatial Visualization of the Covid19 Cases - <a href="https://ramikrispin.github.io/covid19sf/articles/geo.html" class="uri">https://ramikrispin.github.io/covid19sf/articles/geo.html</a></li>
+</ul></li>
+<li><strong>sf</strong> package:
+<ul>
+<li>Documentation - <a href="https://r-spatial.github.io/sf/" class="uri">https://r-spatial.github.io/sf/</a></li>
+<li>Gibhub - <a href="https://github.com/r-spatial/sf" class="uri">https://github.com/r-spatial/sf</a></li>
+</ul></li>
+</ul>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/dataviz/">dataviz</a>
+
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/maps/">maps</a>
+
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/tmap/">tmap</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2021/01/covid19-effect/" data-tooltip="Quantify the Covid19 Impact on the SFO Airport Passenger Air Traffic">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 Rami Krispin. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2021/01/covid19-effect/" data-tooltip="Quantify the Covid19 Impact on the SFO Airport Passenger Air Traffic">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Framikrispin.github.io%2F2021%2F12%2Fgeospatial-visualization-with-the-tmap-package%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Framikrispin.github.io%2F2021%2F12%2Fgeospatial-visualization-with-the-tmap-package%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Framikrispin.github.io%2F2021%2F12%2Fgeospatial-visualization-with-the-tmap-package%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Rami Krispin</h4>
+    
+      <div id="about-card-bio">Time series analysis, forecasting, machine learning, and data visualization</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Cupertino, CA
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ramikrispin.github.io/images/background.png');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ramikrispin.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ramikrispin.github.io\/2021\/12\/geospatial-visualization-with-the-tmap-package\/';
+          
+            this.page.identifier = '\/2021\/12\/geospatial-visualization-with-the-tmap-package\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dataviz on Rami Krispin</title>
+    <link>https://ramikrispin.github.io/categories/dataviz/</link>
+    <description>Recent content in dataviz on Rami Krispin</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/categories/dataviz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Geospatial Visualization with the tmap package</title>
+      <link>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</link>
+      <pubDate>Thu, 30 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ramikrispin.github.io/2021/12/geospatial-visualization-with-the-tmap-package/</guid>
+      <description>
+&lt;script src=&#34;{{&lt; blogdown/postref &gt;}}index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+</description>
+    </item>
+    
+  </channel>
+</rss>

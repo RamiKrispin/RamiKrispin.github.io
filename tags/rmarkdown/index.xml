@@ -2,31 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rmarkdown on Rami Krispin</title>
-    <link>/tags/rmarkdown/</link>
+    <link>https://ramikrispin.github.io/tags/rmarkdown/</link>
     <description>Recent content in rmarkdown on Rami Krispin</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 08 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ramikrispin.github.io/tags/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Embedding flexdashboard in pkgdown site</title>
-      <link>/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
+      <link>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</link>
       <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
+      <guid>https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/</guid>
       <description>In the previous post, I demonstrated how to deploy a flexdashboard dashboard (or basically, any R Markdown format) in Github Pages. The focus of this post is on embedding flexdashboard oin pkgdown site. The pkgdown package is another great R Markdown format that enables us to quickly warp package information (documentation, vignettes, etc.) into a web format.
 Motivation Why would you like to embed a flexdashboard dashboard in a pkgdown site?</description>
     </item>
     
     <item>
       <title>Deploying flexdashboard on Github Pages</title>
-      <link>/2020/09/deploying-flexdashboard-on-github-pages/</link>
+      <link>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</link>
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/09/deploying-flexdashboard-on-github-pages/</guid>
+      <guid>https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/</guid>
       <description>One of Github’s coolest features is Github Pages, which enables you to create and deploy websites under github.com domain for free. The most common usage of Github Pages is the deployment of project documentation. The R community is widely using it to deploy different R Markdown formats such as package documentation with pkgdown, blogs with blogdown, books with bookdown, etc. Recently, as I was looking for a way to share Covid19 data, I had this eureka moment realizing that it should be straightforward to deploy flexdashboard or any other format of R Markdown (none Shiny) on Github Pages.</description>
     </item>
     

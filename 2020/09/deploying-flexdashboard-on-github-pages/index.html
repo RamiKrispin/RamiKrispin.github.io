@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.66.0 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="generator" content="Hugo 0.91.0 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Rami Krispin">
 <meta name="keywords" content="flexdashboard">
 <meta name="description" content="One of Github’s coolest features is Github Pages, which enables you to create and deploy websites under github.com domain for free. The most common usage of Github Pages is the deployment of project documentation. The R community is widely using it to deploy different R Markdown formats such as package documentation with pkgdown, blogs with blogdown, books with bookdown, etc. Recently, as I was looking for a way to share Covid19 data, I had this eureka moment realizing that it should be straightforward to deploy flexdashboard or any other format of R Markdown (none Shiny) on Github Pages.">
@@ -15,8 +15,8 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deploying flexdashboard on Github Pages">
 <meta name="twitter:title" content="Deploying flexdashboard on Github Pages">
-<meta property="og:url" content="/2020/09/deploying-flexdashboard-on-github-pages/">
-<meta property="twitter:url" content="/2020/09/deploying-flexdashboard-on-github-pages/">
+<meta property="og:url" content="https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
+<meta property="twitter:url" content="https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
 <meta property="og:site_name" content="Rami Krispin">
 <meta property="og:description" content="One of Github’s coolest features is Github Pages, which enables you to create and deploy websites under github.com domain for free. The most common usage of Github Pages is the deployment of project documentation. The R community is widely using it to deploy different R Markdown formats such as package documentation with pkgdown, blogs with blogdown, books with bookdown, etc. Recently, as I was looking for a way to share Covid19 data, I had this eureka moment realizing that it should be straightforward to deploy flexdashboard or any other format of R Markdown (none Shiny) on Github Pages.">
 <meta name="twitter:description" content="One of Github’s coolest features is Github Pages, which enables you to create and deploy websites under github.com domain for free. The most common usage of Github Pages is the deployment of project documentation. The R community is widely using it to deploy different R Markdown formats such as package documentation with pkgdown, blogs with blogdown, books with bookdown, etc. Recently, as I was looking for a way to share Covid19 data, I had this eureka moment realizing that it should be straightforward to deploy flexdashboard or any other format of R Markdown (none Shiny) on Github Pages.">
@@ -65,12 +65,12 @@
 
     <title>Deploying flexdashboard on Github Pages</title>
 
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://ramikrispin.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="/2020/09/deploying-flexdashboard-on-github-pages/">
+    <link rel="canonical" href="https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -78,11 +78,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
     
-    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    <link rel="stylesheet" href="https://ramikrispin.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
     
     
       
-        <link rel="stylesheet"  href="/css/mystyle.css">
+        <link rel="stylesheet"  href="https://ramikrispin.github.io/css/mystyle.css">
       
     
 
@@ -100,7 +100,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
   </head>
@@ -110,12 +109,12 @@ if (!doNotTrack) {
       <header id="header" data-behavior="5">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="/">Rami Krispin</a>
+    <a class="header-title-link" href="https://ramikrispin.github.io/">Rami Krispin</a>
   </div>
   
     
       <a class="header-right-picture "
-         href="/#about">
+         href="https://ramikrispin.github.io/#about">
     
     
     
@@ -131,7 +130,7 @@ if (!doNotTrack) {
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
-        <a href="/#about">
+        <a href="https://ramikrispin.github.io/#about">
           <img class="sidebar-profile-picture" src="https://avatars0.githubusercontent.com/u/12760966?s=400&amp;u=654c914d9df714991b890ea38ac4fce0e55c0d8f&amp;v=4" alt="Author&#39;s picture" />
         </a>
         <h4 class="sidebar-profile-name">Rami Krispin</h4>
@@ -144,7 +143,7 @@ if (!doNotTrack) {
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="/">
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
@@ -154,7 +153,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="/projects">
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/projects">
     
       <i class="sidebar-button-icon fa fa-lg fa-code"></i>
       
@@ -164,7 +163,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="/about">
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/about">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
       
@@ -174,7 +173,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="/categories">
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/categories">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
@@ -188,7 +187,7 @@ if (!doNotTrack) {
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://github.com/RamiKrispin">
+      <a class="sidebar-button-link " href="https://github.com/RamiKrispin" target="_blank" rel="noopener">
     
       <i class="sidebar-button-icon fa fa-lg fa-github"></i>
       
@@ -198,7 +197,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin">
+      <a class="sidebar-button-link " href="https://twitter.com/Rami_Krispin" target="_blank" rel="noopener">
     
       <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
       
@@ -208,7 +207,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/">
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/rami-krispin/" target="_blank" rel="noopener">
     
       <i class="sidebar-button-icon fa fa-linkedin-square"></i>
       
@@ -222,7 +221,7 @@ if (!doNotTrack) {
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="/index.xml">
+      <a class="sidebar-button-link " href="https://ramikrispin.github.io/index.xml">
     
       <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
       
@@ -232,7 +231,7 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://www.r-bloggers.com/">
+      <a class="sidebar-button-link " href="https://www.r-bloggers.com/" target="_blank" rel="noopener">
     
       <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
       
@@ -285,7 +284,7 @@ if (!doNotTrack) {
 <li><a href="https://github.com/RamiKrispin/italy_dash">Covid19 Italy</a> dashboard, supporting the <a href="https://github.com/RamiKrispin/covid19italy">covid19italy</a> package</li>
 <li><a href="https://ramikrispin.github.io/uswildfire/">US Wildfire</a> dashboard, tracking the ongoing wildfire in the US</li>
 </ul>
-<p><img src="/post/2020-09-03-deploying-flexdashboard-on-github-pages_files/corona_dash.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-03-deploying-flexdashboard-on-github-pages_files/corona_dash.png" /></p>
 <p>This post provides a short tutorial for deploying flexdashboard on Github Pages.</p>
 <div id="flexdashboard-on-github-pages" class="section level3">
 <h3>Flexdashboard on Github Pages</h3>
@@ -300,7 +299,7 @@ if (!doNotTrack) {
 <div id="simple-example" class="section level3">
 <h3>Simple example</h3>
 <p>The following example demonstrates the deployment process of flexdashboard on Github Pages. We will start by creating a new repository for the deployment (can also deploy on an existing repository as well) using the Github web interface:</p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_repo.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_repo.png" /></p>
 <p>Note that the repository must be public to expose it on a Github page. We will set the name, keep all the checkboxes unchecked, and create the repository.</p>
 <p>The next step is to create a local folder and sync it with the <code>origin</code> on Github. There are few methods for doing it, such as local file manager (e.g., Finder on Mac, File Explorer on Windows, etc.), terminal (or command line), RStudio, etc. For simplicity, I will use here RStudio by creating new project by following those steps:</p>
 <ul>
@@ -308,23 +307,23 @@ if (!doNotTrack) {
 <li>Select the <code>New Project…</code> option</li>
 <li>Select the first option, <code>New Directory</code>, on the <code>New Project</code> window (screenshot below)</li>
 </ul>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project.png" /></p>
 <ul>
 <li>Set the folder path and name, leave the checkboxes unchecked, and click the <code>create project</code> button</li>
 </ul>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project_folder.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/new_project_folder.png" /></p>
 <p>Before we sync the new folder with the <code>origin</code> on Github, let’s create the dashboard. We will start by creating the <code>_site.yml</code> file. The <code>_site.yml</code> is a setting file that enables us to configure the R Markdown file’s rendering options. Creating this file can be done by clicking on the top left menu <code>File</code> -&gt; <code>New File</code> -&gt; <code>Text File</code>, which will pop-up a new file on the source pane, and we will save it as <code>_site.yml</code>. As typically, Github pages is rendering the website from the <code>docs</code> folder, we will set the R Markdown HTML output to the docs folder. Paste the following code and save it:</p>
 <pre class="bash"><code>name: &quot;flexdashboard-example&quot;
 output_dir: docs</code></pre>
 <p>More details about the <code>_site.yml</code> file available <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">here</a>.</p>
 <p>Next, we will use the built-in flexdashboard template by selecting on Rstudio on the top left options <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown</code>. The <strong>New R Markdown</strong> window should pop-up, select the <code>From Template</code> option on the left, and then choose the <code>Flex Dashboard</code> template. Note that you probably won’t have this template available on this template menu if the <strong>flexdashboard</strong> package is not installed.</p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/markdown%20temp.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/markdown%20temp.png" /></p>
 <p>Once creating the template, a new file will pop-up on the source pane named <code>Untitled1</code> (or <code>Untitiledn</code> if more n-1 un-named files are already opened). To run the dashboard as a website, we will name the file as <code>index.Rmd</code> (saving it on RStudio as <code>index</code> will automatically name it as <code>index.Rmd</code>), which will render it into <code>index.html</code> file. By default, the dashboard template comes with a layout of two empty columns (where the second column splitted into two raws). For making this example more appealing, I will drop three interactive plots from the <strong>Plotly</strong> package <a href="https://plotly.com/r/">documentation</a>.</p>
 <p>Now we are ready to render the dashboard! Click on the <code>Knit</code> option (under the file name tab on the source pane), and this is the output you should expect (just without the plots which I added for the example):</p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/render%20dash.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/render%20dash.png" /></p>
 <p>You can noticed on the screenshot above that the dashboard file name (on the dashboard top right) is <code>index.html</code>. In addition, the <code>HTML</code> output was rendered automatically into the <code>docs</code> folder (see the folder on the buttom right of the screenshot) as we set on the <code>_site.yml</code> file before.</p>
 <p>The last step of the deployment is to sync the local repo with the <code>origin</code> and set the website. To set the <code>git</code> you can use the repository details from Github to linked it with the local folder:</p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/setting%20repo.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/setting%20repo.png" /></p>
 <p>We will init a git work space on the local folder we created for the project, and commit the folder content by using the origin address from the red box above:</p>
 <pre class="bash"><code>git init
 git add *
@@ -332,10 +331,10 @@ git commit -m &quot;init commit&quot;
 git remote add origin git@github.com:RamiKrispin/flexdashboard_example.git
 git push -u origin master</code></pre>
 <p>Now, if all went well, you should see the content of the local folder on the Github repository. The last step would be to set the Github Page. Go to the repository <code>settings</code> -&gt; <code>options</code> -&gt; <code>Github Pages</code> and set the page source by selecting the <code>master</code> branch and the <code>docs</code> folder, and save the changes. Once saved, you should get the deployed Github Page URL on top:</p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/github%20pages.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/github%20pages.png" /></p>
 <p>And… it deployed!</p>
 <p><a href="https://ramikrispin.github.io/flexdashboard_example/" class="uri">https://ramikrispin.github.io/flexdashboard_example/</a></p>
-<p><img src="/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/dashboard.png" /></p>
+<p><img src="https://ramikrispin.github.io/post/2020-09-02-deploy-flexdashboard-on-github-pages_files/dashboard.png" /></p>
 <p>Note that the page URL is a combination of <code>https://Your_Github_User_Name.github.io/Repository_Name/</code></p>
 </div>
 <div id="resources" class="section level3">
@@ -360,13 +359,13 @@ git push -u origin master</code></pre>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/r/">R</a>
 
-  <a class="tag tag--primary tag--small" href="/tags/github/">github</a>
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/github/">github</a>
 
-  <a class="tag tag--primary tag--small" href="/tags/flexdashboard/">flexdashboard</a>
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/flexdashboard/">flexdashboard</a>
 
-  <a class="tag tag--primary tag--small" href="/tags/rmarkdown/">rmarkdown</a>
+  <a class="tag tag--primary tag--small" href="https://ramikrispin.github.io/tags/rmarkdown/">rmarkdown</a>
 
                   </div>
                 
@@ -379,7 +378,7 @@ git push -u origin master</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/embedding-flexdashboard-in-pkgdown-site/" data-tooltip="Embedding flexdashboard in pkgdown site">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/" data-tooltip="Embedding flexdashboard in pkgdown site">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -387,7 +386,7 @@ git push -u origin master</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/covid19italy-v0-3-0-is-now-on-cran/" data-tooltip="covid19italy v0.3.0 is now on CRAN">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/" data-tooltip="covid19italy v0.3.0 is now on CRAN">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -405,19 +404,19 @@ git push -u origin master</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -465,7 +464,7 @@ git push -u origin master</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/embedding-flexdashboard-in-pkgdown-site/" data-tooltip="Embedding flexdashboard in pkgdown site">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2020/09/embedding-flexdashboard-in-pkgdown-site/" data-tooltip="Embedding flexdashboard in pkgdown site">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -473,7 +472,7 @@ git push -u origin master</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/covid19italy-v0-3-0-is-now-on-cran/" data-tooltip="covid19italy v0.3.0 is now on CRAN">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ramikrispin.github.io/2020/07/covid19italy-v0-3-0-is-now-on-cran/" data-tooltip="covid19italy v0.3.0 is now on CRAN">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -491,19 +490,19 @@ git push -u origin master</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/09/deploying-flexdashboard-on-github-pages/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ramikrispin.github.io/2020/09/deploying-flexdashboard-on-github-pages/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -533,19 +532,19 @@ git push -u origin master</code></pre>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Framikrispin.github.io%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Framikrispin.github.io%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Framikrispin.github.io%2F2020%2F09%2Fdeploying-flexdashboard-on-github-pages%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -589,7 +588,7 @@ git push -u origin master</code></pre>
     
   
     
-      <div id="cover" style="background-image:url('/images/background.png');"></div>
+      <div id="cover" style="background-image:url('https://ramikrispin.github.io/images/background.png');"></div>
     
   
 
@@ -602,7 +601,7 @@ git push -u origin master</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
 
 
-<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+<script src="https://ramikrispin.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
 
 
 <script lang="javascript">
@@ -637,7 +636,7 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2020\/09\/deploying-flexdashboard-on-github-pages\/';
+          this.page.url = 'https:\/\/ramikrispin.github.io\/2020\/09\/deploying-flexdashboard-on-github-pages\/';
           
             this.page.identifier = '\/2020\/09\/deploying-flexdashboard-on-github-pages\/'
           
